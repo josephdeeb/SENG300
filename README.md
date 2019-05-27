@@ -8,7 +8,7 @@
 
 5. go to the "SQL" tab at the top and paste this:
 
-	GRANT ALL PRIVILEGES ON /*./* TO 'seng300'@'localhost' IDENTIFIED BY PASSWORD '*FB9E62BC19D7707A2794D75F8F9FF93BBD020635' WITH GRANT OPTION;
+	GRANT ALL PRIVILEGES ON \*.\* TO 'seng300'@'localhost' IDENTIFIED BY PASSWORD '*FB9E62BC19D7707A2794D75F8F9FF93BBD020635' WITH GRANT OPTION;
 	
    this creates the user that we will be using for access to the database.
    
