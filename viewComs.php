@@ -97,6 +97,16 @@
 			}
 			echo " </table>";
 	}
+	if ($row['status'] = 2 or $row['status'] = 3) {
+		echo '  <form action="upload.php" method="post" enctype="multipart/form-data">
+					Select Journal to upload:
+					<input type="file" name="fileToUpload" id="fileToUpload" required	><br>
+					<input type="hidden" name="username" value ='.$username.'>
+					<input type="hidden" name="lgdin" value=1>
+					<input type="submit" value="Upload Journal" name="submit">
+				</form>
+			 ';
+	}
 	mysqli_close($con);
 ?>
 

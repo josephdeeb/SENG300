@@ -108,12 +108,12 @@
 			$sortRow = 0;
 		}
 
-		$query = "SELECT * FROM journals WHERE submitter = ". $username;
+		$query = "SELECT * FROM journals WHERE submitter = '{$username}'";
 
 		if($sort = 1){
 			if($sortRow == 0){
 				$query = $query." ORDER BY name";
-			}else if($sortRow == 1){
+			}else if($sortRow == 1){	
 				$query.=" ORDER BY status";
 			}
 		}
@@ -153,8 +153,12 @@
 				}else if($row['status'] == 1){
 					$status = 'Reviewed';
 				}else if($row['status'] == 2){
+					$status = 'Major Revisions Required';
+				}else if ($row['status'] == 3){
+					$status = 'Minor Revisions Required';
+				}else if ($row['status'] == 4){
 					$status = 'Accepted';
-				}else{
+				}else {
 					$status = 'Rejected';
 				}
 				echo  '<tr>
