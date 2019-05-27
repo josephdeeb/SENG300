@@ -67,9 +67,7 @@
 			mysqli_query($con, $query);
 			if(isset($_POST["pref1"])){
 				$pref1 = $_POST["pref1"];
-				echo "pref1 = ". $pref1;
 				$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','".$pref1."',"."1)";
-				echo "query = ". $query;
 				if(!mysqli_query($con,$query)){
 					echo "\n error on pref1";
 				}

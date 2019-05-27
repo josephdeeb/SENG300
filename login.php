@@ -152,7 +152,7 @@
 					$status = 'Pending Review';
 				}else if($row['status'] == 1){
 					$status = 'Reviewed';
-				}else if($row['status'] == 1){
+				}else if($row['status'] == 2){
 					$status = 'Accepted';
 				}else{
 					$status = 'Rejected';
