@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2019 at 10:59 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Generation Time: May 30, 2019 at 01:27 AM
+-- Server version: 10.1.40-MariaDB
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -55,20 +55,40 @@ CREATE TABLE `journals` (
   `submitter` varchar(55) NOT NULL,
   `location` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
-  `version` int(11) DEFAULT NULL
+  `version` int(11) DEFAULT NULL,
+  `submissionDateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `journals`
 --
 
-INSERT INTO `journals` (`name`, `submitter`, `location`, `status`, `version`) VALUES
-('A2.pdf', 'submitter', 'journals/A2.pdf', 0, 0),
-('A4.pdf', 'joseph', 'journals/A4.pdf', 0, 0),
-('A5.pdf', 'submitter', 'journals/A5.pdf', 2, 0),
-('asg1.pdf', 'submitter', 'journals/asg1.pdf', 1, 0),
-('HIPODiagram.pdf', 'submitter', 'journals/HIPODiagram.pdf', 0, 0),
-('proj_relation_model.pdf', 'submitter', 'journals/proj_relation_model.pdf', 0, 0);
+INSERT INTO `journals` (`name`, `submitter`, `location`, `status`, `version`, `submissionDateTime`) VALUES
+('A2.pdf', 'submitter', 'journals/A2.pdf', 0, 0, '0000-00-00 00:00:00'),
+('A4.pdf', 'joseph', 'journals/A4.pdf', 0, 0, '0000-00-00 00:00:00'),
+('A5.pdf', 'submitter', 'journals/A5.pdf', 2, 0, '0000-00-00 00:00:00'),
+('asg1.pdf', 'submitter', 'journals/asg1.pdf', 1, 0, '0000-00-00 00:00:00'),
+('HIPODiagram.pdf', 'submitter', 'journals/HIPODiagram.pdf', 0, 0, '0000-00-00 00:00:00'),
+('proj_relation_model.pdf', 'submitter', 'journals/proj_relation_model.pdf', 0, 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviewers`
+--
+
+CREATE TABLE `reviewers` (
+  `journalName` varchar(255) NOT NULL,
+  `reviewer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `reviewers`
+--
+
+INSERT INTO `reviewers` (`journalName`, `reviewer`) VALUES
+('A2.pdf', 'reviewer'),
+('A4.pdf', 'reviewer');
 
 -- --------------------------------------------------------
 
@@ -153,6 +173,13 @@ ALTER TABLE `journals`
   ADD KEY `journals_ibfk_1` (`submitter`);
 
 --
+-- Indexes for table `reviewers`
+--
+ALTER TABLE `reviewers`
+  ADD KEY `reviewers_ibfk_1` (`journalName`),
+  ADD KEY `reviewers_ibfk_2` (`reviewer`);
+
+--
 -- Indexes for table `revisions`
 --
 ALTER TABLE `revisions`
@@ -188,6 +215,13 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `journals`
   ADD CONSTRAINT `journals_ibfk_1` FOREIGN KEY (`submitter`) REFERENCES `users` (`userName`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `reviewers`
+--
+ALTER TABLE `reviewers`
+  ADD CONSTRAINT `reviewers_ibfk_1` FOREIGN KEY (`journalName`) REFERENCES `journals` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `reviewers_ibfk_2` FOREIGN KEY (`reviewer`) REFERENCES `users` (`userName`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `revisions`
