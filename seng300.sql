@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2019 at 06:04 PM
+-- Generation Time: May 29, 2019 at 10:59 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `seng300`
 --
+CREATE DATABASE IF NOT EXISTS `seng300` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `seng300`;
 
 -- --------------------------------------------------------
 
