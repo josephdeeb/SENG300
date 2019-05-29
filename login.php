@@ -9,7 +9,7 @@
 		  echo "<p>Please Login</p>";
 		  echo '<form action="..\index.php" method="post">
 				  <input type="submit" value="Return to Login Page">
-				</form>	
+                </form>	
 		  ';
 		  die();
 		}
@@ -79,6 +79,7 @@
 		<p>Journals to Review</p>
 		<form action="review.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>
+            <input type="hidden" name="lgdin" value=1>
 			<input type="submit" value="View">
 		</form>	
 	  ';
