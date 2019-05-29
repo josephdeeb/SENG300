@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2019 at 05:29 AM
+-- Generation Time: May 29, 2019 at 06:04 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -52,17 +52,39 @@ CREATE TABLE `journals` (
   `name` varchar(255) NOT NULL,
   `submitter` varchar(55) NOT NULL,
   `location` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `version` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `journals`
 --
 
-INSERT INTO `journals` (`name`, `submitter`, `location`, `status`) VALUES
-('A2.pdf', 'submitter', 'journals/A2.pdf', 0),
-('A5.pdf', 'submitter', 'journals/A5.pdf', 2),
-('asg1.pdf', 'submitter', 'journals/asg1.pdf', 1);
+INSERT INTO `journals` (`name`, `submitter`, `location`, `status`, `version`) VALUES
+('A2.pdf', 'submitter', 'journals/A2.pdf', 0, 0),
+('A4.pdf', 'joseph', 'journals/A4.pdf', 0, 0),
+('A5.pdf', 'submitter', 'journals/A5.pdf', 2, 0),
+('asg1.pdf', 'submitter', 'journals/asg1.pdf', 1, 0),
+('HIPODiagram.pdf', 'submitter', 'journals/HIPODiagram.pdf', 0, 0),
+('proj_relation_model.pdf', 'submitter', 'journals/proj_relation_model.pdf', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `revisions`
+--
+
+CREATE TABLE `revisions` (
+  `originalName` varchar(255) NOT NULL,
+  `revisionName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `revisions`
+--
+
+INSERT INTO `revisions` (`originalName`, `revisionName`) VALUES
+('A5.pdf', 'A5(3).pdf');
 
 -- --------------------------------------------------------
 
@@ -82,7 +104,8 @@ CREATE TABLE `subprefs` (
 
 INSERT INTO `subprefs` (`journalName`, `reviewer`, `preferred`) VALUES
 ('A2.pdf', 'ben', 1),
-('A2.pdf', 'reviewer', 0);
+('A2.pdf', 'reviewer', 0),
+('proj_relation_model.pdf', 'joseph', 1);
 
 -- --------------------------------------------------------
 
@@ -105,6 +128,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`userName`, `password`, `firstName`, `lastName`, `type`) VALUES
 ('ben', 'password', 'ben', 's', 2),
 ('editor', 'password', 'editor', 'man', 3),
+('joseph', 'password', 'jo', 'seph', 1),
 ('reviewer', 'password', 'review', 'er', 2),
 ('submitter', 'password', 'sub', 'mitter', 1);
 
@@ -125,6 +149,13 @@ ALTER TABLE `comments`
 ALTER TABLE `journals`
   ADD PRIMARY KEY (`name`),
   ADD KEY `journals_ibfk_1` (`submitter`);
+
+--
+-- Indexes for table `revisions`
+--
+ALTER TABLE `revisions`
+  ADD PRIMARY KEY (`revisionName`),
+  ADD KEY `revisions_ibfk_1` (`originalName`);
 
 --
 -- Indexes for table `subprefs`
@@ -155,6 +186,12 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `journals`
   ADD CONSTRAINT `journals_ibfk_1` FOREIGN KEY (`submitter`) REFERENCES `users` (`userName`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `revisions`
+--
+ALTER TABLE `revisions`
+  ADD CONSTRAINT `revisions_ibfk_1` FOREIGN KEY (`originalName`) REFERENCES `journals` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `subprefs`
