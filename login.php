@@ -111,7 +111,7 @@
 
 		$query = "SELECT * FROM journals WHERE submitter = '$username'";
 
-		if($sort = 1){
+		if($sort == 1){
 			if($sortRow == 0){
 				$query = $query." ORDER BY name";
 			}else if($sortRow == 1){	
