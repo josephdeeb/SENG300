@@ -20,4 +20,6 @@
 
 9. create a folder named "journals" in the "seng300" folder
 
+10. create a folder named "revisions" in the "journals" folder
+
 10. click "Admin" beside "Apache". this will open the web app

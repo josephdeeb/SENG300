@@ -108,7 +108,7 @@
 			$sortRow = 0;
 		}
 
-		$query = "SELECT * FROM journals WHERE submitter = '{$username}'";
+		$query = "SELECT * FROM journals WHERE submitter = '$username'";
 
 		if($sort = 1){
 			if($sortRow == 0){

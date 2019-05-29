@@ -36,24 +36,24 @@
 		$sortRow = 0;
 	}
 
-	$query = "SELECT * FROM comments WHERE journalName = '". $fname. "'";
+	$query = "SELECT * FROM comments WHERE journalName = '$fname'";
 	
 	if($sort = 1){
 		if($sortRow == 0){
 			$query = $query." ORDER BY reviewer";
 		}else if($sortRow == 1){
-			$query.=" ORDER BY line";
+			$query = $query." ORDER BY line";
 		}
 	}
 
 	$result = mysqli_query($con, $query);
-	
-	if(!$result){
+	if(!mysqli_num_rows($result)){
 		echo '<p>No comments have been made for this Journal</p>';
 	}else{
 		
 		// print comments
-		echo '<table>
+		echo '
+		<table>
 				<tr>
 				<th>
 					<div id="sortButton">
@@ -95,17 +95,30 @@
 					  "  <td>".$row['comment']."</td>" .
 				  "</tr>";
 			}
-			echo " </table>";
+			echo "
+			</table>";
 	}
-	if ($row['status'] = 2 or $row['status'] = 3) {
-		echo '  <form action="upload.php" method="post" enctype="multipart/form-data">
-					Select Journal to upload:
-					<input type="file" name="fileToUpload" id="fileToUpload" required	><br>
-					<input type="hidden" name="username" value ='.$username.'>
-					<input type="hidden" name="lgdin" value=1>
-					<input type="submit" value="Upload Journal" name="submit">
-				</form>
-			 ';
+	
+	$query = "SELECT * FROM journals WHERE name = '$fname '";
+	$result = mysqli_query($con, $query);
+	$row = mysqli_fetch_array($result);
+	
+	
+	// remove if for second iteration
+	if(true){
+		if ($row['status'] == 2 or $row['status'] == 3) {
+			echo ' 
+					<form action="upload.php" method="post" enctype="multipart/form-data">
+						Select Revised Journal to Upload:
+						<input type="file" name="fileToUpload" id="fileToUpload" required><br>
+						<input type="hidden" name="username" value ='.$username.'>
+						<input type="hidden" name="lgdin" value=1>
+						<input type="hidden" name="resub" value=1>
+						<input type="hidden" name="fname" value='.$fname.'>
+						<input type="submit" value="Upload Journal" name="submit">
+					</form>
+				 ';
+		}
 	}
 	mysqli_close($con);
 ?>
@@ -122,7 +135,6 @@
 	<input type="submit" value="Logout">
 </form>	
 </div>
-
 
 </body>
 </html>
