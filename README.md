@@ -22,4 +22,4 @@
 
 10. create a folder named "revisions" in the "journals" folder
 
-10. click "Admin" beside "Apache". this will open the web app
+11. click "Admin" beside "Apache". this will open the web app
