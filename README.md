@@ -18,8 +18,6 @@
 
 8. move the "index.php" file from the "seng300" folder and place it into the "htdocs" folder.
 
-9. create a folder named "journals" in the "seng300" folder
+9. Confirm the "journals" folder is in the "SENG300" folder and that the "revisions" folder is in the "journals" folder
 
-10. create a folder named "revisions" in the "journals" folder
-
-11. click "Admin" beside "Apache". this will open the web app
+10. click "Admin" beside "Apache". this will open the web app
