@@ -2,6 +2,23 @@
 <body>
 
 <?php
+
+    // Taken from https://www.php.net/manual/en/function.readfile.php
+    if (isset($_POST["fileName"])) {
+        $fileName = $_POST["fileName"];
+        if (file_exists($fileName)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($fileName).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($fileName));
+            readfile($fileName);
+        }
+        echo 'ERROR: FILE NOT FOUND';
+    }
+
     if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
         echo "<p>Please Login</p>";
         echo '<form action="..\index.php" method="post">
@@ -78,7 +95,7 @@
                         <input type="hidden" name="username" value='.$username.'>
                         <input type="hidden" name="sortRow" value=2>
                         <input type="hidden" name="lgdin" value=1>
-                        <input type="submit" value="Submission Time">
+                        <input type="submit" value="Submission Date">
                     </form>
                     </div>
                 </th>
@@ -95,13 +112,24 @@
                         <div id="button">
                         <form action="editComs.php" method="post">
                             <input type="hidden" name="username" value='.$username.'>
-                            <input type="hidden" name=lgdin" value=1>
+                            <input type="hidden" name="lgdin" value=1>
                             <input type="hidden" name="fname" value='.$row["journalName"].'>
                             <input type="submit" value="Submit Comments">
                         </form>
                         </div>
                     </td>
-                </tr>';
+                    <td>
+                        <div id="button">
+                        <form action="review.php" method="post">
+                            <input type="hidden" name="username" value='.$username.'>
+                            <input type="hidden" name="lgdin" value=1>
+                            <input type="hidden" name="sortRow" value='.$sortRow.'>
+                            <input type="hidden" name="fileName" value='.$row["location"].'>
+                            <input type="submit" value="Download Journal">
+                        </form>
+                        </div>
+                    </td>
+                  </tr>';
         }
         echo '</table>';
     }
