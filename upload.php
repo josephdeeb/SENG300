@@ -189,30 +189,30 @@
 				// insert revisions into journal table
 				// add if necessary
 				if(!isset($_POST["resub"])){
-					$query = "INSERT INTO journals VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','".$username."','".$target_file."',0,0)";
+ 					$query = "INSERT INTO journals VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$username','$target_file',0,0,NOW())";
 					mysqli_query($con, $query);
 					if($pref1){
-						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','".$pref1."',"."1)";
+						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$pref1',1)";
 						mysqli_query($con,$query);
 					}
 					if($pref2){
-						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','".$pref2."',"."1)";
+						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$pref2',1)";
 						mysqli_query($con,$query);
 					}
 					if($pref3){
-						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','".$pref3."',"."1)";
+						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$pref3',1)";
 						mysqli_query($con,$query);
 					}
 					if($npref1){
-						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','".$npref1."',"."0)";
+						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$npref1',0)";
 						mysqli_query($con,$query);
 					}
 					if($npref2){
-						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','".$npref2."',"."0)";
+						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$npref2',0)";
 						mysqli_query($con,$query);
 					}
 					if($npref3){
-						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','".$npref3."',"."0)";
+						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$npref3',0)";
 						mysqli_query($con,$query);
 					}
 				}

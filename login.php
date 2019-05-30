@@ -116,6 +116,8 @@
 				$query = $query." ORDER BY name";
 			}else if($sortRow == 1){	
 				$query.=" ORDER BY status";
+			}else if($sortRow == 2){
+				$query.=" ORDER BY submissionDateTime";
 			}
 		}
 
@@ -146,6 +148,16 @@
 						</div>
 					</th>
 					<th>
+						<div id="sortButton">
+						<form action="login.php" method="post">
+							<input type="hidden" name="username" value='.$username.'>
+							<input type="hidden" name="sortRow" value=2>
+							<input type="hidden" name="lgdin" value=1>			
+							<input type="submit" value="Date">
+						</form>
+						</div>
+					</th>
+					<th>
 					</th>
 					</tr>';
 			while ($row = mysqli_fetch_array($result)) {
@@ -165,6 +177,7 @@
 				echo  '<tr>
 					    <td>'.$row["name"].'</td>
 					    <td>'.$status.'</td>
+						<td>'.$row["submissionDateTime"].'</td>
 					    <td>
 							<div id="button">
 							<form action="viewComs.php" method="post">

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2019 at 01:27 AM
--- Server version: 10.1.40-MariaDB
--- PHP Version: 7.3.5
+-- Generation Time: May 30, 2019 at 08:32 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -56,7 +56,7 @@ CREATE TABLE `journals` (
   `location` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
   `version` int(11) DEFAULT NULL,
-  `submissionDateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `submissionDateTime` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -64,12 +64,14 @@ CREATE TABLE `journals` (
 --
 
 INSERT INTO `journals` (`name`, `submitter`, `location`, `status`, `version`, `submissionDateTime`) VALUES
-('A2.pdf', 'submitter', 'journals/A2.pdf', 0, 0, '0000-00-00 00:00:00'),
-('A4.pdf', 'joseph', 'journals/A4.pdf', 0, 0, '0000-00-00 00:00:00'),
-('A5.pdf', 'submitter', 'journals/A5.pdf', 2, 0, '0000-00-00 00:00:00'),
-('asg1.pdf', 'submitter', 'journals/asg1.pdf', 1, 0, '0000-00-00 00:00:00'),
-('HIPODiagram.pdf', 'submitter', 'journals/HIPODiagram.pdf', 0, 0, '0000-00-00 00:00:00'),
-('proj_relation_model.pdf', 'submitter', 'journals/proj_relation_model.pdf', 0, 0, '0000-00-00 00:00:00');
+('A2.pdf', 'submitter', 'journals/A2.pdf', 0, 0, '0000-00-00'),
+('A4.pdf', 'joseph', 'journals/A4.pdf', 0, 0, '0000-00-00'),
+('A5.pdf', 'submitter', 'journals/A5.pdf', 2, 0, '0000-00-00'),
+('asg1.pdf', 'submitter', 'journals/asg1.pdf', 1, 0, '0000-00-00'),
+('CPSC471_Asg1_30041469.pdf', 'joseph', 'journals/CPSC471_Asg1_30041469.pdf', 0, 0, '2019-05-30'),
+('CPSC471_Asg1_30041469_old.pdf', 'submitter', 'journals/CPSC471_Asg1_30041469_old.pdf', 3, 0, '2019-05-30'),
+('HIPODiagram.pdf', 'submitter', 'journals/HIPODiagram.pdf', 0, 0, '0000-00-00'),
+('proj_relation_model.pdf', 'submitter', 'journals/proj_relation_model.pdf', 0, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -127,6 +129,10 @@ CREATE TABLE `subprefs` (
 INSERT INTO `subprefs` (`journalName`, `reviewer`, `preferred`) VALUES
 ('A2.pdf', 'ben', 1),
 ('A2.pdf', 'reviewer', 0),
+('CPSC471_Asg1_30041469.pdf', 'ben', 1),
+('CPSC471_Asg1_30041469.pdf', 'reviewer', 0),
+('CPSC471_Asg1_30041469_old.pdf', 'ben', 1),
+('CPSC471_Asg1_30041469_old.pdf', 'reviewer', 0),
 ('proj_relation_model.pdf', 'joseph', 1);
 
 -- --------------------------------------------------------
