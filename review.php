@@ -4,6 +4,8 @@
 <?php
 
     // Taken from https://www.php.net/manual/en/function.readfile.php
+	// This piece of code downloads a file if a fileName is posted
+	//  - Called from this page
     if (isset($_POST["fileName"])) {
         $fileName = $_POST["fileName"];
         if (file_exists($fileName)) {
@@ -19,6 +21,7 @@
         echo 'ERROR: FILE NOT FOUND';
     }
 
+	// Check if user is logged in
     if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
         echo "<p>Please Login</p>";
         echo '<form action="..\index.php" method="post">
@@ -39,8 +42,10 @@
 		die();
 	}
     
+	// Select all rows from journals and reviewers where the journalName == name and the reviewer == the current user
     $query = "SELECT * FROM journals, reviewers WHERE journalName = name AND reviewer = '$username'";
     
+	// If the variable "sortRow" was posted, 0 == by journalName, 1 by submitter, 2 by submissionDateTime
     if (isset($_POST["sortRow"])) {
         $sortRow = $_POST["sortRow"];
         if ($sortRow == 2) {
@@ -53,6 +58,7 @@
         $sortRow = 0;
     }
     
+	// Add to the end of query so we order by the appropriate column
     if ($sort > 0) {
         if ($sortRow == 0) {
             $query = $query." ORDER BY journalName";
@@ -67,13 +73,16 @@
     
     if ($result) {
         echo '<p>Journals</p>';
+		// The button starts at <div id="sortButton"> and ends at </div>
+		// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
+		// <input type="hidden" means that what we're about to add to the post isn't actually visible to the user.  name="username" is the variable name we're posting, value is the value of that variable that we post.
+		// Finally, the last line is the actual name of the button and the "submit" action.
         echo '<table>
                 <tr>
                 <th>
                     <div id="sortButton">
                     <form action="review.php" method="post">
                         <input type="hidden" name="username" value='.$username.'>
-                        <input type="hidden" name="sortRow" value=0>
                         <input type="hidden" name="lgdin" value=1>			
                         <input type="submit" value="Journal Name">
                     </form>
@@ -103,7 +112,9 @@
                 </th>
                 </tr>';
         
+		// While we can pull rows from the database given the query we made...
         while ($row = mysqli_fetch_array($result)) {
+			// Show the journalName, submitter, then submissionDateTime, then a button for editing comments, and a button for downloading the journal
             echo '<tr>
                     <td>'.$row["journalName"].'</td>
                     <td>'.$row["submitter"].'</td>
@@ -133,7 +144,7 @@
         }
         echo '</table>';
     }
-    
+    // Close the mysql connectiion
     mysqli_close($con);
 ?>
 
