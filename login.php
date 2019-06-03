@@ -25,6 +25,7 @@
 		die();
 	}
 
+	// verify that user has logged in
 	if(!isset($_POST["lgdin"])){
 		$password = $_POST["password"];
 		$query = "SELECT password FROM users WHERE userName = '$username'";
@@ -52,10 +53,10 @@
 		  die();
 		}
 	}
-
-	// user logged in
-
-
+	// user has logged in successfully
+	
+	
+	// determine user type in order to show correct information
 	$query = "SELECT * FROM users WHERE userName = '$username'";
 	$sql = mysqli_query($con,$query);
 	$type = $sql->fetch_assoc()['type'];
@@ -69,7 +70,7 @@
 
 
 	//
-	//		REVIEWER
+	//		REVIEWER options
 	//	
 	
 	
@@ -87,7 +88,7 @@
 	
 	
 	//
-	//		SUBMITTER
+	//		SUBMITTER options
 	//
 	
 	
@@ -109,6 +110,8 @@
 			$sortRow = 0;
 		}
 
+
+			// order journals by desired column
 		$query = "SELECT * FROM journals WHERE submitter = '$username'";
 
 		if($sort == 1){
@@ -120,8 +123,9 @@
 				$query.=" ORDER BY submissionDateTime";
 			}
 		}
-
 		$result = mysqli_query($con, $query);
+
+
 		// print journals
 		if($result){
 			echo '<p>Submitted Journals</p>';

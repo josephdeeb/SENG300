@@ -72,17 +72,6 @@
 						<input type="hidden" name="username" value='.$username.'>
 						<input type="hidden" name="lgdin" value='.$lgdin.'>
 						<input type="hidden" name="fname" value='.$fname.'>
-						<input type="hidden" name="sortRow" value=1>
-						<input type="submit" value="Comment Line">
-					</form>
-					</div>
-				</th>
-				<th>
-					<div id="sortButton">
-					<form action="viewComs.php" method="post">
-						<input type="hidden" name="username" value='.$username.'>
-						<input type="hidden" name="lgdin" value='.$lgdin.'>
-						<input type="hidden" name="fname" value='.$fname.'>
 						<input type="submit" value="Comment">
 					</form>
 					</div>
@@ -91,7 +80,6 @@
 			while ($row = mysqli_fetch_array($result)) {
 				echo  "<tr>".
 					  "  <td>".$row['reviewer']."</td>" .
-					  "  <td>".$row['line']."</td>" .
 					  "  <td>".$row['comment']."</td>" .
 				  "</tr>";
 			}

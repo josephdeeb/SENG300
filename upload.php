@@ -22,6 +22,9 @@
 	}
 	// end verify
 
+
+	// add preferences
+	
 	$cancelUpload = 0;
 	$pref1 = false;
 	$pref2 = false;
@@ -44,7 +47,7 @@
 				$cancelUpload = 1;
 			}
 		}
-		if($_POST["pref2"] != ""){
+		if($_POST["pref2"] != "" && $_POST["pref2"] != $_POST["pref1"]){
 			$pref2 = $_POST["pref2"];
 			$query = "SELECT * FROM users WHERE userName = '$pref2'";
 			$result = mysqli_query($con,$query);
@@ -58,7 +61,7 @@
 				$cancelUpload = 1;
 			}
 		}
-		if($_POST["pref3"] != ""){
+		if($_POST["pref3"] != "" && $_POST["pref3"] != $_POST["pref1"] && $_POST["pref3"] != $_POST["pref2"]){
 			$pref3 = $_POST["pref3"];
 			$query = "SELECT * FROM users WHERE userName = '$pref3'";
 			$result = mysqli_query($con,$query);
@@ -72,7 +75,7 @@
 				$cancelUpload = 1;
 			}
 		}
-		if($_POST["npref1"] != ""){
+		if($_POST["npref1"] != "" && $_POST["npref1"] != $_POST["pref1"] && $_POST["npref1"] != $_POST["pref2"] && $_POST["npref1"] != $_POST["pref3"]){
 			$npref1 = $_POST["npref1"];
 			$query = "SELECT * FROM users WHERE userName = '$npref1'";
 			$result = mysqli_query($con,$query);
@@ -86,7 +89,7 @@
 				$cancelUpload = 1;
 			}
 		}
-		if($_POST["npref2"] != ""){
+		if($_POST["npref2"] != "" && $_POST["npref2"] != $_POST["pref1"] && $_POST["npref2"] != $_POST["pref2"] && $_POST["npref2"] != $_POST["pref3"] && $_POST["npref2"] != $_POST["npref1"]){
 			$npref2 = $_POST["npref2"];
 			$query = "SELECT * FROM users WHERE userName = '$npref2'";
 			$result = mysqli_query($con,$query);
@@ -100,7 +103,7 @@
 				$cancelUpload = 1;
 			}
 		}
-		if($_POST["npref3"] != ""){
+		if($_POST["npref3"] != "" && $_POST["npref3"] != $_POST["pref1"] && $_POST["npref3"] != $_POST["pref2"] && $_POST["npref3"] != $_POST["pref3"] && $_POST["npref3"] != $_POST["npref1"] && $_POST["npref3"] != $_POST["npref2"]){
 			$npref3 = $_POST["npref3"];
 			$query = "SELECT * FROM users WHERE userName = '$npref3'";
 			$result = mysqli_query($con,$query);
@@ -116,11 +119,15 @@
 		}
 	}
 	
+	// preferences added
+	
+	
 	if(!$cancelUpload){
-		$target_dir = "journals/";
-		$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+		$target_dir = "journals\\";
+		$target_file = basename($_FILES["fileToUpload"]["name"]);
+		$target = $target_dir . $target_file;
 		$uploadOk = 1;
-		$fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+		$fileType = strtolower(pathinfo($target,PATHINFO_EXTENSION));
 		// Check if file is a actual pdf
 		if(isset($_POST["submit"])) {
 			$check = filesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -137,23 +144,23 @@
 		// for resubmission of revisions
 		if(!isset($_POST["resub"])){
 			// Check if file already exists
-			if(file_exists($target_file)) {
+			if(file_exists($target)) {
 				echo "<p>Sorry, file already exists.</p>";
 				$uploadOk = 0;
 			}
 		}else{
 			$fname = $_POST["fname"];
-			if(file_exists($target_file)) {
+			if(file_exists($target)) {
 				$query = "SELECT * FROM journals WHERE name = '$fname'";
 				$result = mysqli_query($con,$query);
 				$row = mysqli_fetch_array($result);
 				$rev = $row['version'] + 1;
-				echo "rev: '$rev'<br>";
+//				echo "rev: '$rev'<br>";
 				
-				echo "target_file: '$target_file'<br>";
+//				echo "target: '$target'<br>";
 				//update filename if the same
-				$target_file = pathinfo($fname)['filename']."($rev).".pathinfo($target_file)['extension'];
-				echo "target_file: '$target_file'<br>";
+				$target = pathinfo($fname)['filename']."($rev).".pathinfo($target)['extension'];
+//				echo "target: '$target'<br>";
 				
 			}
 			// update revision number
@@ -161,10 +168,11 @@
 			mysqli_query($con,$query);
 
 			// record revision name
-			$query = "INSERT INTO revisions VALUES ('$fname','$target_file')";
-			echo "insert query: '$query'<br>";
+			$query = "INSERT INTO revisions VALUES ('$fname','$target','$rev')";
+//			echo "insert query: '$query'<br>";
 			mysqli_query($con,$query);
-			$target_file = $target_dir."revisions/".$target_file;
+			$target = $target_dir."revisions\\".$target;
+//			echo "file: $target<br>";
 		}
 		// Check file size
 		if ($_FILES["fileToUpload"]["size"] > 500000) {
@@ -181,7 +189,7 @@
 			echo "<p>Sorry, your file was not uploaded.</p>";
 		// if everything is ok, try to upload file
 		} else {
-			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target)) {
 				
 				// successful file upload
 				echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
@@ -189,7 +197,8 @@
 				// insert revisions into journal table
 				// add if necessary
 				if(!isset($_POST["resub"])){
- 					$query = "INSERT INTO journals VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$username','$target_file',0,0,NOW())";
+					$target = $target_dir . "\\" . $target_file;
+ 					$query = "INSERT INTO journals VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$username','$target',0,0,NOW())";
 					mysqli_query($con, $query);
 					if($pref1){
 						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$pref1',1)";

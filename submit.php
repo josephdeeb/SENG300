@@ -14,17 +14,83 @@
 	$username = $_POST["username"];
 	$lgdin = $_POST["lgdin"];
 	
+		// Create connection
+	$con = mysqli_connect("localhost","seng300","seng300Spr2019", "seng300");
+
+	// Check connection
+	if (mysqli_connect_errno($con)){
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		die();
+	}
+	// end verify
+	
+	
 	// submit journal
 	echo '  <form action="upload.php" method="post" enctype="multipart/form-data">
 				Select Journal to upload:
 				<input type="file" name="fileToUpload" id="fileToUpload" required	><br>
-				Preferred Reviewer 1: <input type="text" name="pref1"><br>
-				Preferred Reviewer 2: <input type="text" name="pref2"><br>
-				Preferred Reviewer 3: <input type="text" name="pref3"><br>
-				Non-Preferred Reviewer 1: <input type="text" name="npref1"><br>
-				Non-Preferred Reviewer 2: <input type="text" name="npref2"><br>
-				Non-Preferred Reviewer 3: <input type="text" name="npref3"><br>
-				<input type="hidden" name="username" value ='.$username.'>
+				Preferred Reviewer 1: <select name="pref1">
+										';
+	$query = "SELECT * FROM users WHERE type = 2";
+	$result = mysqli_query($con,$query);
+	echo '								<option value="">Select a Reviewer</option>';
+	while($row = mysqli_fetch_array($result)){
+		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+	}
+	echo ' </select>
+		   <br>
+				Preferred Reviewer 2: <select name="pref2">
+										';
+	$query = "SELECT * FROM users WHERE type = 2";
+	$result = mysqli_query($con,$query);
+	echo '								<option value="">Select a Reviewer</option>';
+	while($row = mysqli_fetch_array($result)){
+		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+	}
+	echo ' </select>
+		   <br>
+				Preferred Reviewer 3: <select name="pref3">
+										';
+	$query = "SELECT * FROM users WHERE type = 2";
+	$result = mysqli_query($con,$query);
+	echo '								<option value="">Select a Reviewer</option>';
+	while($row = mysqli_fetch_array($result)){
+		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+	}
+	echo ' </select>
+		   <br>
+				Non-Preferred Reviewer 1: <select name="npref1">
+										';
+	$query = "SELECT * FROM users WHERE type = 2";
+	$result = mysqli_query($con,$query);
+	echo '								<option value="">Select a Reviewer</option>';
+	while($row = mysqli_fetch_array($result)){
+		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+	}
+	echo ' </select>
+		   <br>
+				Non-Preferred Reviewer 2: <select name="npref2">
+										';
+	$query = "SELECT * FROM users WHERE type = 2";
+	$result = mysqli_query($con,$query);
+	echo '								<option value="">Select a Reviewer</option>';
+	while($row = mysqli_fetch_array($result)){
+		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+	}
+	echo ' </select>
+		   <br>
+				Non-Preferred Reviewer 3: <select name="npref3">
+										';
+	$query = "SELECT * FROM users WHERE type = 2";
+	$result = mysqli_query($con,$query);
+	echo '								<option value="">Select a Reviewer</option>';
+	while($row = mysqli_fetch_array($result)){
+		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+	}
+	echo ' </select>
+		   <br>';
+
+	echo '	<input type="hidden" name="username" value ='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
 				<input type="submit" value="Upload Journal" name="submit">
 			</form>

@@ -8,16 +8,29 @@
 	//  - Called from this page
     if (isset($_POST["fileName"])) {
         $fileName = $_POST["fileName"];
-        if (file_exists($fileName)) {
+		$file = "journals\\".$fileName;
+		$revision = "journals\\revisions\\".$fileName;
+		echo "<p>journal: $file</p>";
+		echo "<p>revision: $revision</p>";
+        if (file_exists($file)) {
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($fileName).'"');
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
             header('Expires: 0');
             header('Cache-Control: must-revalidate');
             header('Pragma: public');
-            header('Content-Length: ' . filesize($fileName));
-            readfile($fileName);
-        }
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+        }else if(file_exists($revision)){
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($revisions).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($revision));
+            readfile($revision);
+		}
         echo 'ERROR: FILE NOT FOUND';
     }
 
@@ -135,7 +148,7 @@
                             <input type="hidden" name="username" value='.$username.'>
                             <input type="hidden" name="lgdin" value=1>
                             <input type="hidden" name="sortRow" value='.$sortRow.'>
-                            <input type="hidden" name="fileName" value='.$row["location"].'>
+                            <input type="hidden" name="fileName" value='.$row["journalName"].'>
                             <input type="submit" value="Download Journal">
                         </form>
                         </div>
