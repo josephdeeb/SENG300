@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2019 at 08:32 PM
+-- Generation Time: Jun 04, 2019 at 12:57 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -33,7 +33,6 @@ USE `seng300`;
 CREATE TABLE `comments` (
   `journalName` varchar(255) NOT NULL,
   `reviewer` varchar(55) NOT NULL,
-  `line` int(11) NOT NULL,
   `comment` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -41,8 +40,13 @@ CREATE TABLE `comments` (
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`journalName`, `reviewer`, `line`, `comment`) VALUES
-('asg1.pdf', 'ben', 5, 'do better');
+INSERT INTO `comments` (`journalName`, `reviewer`, `comment`) VALUES
+('report.pdf', 'ben', 'do better'),
+('A2.pdf', 'reviewer', 'here is a comment'),
+('A2.pdf', 'reviewer', 'second comment'),
+('A2.pdf', 'reviewer', 'this is a long comment to see how the table reacts to a long comment'),
+('A2.pdf', 'reviewer', 'another comment'),
+('report.pdf', 'ben', 'do more better');
 
 -- --------------------------------------------------------
 
@@ -64,14 +68,9 @@ CREATE TABLE `journals` (
 --
 
 INSERT INTO `journals` (`name`, `submitter`, `location`, `status`, `version`, `submissionDateTime`) VALUES
-('A2.pdf', 'submitter', 'journals/A2.pdf', 0, 0, '0000-00-00'),
-('A4.pdf', 'joseph', 'journals/A4.pdf', 0, 0, '0000-00-00'),
-('A5.pdf', 'submitter', 'journals/A5.pdf', 2, 0, '0000-00-00'),
-('asg1.pdf', 'submitter', 'journals/asg1.pdf', 1, 0, '0000-00-00'),
-('CPSC471_Asg1_30041469.pdf', 'joseph', 'journals/CPSC471_Asg1_30041469.pdf', 0, 0, '2019-05-30'),
-('CPSC471_Asg1_30041469_old.pdf', 'submitter', 'journals/CPSC471_Asg1_30041469_old.pdf', 3, 0, '2019-05-30'),
-('HIPODiagram.pdf', 'submitter', 'journals/HIPODiagram.pdf', 0, 0, '0000-00-00'),
-('proj_relation_model.pdf', 'submitter', 'journals/proj_relation_model.pdf', 0, 0, '0000-00-00');
+('A2.pdf', 'submitter', 'journals\\A2.pdf', 3, 1, '2019-06-03'),
+('A5.pdf', 'reviewer', 'journals\\A5.pdf', 0, 0, '2019-06-03'),
+('report.pdf', 'submitter', 'journals\\report.pdf', 0, 1, '2019-06-03');
 
 -- --------------------------------------------------------
 
@@ -81,16 +80,17 @@ INSERT INTO `journals` (`name`, `submitter`, `location`, `status`, `version`, `s
 
 CREATE TABLE `reviewers` (
   `journalName` varchar(255) NOT NULL,
-  `reviewer` varchar(255) NOT NULL
+  `reviewer` varchar(255) NOT NULL,
+  `decision` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `reviewers`
 --
 
-INSERT INTO `reviewers` (`journalName`, `reviewer`) VALUES
-('A2.pdf', 'reviewer'),
-('A4.pdf', 'reviewer');
+INSERT INTO `reviewers` (`journalName`, `reviewer`, `decision`) VALUES
+('A2.pdf', 'reviewer', 2),
+('report.pdf', 'ben', 0);
 
 -- --------------------------------------------------------
 
@@ -100,15 +100,17 @@ INSERT INTO `reviewers` (`journalName`, `reviewer`) VALUES
 
 CREATE TABLE `revisions` (
   `originalName` varchar(255) NOT NULL,
-  `revisionName` varchar(255) NOT NULL
+  `revisionName` varchar(255) NOT NULL,
+  `version` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `revisions`
 --
 
-INSERT INTO `revisions` (`originalName`, `revisionName`) VALUES
-('A5.pdf', 'A5(3).pdf');
+INSERT INTO `revisions` (`originalName`, `revisionName`, `version`) VALUES
+('A2.pdf', 'A2(1).pdf', 1),
+('report.pdf', 'report(1).pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -127,13 +129,8 @@ CREATE TABLE `subprefs` (
 --
 
 INSERT INTO `subprefs` (`journalName`, `reviewer`, `preferred`) VALUES
-('A2.pdf', 'ben', 1),
-('A2.pdf', 'reviewer', 0),
-('CPSC471_Asg1_30041469.pdf', 'ben', 1),
-('CPSC471_Asg1_30041469.pdf', 'reviewer', 0),
-('CPSC471_Asg1_30041469_old.pdf', 'ben', 1),
-('CPSC471_Asg1_30041469_old.pdf', 'reviewer', 0),
-('proj_relation_model.pdf', 'joseph', 1);
+('report.pdf', 'ben', 1),
+('report.pdf', 'reviewer', 0);
 
 -- --------------------------------------------------------
 
@@ -158,7 +155,8 @@ INSERT INTO `users` (`userName`, `password`, `firstName`, `lastName`, `type`) VA
 ('editor', 'password', 'editor', 'man', 3),
 ('joseph', 'password', 'jo', 'seph', 1),
 ('reviewer', 'password', 'review', 'er', 2),
-('submitter', 'password', 'sub', 'mitter', 1);
+('submitter', 'password', 'sub', 'mitter', 1),
+('submitter2', 'password', 'syb', 'dfghj', 1);
 
 --
 -- Indexes for dumped tables
@@ -182,6 +180,7 @@ ALTER TABLE `journals`
 -- Indexes for table `reviewers`
 --
 ALTER TABLE `reviewers`
+  ADD PRIMARY KEY (`journalName`,`reviewer`),
   ADD KEY `reviewers_ibfk_1` (`journalName`),
   ADD KEY `reviewers_ibfk_2` (`reviewer`);
 
