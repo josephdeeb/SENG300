@@ -1,3 +1,21 @@
+<!--
+
+review.php
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+This page is for reviewers to view the journals that they have been assigned to review.
+The reviewer is given the option to view their comments on the journal, a button to download the journal and the reviewers decision.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Post inputs:
+	username	- username of logged in user
+	lgdin		- posted when logged in user is returning to main menu
+	review		- the reviewers decision
+	fname		- the filename of the journal the user wishes to view the comments for
+	sortByCol	- posted if the user wishes to sort the table by a specified column
+
+--->
 <html>
 <body>
 
@@ -55,29 +73,38 @@
 		die();
 	}
     
+	// add reviewers decision to the db is review accepted or rejected journal
+	if(isset($_POST["review"]) and isset($_POST["fname"])){
+		$review = $_POST["review"];
+		$fname = $_POST["fname"];
+		$query = "UPDATE reviewers SET decision=$review WHERE journalName='$fname' and reviewer='$username'";
+		mysqli_query($con,$query);	
+	}
+	
+	
 	// Select all rows from journals and reviewers where the journalName == name and the reviewer == the current user
     $query = "SELECT * FROM journals, reviewers WHERE journalName = name AND reviewer = '$username'";
     
-	// If the variable "sortRow" was posted, 0 == by journalName, 1 by submitter, 2 by submissionDateTime
-    if (isset($_POST["sortRow"])) {
-        $sortRow = $_POST["sortRow"];
-        if ($sortRow == 2) {
+	// If the variable "sortByCol" was posted, 0 == by journalName, 1 by submitter, 2 by submissionDateTime
+    if (isset($_POST["sortByCol"])) {
+        $sortByCol = $_POST["sortByCol"];
+        if ($sortByCol == 2) {
             $sort = 2;
         } else {
             $sort = 1;
         }
     } else {
         $sort = 0;
-        $sortRow = 0;
+        $sortByCol = 0;
     }
     
 	// Add to the end of query so we order by the appropriate column
     if ($sort > 0) {
-        if ($sortRow == 0) {
+        if ($sortByCol == 0) {
             $query = $query." ORDER BY journalName";
-        } else if ($sortRow == 1) {
+        } else if ($sortByCol == 1) {
             $query = $query." ORDER BY submitter";
-        } else if ($sortRow == 2) {
+        } else if ($sortByCol == 2) {
             $query = $query." ORDER BY submissionDateTime";
         }
     }
@@ -105,7 +132,7 @@
                     <div id="sortButton">
                     <form action="review.php" method="post">
                         <input type="hidden" name="username" value='.$username.'>
-                        <input type="hidden" name="sortRow" value=1>
+                        <input type="hidden" name="sortByCol" value=1>
                         <input type="hidden" name="lgdin" value=1>			
                         <input type="submit" value="Submitter">
                     </form>
@@ -115,11 +142,13 @@
                     <div id="sortButton">
                     <form action="review.php" method="post">
                         <input type="hidden" name="username" value='.$username.'>
-                        <input type="hidden" name="sortRow" value=2>
+                        <input type="hidden" name="sortByCol" value=2>
                         <input type="hidden" name="lgdin" value=1>
                         <input type="submit" value="Submission Date">
                     </form>
                     </div>
+                </th>
+                <th>
                 </th>
                 <th>
                 </th>
@@ -132,30 +161,40 @@
                     <td>'.$row["journalName"].'</td>
                     <td>'.$row["submitter"].'</td>
                     <td>'.$row["submissionDateTime"].'</td>
-                    <td>
-                        <div id="button">
-                        <form action="editComs.php" method="post">
-                            <input type="hidden" name="username" value='.$username.'>
-                            <input type="hidden" name="lgdin" value=1>
-                            <input type="hidden" name="fname" value='.$row["journalName"].'>
-                            <input type="submit" value="Submit Comments">
-                        </form>
-                        </div>
-                    </td>
-                    <td>
-                        <div id="button">
-                        <form action="review.php" method="post">
-                            <input type="hidden" name="username" value='.$username.'>
-                            <input type="hidden" name="lgdin" value=1>
-                            <input type="hidden" name="sortRow" value='.$sortRow.'>
-                            <input type="hidden" name="fileName" value='.$row["journalName"].'>
-                            <input type="submit" value="Download Journal">
-                        </form>
-                        </div>
-                    </td>
-                  </tr>';
+					<td>
+						<div id="button">
+						<form action="viewUserComs.php" method="post">
+							<input type="hidden" name="username" value='.$username.'>
+							<input type="hidden" name="lgdin" value=1>
+							<input type="hidden" name="fname" value='.$row["journalName"].'>
+							<input type="submit" value="View Comments">
+						</form>
+						</div>
+					</td>
+					<td>
+						<div id="button">
+						<form action="review.php" method="post">
+							<input type="hidden" name="username" value='.$username.'>
+							<input type="hidden" name="lgdin" value=1>
+							<input type="hidden" name="sortByCol" value='.$sortByCol.'>
+							<input type="hidden" name="fileName" value='.$row["journalName"].'>
+							<input type="submit" value="Download Journal">
+						</form>
+						</div>
+					</td>
+					';
+			if($row["decision"] == 0){
+				echo	'<td>You have not made a decision on this journal yet</td>';
+			}else if($row["decision"] == 1){
+				echo	'<td>You have Accepted this Journal</td>';
+			}else{
+				echo	'<td>You have Rejected this Journal</td>';					
+			}
+            echo	'</tr>
+			';
         }
-        echo '</table>';
+        echo '</table>
+		';
     }
     // Close the mysql connectiion
     mysqli_close($con);

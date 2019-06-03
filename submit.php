@@ -1,3 +1,18 @@
+<!--
+
+submit.php
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+This page gives users the ability to choose their journal file from their filesystem.
+This page also supplies 3 dropdown menus for preferred and non-preferrend reviewers for the journal.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Post inputs:
+	username	- username of logged in user
+	lgdin		- posted when logged in user is returning to main menu
+
+--->
 <html>
 <body>
 <head>
@@ -92,7 +107,7 @@
 
 	echo '	<input type="hidden" name="username" value ='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
-				<input type="submit" value="Upload Journal" name="submit">
+				<input type="submit" value="Upload Journal">
 			</form>
 		 ';
 

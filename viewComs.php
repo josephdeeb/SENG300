@@ -1,3 +1,20 @@
+<!--
+
+viewComs.php
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+This page is for submitters to view the comments that have been made on their journals.
+Users are given the option to upload a revised version if the editor has deemed that if requires major or minor revisions.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Post inputs:
+	username	- username of logged in user
+	lgdin		- posted when logged in user is returning to main menu
+	fname		- the filename of the journal the user wishes to view the comments for
+	sortByCol	- posted if the user wishes to sort the table by a specified column
+	
+--->
 <html>
 <body>
 
@@ -28,20 +45,20 @@
 
 
 	// display journals
-	if(isset($_POST["sortRow"])){
-		$sortRow = $_POST["sortRow"];
+	if(isset($_POST["sortByCol"])){
+		$sortByCol = $_POST["sortByCol"];
 		$sort = 1;
 	}else{
 		$sort = 0;
-		$sortRow = 0;
+		$sortByCol = 0;
 	}
 
 	$query = "SELECT * FROM comments WHERE journalName = '$fname'";
 	
 	if($sort = 1){
-		if($sortRow == 0){
+		if($sortByCol == 0){
 			$query = $query." ORDER BY reviewer";
-		}else if($sortRow == 1){
+		}else if($sortByCol == 1){
 			$query = $query." ORDER BY line";
 		}
 	}
@@ -61,7 +78,7 @@
 						<input type="hidden" name="username" value='.$username.'>
 						<input type="hidden" name="lgdin" value='.$lgdin.'>
 						<input type="hidden" name="fname" value='.$fname.'>
-						<input type="hidden" name="sortRow" value=0>
+						<input type="hidden" name="sortByCol" value=0>
 						<input type="submit" value="Reviewer Name">
 					</form>
 					</div>
@@ -93,20 +110,18 @@
 	
 	
 	// remove if for second iteration
-	if(true){
-		if ($row['status'] == 2 or $row['status'] == 3) {
-			echo ' 
-					<form action="upload.php" method="post" enctype="multipart/form-data">
-						Select Revised Journal to Upload:
-						<input type="file" name="fileToUpload" id="fileToUpload" required><br>
-						<input type="hidden" name="username" value ='.$username.'>
-						<input type="hidden" name="lgdin" value=1>
-						<input type="hidden" name="resub" value=1>
-						<input type="hidden" name="fname" value='.$fname.'>
-						<input type="submit" value="Upload Journal" name="submit">
-					</form>
-				 ';
-		}
+	if ($row['status'] == 2 or $row['status'] == 3) {
+		echo ' 
+				<form action="upload.php" method="post" enctype="multipart/form-data">
+					Select Revised Journal to Upload:
+					<input type="file" name="fileToUpload" id="fileToUpload" required><br>
+					<input type="hidden" name="username" value ='.$username.'>
+					<input type="hidden" name="lgdin" value=1>
+					<input type="hidden" name="resub" value=1>
+					<input type="hidden" name="fname" value='.$fname.'>
+					<input type="submit" value="Upload Journal">
+				</form>
+			 ';
 	}
 	mysqli_close($con);
 ?>

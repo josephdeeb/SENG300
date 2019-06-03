@@ -1,4 +1,22 @@
-<html>
+<!--
+
+upload.php
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+This page is used to upload a new journal or a revised version.
+This page adds the journal's name and uploaded location to the db and adds the submitters preferences to the db.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Post inputs:
+	username	- username of logged in user
+	lgdin		- posted when logged in user is returning to main menu
+	resub		- (optional) if uploading a revised version, the journal will be added to the revisions table instead of journals table
+	pref(1-3)	- the preferred reviewers of the submitting user
+	npref(1-3)	- the non-preferred reviewers of the submitting user
+	resub		- a variable indicating if the file being uploaded is a revised version or not
+
+---><html>
 <body>
 
 <?php
@@ -128,19 +146,17 @@
 		$target = $target_dir . $target_file;
 		$uploadOk = 1;
 		$fileType = strtolower(pathinfo($target,PATHINFO_EXTENSION));
-		// Check if file is a actual pdf
-		if(isset($_POST["submit"])) {
-			$check = filesize($_FILES["fileToUpload"]["tmp_name"]);
-			if($check !== false) {
-	//			echo "<p>File is a PDF - " . $check["mime"] . ".</p>";
-				$uploadOk = 1;
-			} else {
-				echo "<p>File is not a PDF.</p>";
-				$uploadOk = 0;
-			}
+		// Check if file is an actual pdf
+		$check = filesize($_FILES["fileToUpload"]["tmp_name"]);
+		if($check !== false) {
+			$uploadOk = 1;
+		} else {
+			echo "<p>File is not a PDF.</p>";
+			$uploadOk = 0;
 		}
 		
-		
+		$query1 = "";
+		$query2 = "";
 		// for resubmission of revisions
 		if(!isset($_POST["resub"])){
 			// Check if file already exists
@@ -150,29 +166,22 @@
 			}
 		}else{
 			$fname = $_POST["fname"];
+			$query = "SELECT * FROM journals WHERE name = '$fname'";
+			$result = mysqli_query($con,$query);
+			$row = mysqli_fetch_array($result);
+			$rev = $row['version'] + 1;
+
+			//update filename if the same
 			if(file_exists($target)) {
-				$query = "SELECT * FROM journals WHERE name = '$fname'";
-				$result = mysqli_query($con,$query);
-				$row = mysqli_fetch_array($result);
-				$rev = $row['version'] + 1;
-//				echo "rev: '$rev'<br>";
-				
-//				echo "target: '$target'<br>";
-				//update filename if the same
-				$target = pathinfo($fname)['filename']."($rev).".pathinfo($target)['extension'];
-//				echo "target: '$target'<br>";
-				
+				$target_file = pathinfo($fname)['filename']."($rev).".pathinfo($target)['extension'];
 			}
+
 			// update revision number
-			$query = "UPDATE journals SET version = version + 1, status = 0 WHERE name = '$fname'";
-			mysqli_query($con,$query);
+			$query1 = "UPDATE journals SET version = version + 1, status = 0 WHERE name = '$fname'";
 
 			// record revision name
-			$query = "INSERT INTO revisions VALUES ('$fname','$target','$rev')";
-//			echo "insert query: '$query'<br>";
-			mysqli_query($con,$query);
-			$target = $target_dir."revisions\\".$target;
-//			echo "file: $target<br>";
+			$query2 = "INSERT INTO revisions VALUES ('$fname','$target_file','$rev')";
+			$target = $target_dir."revisions\\".$target_file;
 		}
 		// Check file size
 		if ($_FILES["fileToUpload"]["size"] > 500000) {
@@ -190,6 +199,8 @@
 		// if everything is ok, try to upload file
 		} else {
 			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target)) {
+				mysqli_query($con,$query1);
+				mysqli_query($con,$query2);
 				
 				// successful file upload
 				echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";

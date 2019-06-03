@@ -1,3 +1,20 @@
+<!--
+
+regFront.php
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+This is the User Registration Page.
+Displays text boxes and buttons for users to input their information.
+This page does live username checking to verify input username is not already in use.
+This page also notifies users is their two input passwords are different.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Post inputs:
+	no required inputs
+
+--->
+
 <html>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script>

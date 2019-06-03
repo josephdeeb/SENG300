@@ -1,3 +1,22 @@
+<!--
+
+login.php
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+If the user fails to login successfully, they will be told and shown a return to main menu buttons.
+If a user has successfully logged in, this page will be displayed in full.
+This page displays buttons corresponding of the type of user that they are (submitter, reviewer, editor).
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Post inputs:
+	username 	- the username of the user attempting to log in
+	password	- the entered password for given userName
+	lgdin		- posted when logged in user is returning to main menu
+	sortByCol	- a variable corresponding to the column that the user would like the submitted journals table to be sorted by
+
+--->
+
 <html>
 <body>
 
@@ -102,12 +121,12 @@
 		</form>	
 	  ';
 			// display journals
-		if(isset($_POST["sortRow"])){
-			$sortRow = $_POST["sortRow"];
+		if(isset($_POST["sortByCol"])){
+			$sortByCol = $_POST["sortByCol"];
 			$sort = 1;
 		}else{
 			$sort = 0;
-			$sortRow = 0;
+			$sortByCol = 0;
 		}
 
 
@@ -115,11 +134,11 @@
 		$query = "SELECT * FROM journals WHERE submitter = '$username'";
 
 		if($sort == 1){
-			if($sortRow == 0){
+			if($sortByCol == 0){
 				$query = $query." ORDER BY name";
-			}else if($sortRow == 1){	
+			}else if($sortByCol == 1){	
 				$query.=" ORDER BY status";
-			}else if($sortRow == 2){
+			}else if($sortByCol == 2){
 				$query.=" ORDER BY submissionDateTime";
 			}
 		}
@@ -127,7 +146,9 @@
 
 
 		// print journals
-		if($result){
+		if(!mysqli_num_rows($result)){
+			echo '<p>You have not submitted any Journals yet</p>';
+		}else{
 			echo '<p>Submitted Journals</p>';
 			echo '<table>
 					<tr>
@@ -135,7 +156,7 @@
 						<div id="sortButton">
 						<form action="login.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
-							<input type="hidden" name="sortRow" value=0>
+							<input type="hidden" name="sortByCol" value=0>
 							<input type="hidden" name="lgdin" value=1>			
 							<input type="submit" value="Journal Name">
 						</form>
@@ -145,7 +166,7 @@
 						<div id="sortButton">
 						<form action="login.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
-							<input type="hidden" name="sortRow" value=1>
+							<input type="hidden" name="sortByCol" value=1>
 							<input type="hidden" name="lgdin" value=1>			
 							<input type="submit" value="Status">
 						</form>
@@ -155,7 +176,7 @@
 						<div id="sortButton">
 						<form action="login.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
-							<input type="hidden" name="sortRow" value=2>
+							<input type="hidden" name="sortByCol" value=2>
 							<input type="hidden" name="lgdin" value=1>			
 							<input type="submit" value="Date">
 						</form>

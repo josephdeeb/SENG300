@@ -1,3 +1,23 @@
+<!--
+
+regBack.php
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+All input from User Registration Page is added to the db from this page and a prompt is written in whether this was successful or not.
+This page verifies that both input passwords are the same before registering user.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Post inputs:
+	username:	- input username from user
+	password:	- input password from user
+	password2:	- second input password from user. MUST be the same as password
+	fname:		- users first name
+	lname:		- users last name
+	type:		- the type of user (1 = submitter, 2 = reviewer)
+
+--->
+
 <html>
 <body>
 <?php
