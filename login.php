@@ -227,7 +227,7 @@ Post inputs:
 	if($type == 3){
 	  // give editor options
 	  echo '
-		<form action="sumbitted.php" method="post">
+		<form action="viewUnassignedJournals.php" method="post">
 		  <input type="submit" value="View Submitted Journals">
 		</form>
 		<form action="complete.php" method="post">
