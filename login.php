@@ -1,26 +1,26 @@
 <!--
-
 login.php
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------
-
 If the user fails to login successfully, they will be told and shown a return to main menu buttons.
 If a user has successfully logged in, this page will be displayed in full.
 This page displays buttons corresponding of the type of user that they are (submitter, reviewer, editor).
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 Post inputs:
 	username 	- the username of the user attempting to log in
 	password	- the entered password for given userName
 	lgdin		- posted when logged in user is returning to main menu
 	sortByCol	- a variable corresponding to the column that the user would like the submitted journals table to be sorted by
-
---->
+---->
 
 <html>
+<head>
+<title>Main Menu</title>
+<link href="stylelogin.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
+<div class="rectangle"></div>
+<h1>Logged in as</h1>
 
-<h1>Login Page</h1>
 
 <?php
 	if(!isset($_POST["lgdin"])){
@@ -34,16 +34,13 @@ Post inputs:
 		}
 	}
 	$username = $_POST["username"];
-
 	// Create connection
 	$con = mysqli_connect("localhost","seng300","seng300Spr2019", "seng300");
-
 	// Check connection
 	if (mysqli_connect_errno($con)){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		die();
 	}
-
 	// verify that user has logged in
 	if(!isset($_POST["lgdin"])){
 		$password = $_POST["password"];
@@ -60,7 +57,6 @@ Post inputs:
 		  $row = $pw->fetch_assoc();
 		  //echo "pw: ". $row['password']. " password: ". $password. "<br>";
 		}
-
 		if(strcmp($row['password'], $password) == 0){
 		  //echo "login successful<br>";
 		}else{
@@ -80,14 +76,12 @@ Post inputs:
 	$sql = mysqli_query($con,$query);
 	$type = $sql->fetch_assoc()['type'];
 	if($type == 1){
-		echo "<h1>Submitter</h1>";
+		echo "<h2>Submitter</h2>";
 	}else if($type == 2){
-		echo "<h1>Reviewer</h1>";
+		echo "<h2>Reviewer</h2>";
 	}else{
-		echo "<h1>Editor</h1>";
+		echo "<h2>Editor</h2>";
 	}
-
-
 	//
 	//		REVIEWER options
 	//	
@@ -115,10 +109,14 @@ Post inputs:
 			// submit button
 	  echo '
 		<form action="submit.php" method="post">
+		
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>
+			<div class="submitJournalButton">                  <!--There is a bug here-->
 			<input type="submit" value="Submit Journal">
+			</div>
 		</form>	
+		
 	  ';
 			// display journals
 		if(isset($_POST["sortByCol"])){
@@ -128,11 +126,8 @@ Post inputs:
 			$sort = 0;
 			$sortByCol = 0;
 		}
-
-
 			// order journals by desired column
 		$query = "SELECT * FROM journals WHERE submitter = '$username'";
-
 		if($sort == 1){
 			if($sortByCol == 0){
 				$query = $query." ORDER BY name";
@@ -143,11 +138,13 @@ Post inputs:
 			}
 		}
 		$result = mysqli_query($con, $query);
-
-
 		// print journals
 		if(!mysqli_num_rows($result)){
-			echo '<p>You have not submitted any Journals yet</p>';
+			echo ' 
+				<div class="emptyJournal"> 
+				You have not submitted any Journals yet
+				</div> 
+			';
 		}else{
 			echo '<p>Submitted Journals</p>';
 			echo '<table>
@@ -228,7 +225,6 @@ Post inputs:
 	
 	
 	if($type == 3){
-
 	  // give editor options
 	  echo '
 		<form action="sumbitted.php" method="post">
@@ -245,8 +241,9 @@ Post inputs:
 	mysqli_close($con);
 ?>
 <form action="..\index.php" method="post">
+	<div class="logoutButton">
 	<input type="submit" value="Logout">
+	</div>
 </form>	
-
 </body>
 </html>

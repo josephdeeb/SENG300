@@ -1,5 +1,10 @@
 <html>
+<head>
+<title>Journal Review</title>
+<link href="style.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
+<div class="rectangle"></div>
 <h1>Software Engineering Journal Review</h1>
 <br><br>
 
@@ -14,24 +19,32 @@ if(!empty($_POST["registered"])){
 }
 ?>
 
-<div id="button">
+<div class="test" id="button">
 <form action="\SENG300\login.php" method="post">
-	Login<br>
+	<!--Login<br>-->
+	<div class="username">
 	User ID: <input type="text" name="username" required><br>
+	</div>
+	<div class="password">
 	Password: <input type="password" name="password" required><br>
+	</div>
+	<div class="loginButton">
 	<input type="submit" value="Login">
+	</div>
 </form>
 <br><br>
-<p>
-   Want to have your academic journal reviewed?<br>
-   Want to review others' academic journals?<br>
-</p>
-
-<form action="\SENG300\regFront.php" method="post">
-   Register Here<br>
-   <input type="submit" value="Register">
-</form>
+	<div class="askMessage">
+	<p>Want to have your academic asdfasdf journal reviewed?<br> Want to review others' academic journals?<br> </p>
+	<hr width="300px"/>
+	</div>
+	<div class="register">
+	<form action="\SENG300\regFront.php" method="post">
+		<b>Register Here</b><br>
+	</div>
+	<div class="registerButton">
+		<input type="submit" value="Register">
+	</div>
+	</form>
 </div>
-
 </body>
 </html>
