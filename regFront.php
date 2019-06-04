@@ -1,19 +1,14 @@
 <!--
-
 regFront.php
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------
-
 This is the User Registration Page.
 Displays text boxes and buttons for users to input their information.
 This page does live username checking to verify input username is not already in use.
 This page also notifies users is their two input passwords are different.
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 Post inputs:
 	no required inputs
-
---->
+-->
 
 <html>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
@@ -59,18 +54,22 @@ function validate() {
     
 $("#password2").keyup(validate);
 </script>
+<head>
+<title>Register</title>
+<link href="stylereg.css" type="text/css" rel="stylesheet" />
+</head>
 
 <body>
-
+<div class="rectangle"></div>
 <h1>New Customer Registration</h1>
 
 <form action="regBack.php" method="post">
-    Never Ordered Before?<br>
-    Register Here<br><br>
+    <h2>Never Ordered Before?<br></h2>
+    <h2>Register Here<br><hr width="400px" align="left"/><br></h2>
 
-	<div id="frmCheckUsername">
-	  <label>Check Username:<br></label>
-	  <input name="username" type="text" id="username" class="demoInputBox" onBlur="checkAvailability()" required>*<span id="user-availability-status"></span>    
+	<div class="checkUsername" id="frmCheckUsername">
+	    <label>Check Username:<br></label>
+		<input name="username" type="text" id="username" class="demoInputBox" onBlur="checkAvailability()" required>*<span id="user-availability-status"></span>    
 	</div>
 	<p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
 
@@ -80,30 +79,33 @@ $("#password2").keyup(validate);
 		</div>
 	</div>
 																  
-	<div class="col-sm-4">
+	<div class="col-sm-44"> <!-- used to be <div class="col-sm-4"> -->
 		<div class="form-group"><label>Confirm Password:<br></label>
 			<input type="password"   id="password2"   name="password2"   class="form-control input-sm" required/>
 		</div>
 		<div id="msg"></div>
 	</div>
-	
+	<div class="firstName">
     Enter First Name:<br>
     <input type="text" name="fname" required>*<br>
-
+	</div>
+	<div class="lastName">
     Enter Last Name:<br>
     <input type="text" name="lname" required>*<br>
-
+	</div>
+	<div class="chooseUser">
 	Choose What Type of User You Are:<br>
     <input type="radio" name="type" value=1 required> Submitter<br>
     <input type="radio" name="type" value=2> Reviewer<br>
-
     <input type="reset">
     <input id="submit-button" type="submit" value="Submit">
+	</div>
 
 </form>
 <form action="..\index.php" method="post">
+	<div class="returnLoginButton">
 	<input type="submit" value="Return to Main Menu">
+	</div>
 </form>	
-
 </body>
 </html>
