@@ -1,0 +1,50 @@
+body {
+	background-color:cadetblue;
+}
+h1{
+    font-family: Candara;
+    position: relative;
+    top: 15px;
+    left: 200px;
+}
+div{
+    font-family: Gadugi;
+}
+.username{
+    position: absolute;
+    top: 30px;
+    right: 520px;
+}
+.password{
+    position: absolute;
+    top: 30px;
+    right: 240px;
+}
+.loginButton {
+    position: absolute;
+    top: 30px;
+    right: 140px;
+}
+.askMessage{
+    position: absolute;
+    top: 400px;
+    right:500px;
+}
+.register{
+    position: absolute;
+    top: 490px;
+    right: 660px;
+}
+.registerButton{
+    position: absolute;
+    top: 520px;
+    right: 670px;
+}
+.rectangle {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 90px;
+    width: 4000px;
+    background-color: ghostwhite;
+}
