@@ -50,7 +50,7 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
-		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo ' </select>
 		   <br>
@@ -60,7 +60,7 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
-		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo ' </select>
 		   <br>
@@ -70,7 +70,7 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
-		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo ' </select>
 		   <br>
@@ -80,7 +80,7 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
-		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo ' </select>
 		   <br>
@@ -90,7 +90,7 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
-		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo ' </select>
 		   <br>
@@ -100,7 +100,7 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
-		echo '								<option value='.$row["username"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo ' </select>
 		   <br>';

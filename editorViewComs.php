@@ -42,6 +42,7 @@ Post inputs:
 	$username = $_POST["username"];
 	$lgdin = $_POST["lgdin"];
 	$fname = $_POST["fname"];
+	$sub = $_POST["subName"];
 	
 	// add comment to db
 	if(isset($_POST["comment"]) and $_POST["comment"] != ""){
@@ -103,7 +104,7 @@ Post inputs:
 	echo "<p>Add Comments to ". $fname. "</p>";
 	echo '	
 		<div id="button">
-		<form action="viewUserComs.php" method="post">
+		<form action="editorViewComs.php" method="post">
 			<input type="text" name="comment">
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>
@@ -120,7 +121,7 @@ Post inputs:
 		echo '
 			<p>Have you completed your review?</p>
 			<div id="button">
-			<form action="review.php" method="post" onsubmit="return accept()">
+			<form action="editorViewComs.php" method="post" onsubmit="return accept()">
 				<input type="hidden" name="username" value='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
 				<input type="hidden" name="fname" value='.$fname.'>
@@ -129,7 +130,7 @@ Post inputs:
 			</form>
 			</div>
 			<div id="button">
-			<form action="review.php" method="post" onsubmit="return reject()">
+			<form action="editorViewComs.php" method="post" onsubmit="return reject()">
 				<input type="hidden" name="username" value='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
 				<input type="hidden" name="fname" value='.$fname.'>
@@ -145,10 +146,11 @@ Post inputs:
 
 
 <div id="button">
-<form action="review.php" method="post">
+<form action="complete.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
+	<input type="hidden" name="submitter" value="<?php echo $sub; ?>">
     <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to Journals to Review Page">
+	<input type="submit" value="Return to Journals to Completed Journals Page">
 </form>
 </div>
 <div id="button">

@@ -21,37 +21,6 @@ Post inputs:
 
 <?php
 
-    // Taken from https://www.php.net/manual/en/function.readfile.php
-	// This piece of code downloads a file if a fileName is posted
-	//  - Called from this page
-    if (isset($_POST["fileName"])) {
-        $fileName = $_POST["fileName"];
-		$file = "journals\\".$fileName;
-		$revision = "journals\\revisions\\".$fileName;
-		echo "<p>journal: $file</p>";
-		echo "<p>revision: $revision</p>";
-        if (file_exists($file)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($file).'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($file));
-            readfile($file);
-        }else if(file_exists($revision)){
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($revisions).'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($revision));
-            readfile($revision);
-		}
-        echo 'ERROR: FILE NOT FOUND';
-    }
-
 	// Check if user is logged in
     if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
         echo "<p>Please Login</p>";
@@ -73,6 +42,36 @@ Post inputs:
 		die();
 	}
     
+    // Taken from https://www.php.net/manual/en/function.readfile.php
+	// This piece of code downloads a file if a fileName is posted
+	//  - Called from this page
+    if (isset($_POST["fileName"])) {
+        $fileName = $_POST["fileName"];
+		$file = "journals\\".$fileName;
+		
+		$query = "SELECT * FROM journals WHERE name='$fileName'";
+		$result = mysqli_query($con,$query);
+		$row = mysqli_fetch_array($result);
+		if($row["version"]>0){
+			$query = "SELECT * FROM revisions WHERE originalName='$fileName' and version=".$row["version"];
+			$result = mysqli_query($con,$query);
+			$row = mysqli_fetch_array($result);
+			$file = "journals\\revisions\\".$row["revisionName"];
+		}
+
+		if(file_exists($file)){
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+		}
+        echo 'ERROR: FILE NOT FOUND';
+    }
+
 	// add reviewers decision to the db is review accepted or rejected journal
 	if(isset($_POST["review"]) and isset($_POST["fname"])){
 		$review = $_POST["review"];

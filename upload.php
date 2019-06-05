@@ -165,7 +165,6 @@ Post inputs:
 				echo "<p>Sorry, file already exists.</p>";
 				$uploadOk = 0;
 			}
-			
 		}else{
 			$fname = $_POST["fname"];
 			$query = "SELECT * FROM journals WHERE name = '$fname'";
@@ -240,7 +239,7 @@ Post inputs:
 						mysqli_query($con,$query);
 					}
 				}
-			} else {
+			}else{
 				echo "<p>Sorry, there was an error uploading your file.</p>";
 			}
 		}

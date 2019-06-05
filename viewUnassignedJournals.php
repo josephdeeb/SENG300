@@ -24,7 +24,7 @@
 	}
 	// end verify
     
-    $query = "SELECT * FROM journals WHERE NOT EXISTS (SELECT * FROM reviewers WHERE name = journalName)"
+    $query = "SELECT * FROM journals WHERE NOT EXISTS (SELECT * FROM reviewers WHERE name = journalName)";
     
     $result = mysqli_query($con, $query);
     
@@ -37,9 +37,9 @@
                     <form action="viewUnassignedJournals" method="post">
                         <input type="hidden" name="username" value='.$username.'>
                         <input type="hidden" name="lgdin" value=1>
-                        <input type="submit" value="Journal Name"'
+                        <input type="submit" value="Journal Name"';
         
-        echo '</table>'
+        echo '</table>';
     }
     
 ?>
