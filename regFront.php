@@ -64,7 +64,7 @@ $("#password2").keyup(validate);
 <h1>New Customer Registration</h1>
 
 <form action="regBack.php" method="post">
-    <h2>Never Ordered Before?<br></h2>
+    <h2>Want to have your journal reviewed?<br></h2>
     <h2>Register Here<br><hr width="400px" align="left"/><br></h2>
 
 	<div class="checkUsername" id="frmCheckUsername">
@@ -104,7 +104,7 @@ $("#password2").keyup(validate);
 </form>
 <form action="..\index.php" method="post">
 	<div class="returnLoginButton">
-	<input type="submit" value="Return to Main Menu">
+	<input type="submit" value="Return to Login Page">
 	</div>
 </form>	
 </body>

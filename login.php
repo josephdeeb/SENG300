@@ -19,7 +19,6 @@ Post inputs:
 </head>
 <body>
 <div class="rectangle"></div>
-<h1>Logged in as</h1>
 
 
 <?php
@@ -70,17 +69,16 @@ Post inputs:
 	}
 	// user has logged in successfully
 	
-	
 	// determine user type in order to show correct information
 	$query = "SELECT * FROM users WHERE userName = '$username'";
 	$sql = mysqli_query($con,$query);
 	$type = $sql->fetch_assoc()['type'];
 	if($type == 1){
-		echo "<h2>Submitter</h2>";
+		echo "<h1>Logged in as a Submitter</h1>";
 	}else if($type == 2){
-		echo "<h2>Reviewer</h2>";
+		echo "<h1>Logged in as a Reviewer</h1>";
 	}else{
-		echo "<h2>Editor</h2>";
+		echo "<h1>Logged in as an Editor</h1>";
 	}
 	//
 	//		REVIEWER options
@@ -90,12 +88,16 @@ Post inputs:
 	if($type == 2){
 	  // give reviewer options
 	  echo '
-		<p>Journals to Review</p>
+		<div class="reviewHead">
+			<p>Journals to Review</p>
+		</div>
+		<div class="reviewButton">
 		<form action="review.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>
             <input type="hidden" name="lgdin" value=1>
-			<input type="submit" value="View">
+			<input type="submit" value="View Assigned Journals">
 		</form>	
+		</div>
 	  ';
 	}
 	
@@ -108,15 +110,13 @@ Post inputs:
 	if($type == 1 or $type == 2){
 			// submit button
 	  echo '
+		<div class="submitJournalButton">                  <!--There is a bug here-->
 		<form action="submit.php" method="post">
-		
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>
-			<div class="submitJournalButton">                  <!--There is a bug here-->
-			<input type="submit" value="Submit Journal">
-			</div>
+			<input type="submit" value="Submit New Journal">
 		</form>	
-		
+		</div>		
 	  ';
 			// display journals
 		if(isset($_POST["sortByCol"])){
@@ -146,7 +146,8 @@ Post inputs:
 				</div> 
 			';
 		}else{
-			echo '<p>Submitted Journals</p>';
+			echo '<p>Your Journals</p>
+			';
 			echo '<table>
 					<tr>
 					<th>
@@ -181,7 +182,8 @@ Post inputs:
 					</th>
 					<th>
 					</th>
-					</tr>';
+					</tr>
+					';
 			while ($row = mysqli_fetch_array($result)) {
 				if($row['status'] == 0){
 					$status = 'Pending Review';
@@ -210,9 +212,11 @@ Post inputs:
 							</form>
 							</div>								
 						 </td> 
-				  </tr>';
+					</tr>
+					';
 			}
-			echo '</table>';
+			echo '</table>
+			';
 		}
 	}
 		

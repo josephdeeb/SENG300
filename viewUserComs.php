@@ -105,9 +105,9 @@ Post inputs:
 		<div id="button">
 		<form action="viewUserComs.php" method="post">
 			<input type="text" name="comment">
-			<input type="hidden" name="username" value="<?php echo $username; ?>">
+			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>
-			<input type="hidden" name="fname" value="<?php echo $fname; ?>">
+			<input type="hidden" name="fname" value='.$fname.'>
 			<input type="submit" value="Add Comment to Journal">
 		</form>
 		</div>

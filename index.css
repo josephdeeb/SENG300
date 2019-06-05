@@ -1,0 +1,90 @@
+<html>
+<body>
+<head>
+<style>
+h1 {
+  text-align: center;
+  color: black;
+  left: 150px;
+}
+
+body {
+  background-color: lightblue;
+  text-align: center;
+}
+
+p {
+  font-size: 20px;
+}
+
+img {
+  float: right;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+
+#button input[type=submit] {
+	  width: 20%;
+	  background-color: #8BB6C4;
+	  color: white;
+	  padding: 14px 20px;
+	  margin: 8px 0;
+	  border: none;
+	  border-radius: 4px;
+	  cursor: pointer;
+	}
+#button	input[type=submit]:hover {
+	  width: 20%;
+	  background-color: #7AA5B3;
+	  color: white;
+	  padding: 14px 20px;
+	  margin: 8px 0;
+	  border: none;
+	  border-radius: 4px;
+	  cursor: pointer;
+	}
+input[type=text], select {
+  padding: 4px 4px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password], select {
+  padding: 4px 4px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+</style>
+</head>
+
+<body>
+<h1>Software Engineering Journal Review <img src="book.gif" align="right"></h1>
+<br><br>
+<div id="button">
+<form action="login.php" method="post">
+	Login<br>
+	User ID: <input type="text" name="id"><br>
+	Password: <input type="password" name="password"><br>
+	<input type="submit" value="Login">
+</form>
+<br><br>
+<p>
+   Want to have your academic journal reviewed?<br>
+   Want to review others' academic journals?<br>
+</p>
+
+<form action="regFront.php" method="post">
+   Register Here<br>
+   <input type="submit" value="Register">
+</form>
+</div>
+
+</body>
+</html>

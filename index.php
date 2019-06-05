@@ -19,7 +19,6 @@ if(!empty($_POST["registered"])){
 }
 ?>
 
-<div class="test" id="button">
 <form action="\SENG300\login.php" method="post">
 	<!--Login<br>-->
 	<div class="username">
@@ -34,7 +33,7 @@ if(!empty($_POST["registered"])){
 </form>
 <br><br>
 	<div class="askMessage">
-	<p>Want to have your academic asdfasdf journal reviewed?<br> Want to review others' academic journals?<br> </p>
+	<p>Want to have your academic journal reviewed?<br> Want to review others' academic journals?<br> </p>
 	<hr width="300px"/>
 	</div>
 	<div class="register">

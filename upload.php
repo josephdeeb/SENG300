@@ -16,7 +16,8 @@ Post inputs:
 	npref(1-3)	- the non-preferred reviewers of the submitting user
 	resub		- a variable indicating if the file being uploaded is a revised version or not
 
----><html>
+--->
+<html>
 <body>
 
 <?php
@@ -164,6 +165,7 @@ Post inputs:
 				echo "<p>Sorry, file already exists.</p>";
 				$uploadOk = 0;
 			}
+			
 		}else{
 			$fname = $_POST["fname"];
 			$query = "SELECT * FROM journals WHERE name = '$fname'";
@@ -199,8 +201,10 @@ Post inputs:
 		// if everything is ok, try to upload file
 		} else {
 			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target)) {
-				mysqli_query($con,$query1);
-				mysqli_query($con,$query2);
+				if(isset($_POST["resub"])){
+					mysqli_query($con,$query1);
+					mysqli_query($con,$query2);
+				}
 				
 				// successful file upload
 				echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
