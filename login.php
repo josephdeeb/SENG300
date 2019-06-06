@@ -232,6 +232,8 @@ Post inputs:
 	  // give editor options
 	  echo '
 		<form action="viewUnassignedJournals.php" method="post">
+          <input type="hidden" name="username" value='.$username.'>
+          <input type="hidden" name="lgdin" value=1>
 		  <input type="submit" value="View Submitted Journals">
 		</form>
 		<form action="complete.php" method="post">
