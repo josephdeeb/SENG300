@@ -42,7 +42,8 @@ Post inputs:
 	$username = $_POST["username"];
 	$lgdin = $_POST["lgdin"];
 	$fname = $_POST["fname"];
-	$sub = $_POST["subName"];
+	$submitter = $_POST["submitter"];
+	$reviewer = $_POST["reviewer"];
 	
 	// add comment to db
 	if(isset($_POST["comment"]) and $_POST["comment"] != ""){
@@ -140,6 +141,9 @@ Post inputs:
 			</div>
 		';
 	}
+	if($reviewer != ""){
+		$submitter = "";
+	}
 	// Close the mysql connectiion
     mysqli_close($con);
 ?>
@@ -148,7 +152,8 @@ Post inputs:
 <div id="button">
 <form action="complete.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
-	<input type="hidden" name="submitter" value="<?php echo $sub; ?>">
+	<input type="hidden" name="submitter" value="<?php echo $submitter; ?>">
+	<input type="hidden" name="reviewer" value="<?php echo $reviewer; ?>">
     <input type="hidden" name="lgdin" value=1>
 	<input type="submit" value="Return to Journals to Completed Journals Page">
 </form>

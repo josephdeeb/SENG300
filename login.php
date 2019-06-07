@@ -232,15 +232,9 @@ Post inputs:
 	  // give editor options
 	  echo '
 		<form action="viewUnassignedJournals.php" method="post">
-<<<<<<< HEAD
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>		
 			<input type="submit" value="View Submitted Journals">
-=======
-          <input type="hidden" name="username" value='.$username.'>
-          <input type="hidden" name="lgdin" value=1>
-		  <input type="submit" value="View Submitted Journals">
->>>>>>> master
 		</form>
 		<form action="complete.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>

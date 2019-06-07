@@ -64,12 +64,14 @@ Post inputs:
 
 	
 	if(isset($_POST["submitter"]) and $_POST["submitter"] != ""){
-		$sub = $_POST["submitter"];
-		$query = "SELECT * FROM journals WHERE submitter='$sub'";
+		$submitter = $_POST["submitter"];
+		$reviewer = "";
+		$query = "SELECT * FROM journals WHERE submitter='$submitter'";
 		$skip = 0;
 	}else if(isset($_POST["reviewer"]) and $_POST["reviewer"] != ""){
-		$rev = $_POST["reviewer"];
-		$query = "SELECT * FROM journals, reviewers WHERE reviewer='$rev' and journalName=name";
+		$reviewer = $_POST["reviewer"];
+		$submitter = "";
+		$query = "SELECT * FROM journals, reviewers WHERE reviewer='$reviewer' and journalName=name";
 		$skip = 0;
 	}else{
 		echo "<p>Please select which journals you wish to view.</p>";
@@ -104,8 +106,11 @@ Post inputs:
 		$result = mysqli_query($con, $query);
 		
 		if (mysqli_num_rows($result)>0) {
-			echo '<p>Journals</p>
-			';
+			if($submitter == ""){
+				echo "<p>Journals Reviewed by $reviewer</p>";				/////////////////////////////(change to name)
+			}else if($reviewer == ""){
+				echo "<p>Journals Submitted by $submitter</p>";				/////////////////////////////(change to name)
+			}
 			// The button starts at <div id="sortButton"> and ends at </div>
 			// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
 			// <input type="hidden" means that what we're about to add to the post isn't actually visible to the user.  name="username" is the variable name we're posting, value is the value of that variable that we post.
@@ -117,6 +122,8 @@ Post inputs:
 						<form action="complete.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="lgdin" value=1>			
+							<input type="hidden" name="submitter" value='.$submitter.'>
+							<input type="hidden" name="reviewer" value='.$reviewer.'>
 							<input type="submit" value="Journal Name">
 						</form>
 						</div>
@@ -127,6 +134,8 @@ Post inputs:
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="sortByCol" value=1>
 							<input type="hidden" name="lgdin" value=1>			
+							<input type="hidden" name="submitter" value='.$submitter.'>
+							<input type="hidden" name="reviewer" value='.$reviewer.'>
 							<input type="submit" value="Submitter">
 						</form>
 						</div>
@@ -137,6 +146,8 @@ Post inputs:
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="sortByCol" value=2>
 							<input type="hidden" name="lgdin" value=1>
+							<input type="hidden" name="submitter" value='.$submitter.'>
+							<input type="hidden" name="reviewer" value='.$reviewer.'>
 							<input type="submit" value="Submission Date">
 						</form>
 						</div>
@@ -158,7 +169,8 @@ Post inputs:
 								<input type="hidden" name="username" value='.$username.'>
 								<input type="hidden" name="lgdin" value=1>
 								<input type="hidden" name="fname" value='.$row["name"].'>
-								<input type="hidden" name="subName" value='.$row["submitter"].'>
+								<input type="hidden" name="submitter" value='.$row["submitter"].'>
+								<input type="hidden" name="reviewer" value='.$reviewer.'>
 								<input type="submit" value="View Journal">
 							</form>
 							</div>
@@ -175,24 +187,24 @@ Post inputs:
 		}
 	}
 		// submit journal
-	echo '  <form action="complete.php" method="post" enctype="multipart/form-data">
+	echo '  <form action="complete.php" method="post" enctype="multipart/form-data" required>
 				Submitters: <select name="submitter">
 										';
-	$query = "SELECT * FROM users WHERE type = 1";
+	$query = "SELECT * FROM users WHERE type = 1 or type = 2 ORDER BY lastName";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Submitter</option>';
 	while($row = mysqli_fetch_array($result)){			
-		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '								<option value='.$row["userName"].'>'. $row["lastName"]. ', '.$row["firstName"]. '</option>';
 	}
 	echo ' </select>
 		   <br>
 				Reviewers: <select name="reviewer">
 										';
-	$query = "SELECT * FROM users WHERE type = 2";
+	$query = "SELECT * FROM users WHERE type = 2 ORDER BY lastName";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
-		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '								<option value='.$row["userName"].'>'. $row["lastName"]. ', '.$row["firstName"]. '</option>';
 	}
 	echo ' </select>
 		   <br>';
