@@ -40,8 +40,6 @@ Post inputs:
 	// end verify
     
     $query = "SELECT * FROM journals WHERE NOT EXISTS (SELECT * FROM reviewers WHERE name = journalName)";
-<<<<<<< HEAD
-=======
     
     // Check if sortRow was posted
     if (isset($_POST["sortRow"])) {
@@ -58,7 +56,6 @@ Post inputs:
     } else if ($sortRow == 2) {
         $query = $query." ORDER BY submissionDateTime";
     }
->>>>>>> master
     
     $result = mysqli_query($con, $query);
     
@@ -90,10 +87,6 @@ Post inputs:
                     <form action="viewUnassignedJournals.php" method="post">
                         <input type="hidden" name="username" value='.$username.'>
                         <input type="hidden" name="lgdin" value=1>
-<<<<<<< HEAD
-                        <input type="submit" value="Journal Name"';
-        
-=======
                         <input type="hidden" name="sortRow" value=2>
                         <input type="submit" value="Submission Date">
                     </form>
@@ -123,7 +116,6 @@ Post inputs:
                     </td>
                     </tr>';
         }
->>>>>>> master
         echo '</table>';
     }
     
