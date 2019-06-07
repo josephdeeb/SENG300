@@ -42,40 +42,24 @@ Post inputs:
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		die();
 	}
-    
-    // Taken from https://www.php.net/manual/en/function.readfile.php
-	// This piece of code downloads a file if a fileName is posted
-	//  - Called from this page
-    if (isset($_POST["fileName"])) {
-        $fileName = $_POST["fileName"];
-		$file = "journals\\".$fileName;
-		if(file_exists($file)){
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($file).'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($file));
-            readfile($file);
-		}
-        echo 'ERROR: FILE NOT FOUND';
-    }
 
-	
+
 	if(isset($_POST["submitter"]) and $_POST["submitter"] != ""){
 		$submitter = $_POST["submitter"];
 		$reviewer = "";
-		$query = "SELECT * FROM journals WHERE submitter='$submitter'";
+		$query = "SELECT * FROM journals WHERE submitter='$submitter' AND status <> 0";
 		$skip = 0;
 	}else if(isset($_POST["reviewer"]) and $_POST["reviewer"] != ""){
 		$reviewer = $_POST["reviewer"];
 		$submitter = "";
-		$query = "SELECT * FROM journals, reviewers WHERE reviewer='$reviewer' and journalName=name";
+		$query = "SELECT * FROM journals, reviewers WHERE reviewer='$reviewer' AND journalName=name AND status <> 0";
 		$skip = 0;
 	}else{
-		echo "<p>Please select which journals you wish to view.</p>";
-		$skip = 1;
+		$submitter = "";
+		$reviewer = "";
+		$query = "SELECT * FROM journals WHERE status <> 0";
+//		echo "<p>Please select which journals you wish to view.</p>";
+		$skip = 0;
 	}
 	
 	if(!$skip){
@@ -100,6 +84,8 @@ Post inputs:
 				$query = $query." ORDER BY submitter";
 			} else if ($sortByCol == 2) {
 				$query = $query." ORDER BY submissionDateTime";
+			}else if ($sortByCol == 3) {
+				$query = $query." ORDER BY status";
 			}
 		}
 		
@@ -107,9 +93,9 @@ Post inputs:
 		
 		if (mysqli_num_rows($result)>0) {
 			if($submitter == ""){
-				echo "<p>Journals Reviewed by $reviewer</p>";				/////////////////////////////(change to name)
+				echo "<p>Journals Reviewed by $reviewer</p>";
 			}else if($reviewer == ""){
-				echo "<p>Journals Submitted by $submitter</p>";				/////////////////////////////(change to name)
+				echo "<p>Journals Submitted by $submitter</p>";
 			}
 			// The button starts at <div id="sortButton"> and ends at </div>
 			// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
@@ -153,16 +139,41 @@ Post inputs:
 						</div>
 					</th>
 					<th>
+						<div id="sortButton">
+						<form action="complete.php" method="post">
+							<input type="hidden" name="username" value='.$username.'>
+							<input type="hidden" name="sortByCol" value=3>
+							<input type="hidden" name="lgdin" value=1>
+							<input type="hidden" name="submitter" value='.$submitter.'>
+							<input type="hidden" name="reviewer" value='.$reviewer.'>
+							<input type="submit" value="Status">
+						</form>
+						</div>
+					</th>
+					<th>
 					</th>
 					</tr>';
 			
 			// While we can pull rows from the database given the query we made...
 			while ($row = mysqli_fetch_array($result)) {
+				if($row['status'] == 1){
+					$status = "Reviewers Assigned";
+				}else if($row['status'] == 2){
+					$status = "Major Revisions Required";
+				}else if($row['status'] == 3){
+					$status = "Minor Revisions Required";
+				}else if($row['status'] == 4){
+					$status = "Accepted";
+				}else{
+					$status = "Rejected";					
+				}
+
 				// Show the journalName, submitter, then submissionDateTime, then a button for editing comments, and a button for downloading the journal
 				echo '<tr>
 						<td>'.$row["name"].'</td>
 						<td>'.$row["submitter"].'</td>
 						<td>'.$row["submissionDateTime"].'</td>
+						<td>'.$status.'</td>
 						<td>
 							<div id="button">
 							<form action="editorViewComs.php" method="post">

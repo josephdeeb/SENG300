@@ -178,10 +178,10 @@ Post inputs:
 			}
 
 			// update revision number
-			$query1 = "UPDATE journals SET version = version + 1, status = 0 WHERE name = '$fname'";
+			$query1 = "UPDATE journals SET version = version + 1, status = 1 WHERE name = '$fname'";
 
 			// record revision name
-			$query2 = "INSERT INTO revisions VALUES ('$fname','$target_file','$rev')";
+			$query2 = "INSERT INTO revisions VALUES ('$fname','$target_file','$rev',NOW())";
 			$target = $target_dir."revisions\\".$target_file;
 		}
 		// Check file size
@@ -212,7 +212,7 @@ Post inputs:
 				// add if necessary
 				if(!isset($_POST["resub"])){
 					$target = $target_dir . "\\" . $target_file;
- 					$query = "INSERT INTO journals VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$username','$target',0,0,NOW())";
+ 					$query = "INSERT INTO journals VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$username','$target',0,0,NOW(),0)";
 					mysqli_query($con, $query);
 					if($pref1){
 						$query = "INSERT INTO subprefs VALUES ('".basename( $_FILES["fileToUpload"]["name"])."','$pref1',1)";

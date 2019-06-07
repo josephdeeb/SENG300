@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2019 at 12:57 AM
+-- Generation Time: Jun 08, 2019 at 12:51 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -46,7 +46,12 @@ INSERT INTO `comments` (`journalName`, `reviewer`, `comment`) VALUES
 ('A2.pdf', 'reviewer', 'second comment'),
 ('A2.pdf', 'reviewer', 'this is a long comment to see how the table reacts to a long comment'),
 ('A2.pdf', 'reviewer', 'another comment'),
-('report.pdf', 'ben', 'do more better');
+('report.pdf', 'ben', 'do more better'),
+('A2.pdf', 'reviewer', 'comment'),
+('A2.pdf', 'reviewer', '6th comment'),
+('report.pdf', 'editor', 'you did better'),
+('report.pdf', 'editor', ' '),
+('report.pdf', 'editor', 'changed my mind');
 
 -- --------------------------------------------------------
 
@@ -60,17 +65,20 @@ CREATE TABLE `journals` (
   `location` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
   `version` int(11) DEFAULT NULL,
-  `submissionDateTime` date NOT NULL
+  `submissionDateTime` date NOT NULL,
+  `deadline` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `journals`
 --
 
-INSERT INTO `journals` (`name`, `submitter`, `location`, `status`, `version`, `submissionDateTime`) VALUES
-('A2.pdf', 'submitter', 'journals\\A2.pdf', 3, 1, '2019-06-03'),
-('A5.pdf', 'reviewer', 'journals\\A5.pdf', 0, 0, '2019-06-03'),
-('report.pdf', 'submitter', 'journals\\report.pdf', 0, 1, '2019-06-03');
+INSERT INTO `journals` (`name`, `submitter`, `location`, `status`, `version`, `submissionDateTime`, `deadline`) VALUES
+('A2.pdf', 'submitter', 'journals\\A2.pdf', 4, 3, '2019-06-03', '0000-00-00'),
+('A5.pdf', 'ben', 'journals\\A5.pdf', 0, 0, '2019-06-03', '0000-00-00'),
+('asg1.pdf', 'reviewer', 'journals\\asg1.pdf', 3, 0, '2019-06-04', '0000-00-00'),
+('CPSC471_Asg1_30041469.pdf', 'reviewer', 'journals\\CPSC471_Asg1_30041469.pdf', 1, 0, '2019-06-04', '0000-00-00'),
+('report.pdf', 'submitter', 'journals\\report.pdf', 5, 1, '2019-06-03', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -89,8 +97,11 @@ CREATE TABLE `reviewers` (
 --
 
 INSERT INTO `reviewers` (`journalName`, `reviewer`, `decision`) VALUES
-('A2.pdf', 'reviewer', 2),
-('report.pdf', 'ben', 0);
+('A2.pdf', 'reviewer', 1),
+('asg1.pdf', 'ben', 2),
+('CPSC471_Asg1_30041469.pdf', 'ben', 1),
+('CPSC471_Asg1_30041469.pdf', 'reviewer', 0),
+('report.pdf', 'ben', 1);
 
 -- --------------------------------------------------------
 
@@ -101,16 +112,19 @@ INSERT INTO `reviewers` (`journalName`, `reviewer`, `decision`) VALUES
 CREATE TABLE `revisions` (
   `originalName` varchar(255) NOT NULL,
   `revisionName` varchar(255) NOT NULL,
-  `version` int(11) NOT NULL
+  `version` int(11) NOT NULL,
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `revisions`
 --
 
-INSERT INTO `revisions` (`originalName`, `revisionName`, `version`) VALUES
-('A2.pdf', 'A2(1).pdf', 1),
-('report.pdf', 'report(1).pdf', 1);
+INSERT INTO `revisions` (`originalName`, `revisionName`, `version`, `date`) VALUES
+('A2.pdf', 'A2(1).pdf', 1, '0000-00-00'),
+('A2.pdf', 'A2(2).pdf', 2, '0000-00-00'),
+('A2.pdf', 'HIPODiagram.pdf', 3, '0000-00-00'),
+('report.pdf', 'report(1).pdf', 1, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -154,6 +168,7 @@ INSERT INTO `users` (`userName`, `password`, `firstName`, `lastName`, `type`) VA
 ('ben', 'password', 'ben', 's', 2),
 ('editor', 'password', 'editor', 'man', 3),
 ('joseph', 'password', 'jo', 'seph', 1),
+('lala', 'password', 'adf', 'sdf', 1),
 ('reviewer', 'password', 'review', 'er', 2),
 ('submitter', 'password', 'sub', 'mitter', 1),
 ('submitter2', 'password', 'syb', 'dfghj', 1);

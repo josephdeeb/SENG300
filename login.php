@@ -188,7 +188,7 @@ Post inputs:
 				if($row['status'] == 0){
 					$status = 'Pending Review';
 				}else if($row['status'] == 1){
-					$status = 'Reviewed';
+					$status = 'Assigned Reviewers';
 				}else if($row['status'] == 2){
 					$status = 'Major Revisions Required';
 				}else if ($row['status'] == 3){
