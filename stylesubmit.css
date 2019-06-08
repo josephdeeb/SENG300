@@ -1,0 +1,101 @@
+body {
+	background-color:cadetblue;
+}
+h1{
+    font-family: Candara;
+    position: absolute;
+    top: 2px;
+    left: 210px;
+}
+input[type=file] {
+    width: 100%;
+    background-color: #9CC7D5;
+    font-family: Gadugi;
+    color: ghostwhite;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.upload {
+    font-family: Gadugi;
+    position: absolute;
+    top: 300px;
+    left: 40%;
+}
+input[type=submit] {
+    width: 100%;
+    background-color: #9CC7D5;
+    font-family: Gadugi;
+    color: ghostwhite;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    width: 100%;
+    background-color: #8BB6C4;
+    font-family: Gadugi;
+    color: ghostwhite;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.preferredd{
+    font-family: Gadugi;
+    position: absolute;
+    top: 300px;/*wtf*/
+    left: 40%;
+}
+.preferred2{
+    font-family: Gadugi;
+    position: absolute;
+    top: 40px;
+    left: 0;
+}
+.preferred3 {
+    font-family: Gadugi;
+    position: absolute;
+    top: 40px;
+    left: 0;
+}
+.Notpreferred1{
+    font-family: Gadugi;
+    position: absolute;
+    top: 40px;
+    left: 0;
+}
+
+.Notpreferred2{
+    font-family: Gadugi;
+    position: absolute;
+    top: 40px;
+    left: 0;
+}
+
+.Notpreferred3{
+    font-family: Gadugi;
+    position: absolute;
+    top: 40px;
+    left: 0;
+}
+.failed {
+    position: absolute;
+    top: 450px;
+    left: 48%;
+}
+.logoutButton{
+    position: absolute;
+    top: -575px;
+    left: 450%;
+}
+.rectangle {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 90px;
+    width: 100%;
+    background-color: ghostwhite;
+}
