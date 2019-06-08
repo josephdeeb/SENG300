@@ -1,11 +1,11 @@
 body {
 	background-color:cadetblue;
 }
-h1{
+h1 {
     font-family: Candara;
-    position: relative;
-    top: 15px;
-    left: 200px;
+    position: absolute;
+    top: 2px;
+    left: 210px;
 }
 div{
     font-family: Gadugi;
