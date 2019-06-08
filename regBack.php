@@ -16,10 +16,15 @@ Post inputs:
 	lname:		- users last name
 	type:		- the type of user (1 = submitter, 2 = reviewer)
 
---->
+-->
 
 <html>
+<head>
+<title>Register</title>
+<link href="styleregback.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
+<div class="rectangle"></div>
 <?php
 	
 	if(empty($_POST["username"]) or empty($_POST["password"]) or empty($_POST["password2"]) or empty($_POST["fname"]) or empty($_POST["lname"])){
@@ -59,19 +64,20 @@ Post inputs:
 
 	$sql = "INSERT INTO users VALUES ('". $username."','".$password."','".$fname."','".$lname."','".$type."')";
 	if (!mysqli_query($con,$sql)){
-		echo	'<p>Error Registering. Please try again.</p>';
+		echo	'<div class="error"><p>Error Registering. Please try again.</p></div>';
 		echo	'<form action="regFront.php" method="post">
-					<input type="submit" value="Try Again">
+					<div class="tryagain"><input type="submit" value="Try Again"></div>
 				</form>';
 	}else{
-		echo '<p>You have registered Successfully.</p>';
+		echo '<div class="successfully"><p>You have registered Successfully.</p></div>';
 	}	  
 mysqli_close($con);
 ?>
 
 <form action="..\index.php" method="post">
-	<input type="submit" value="Return to Main Menu">
+	<div class="returnLoginButton">
+	<input type="submit" value="Return to Login Page">
+	</div>
 </form>	
-
 </body>
 </html>
