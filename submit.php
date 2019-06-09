@@ -16,7 +16,7 @@ Post inputs:
 <html>
 <head>
 <title>Register</title>
-<link href="stylesubmitt.css" type="text/css" rel="stylesheet" />
+<link href="stylesubmit1.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <head>
@@ -49,15 +49,19 @@ Post inputs:
 				<div class="upload">
 				Select Journal to upload:
 				<input type="file" name="fileToUpload" id="fileToUpload" required	><br>
-				</div>
-
-				<!--   The bug stars here :(
-
-				<div class="preferredd">
+				</div> ';
+	
+	$query = "SELECT * FROM users WHERE type = 2";
+	$result = mysqli_query($con,$query);
+	echo '								<option value="">Select a Reviewer</option>';
+	while($row = mysqli_fetch_array($result)){
+		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+	}
+	echo ' </select>
+		   <br>
+				<div class="preferred">
 				Preferred Reviewer 1: <select name="pref1">
 				</div>
-
-				-->
 
 										';
 	$query = "SELECT * FROM users WHERE type = 2";
