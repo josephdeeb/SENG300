@@ -64,9 +64,10 @@ $("#password2").keyup(validate);
 <h1>New Customer Registration</h1>
 
 <form action="regBack.php" method="post">
+	<div class="msg">
     <h2>Want to have your journal reviewed?<br></h2>
     <h2>Register Here<br><hr width="400px" align="left"/><br></h2>
-
+	</div>
 	<div class="checkUsername" id="frmCheckUsername">
 	    <label>Check Username:<br></label>
 		<input name="username" type="text" id="username" class="demoInputBox" onBlur="checkAvailability()" required>*<span id="user-availability-status"></span>    
