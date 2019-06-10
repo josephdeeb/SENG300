@@ -43,7 +43,7 @@ Post inputs:
     // Taken from https://www.php.net/manual/en/function.readfile.php
 	// This piece of code downloads a file if a fileName is posted
 	//  - Called from this page
-    if (isset($_POST["fileName"])) {
+    if(isset($_POST["fileName"])) {
         $fileName = $_POST["fileName"];
 		$original = $_POST["original"];
 		if($original){
@@ -107,8 +107,10 @@ Post inputs:
 
 
 	// display original and all revised versions of the selected journal
-	$query = "SELECT * FROM journals WHERE name='$fname'";
-	echo "<p>All Versions of $fname Submitted by $submitter</p>";
+	$query = "SELECT * FROM users WHERE userName='$submitter'";
+	$result = mysqli_query($con,$query);
+	$row = mysqli_fetch_array($result);
+	echo "<p>All Versions of $fname Submitted by ".$row["firstName"]." ".$row["lastName"]."</p>";
 	echo '<table>
 			<tr>
 				<th>Version</th>
@@ -118,6 +120,7 @@ Post inputs:
 			</tr>
 	';
 	
+	$query = "SELECT * FROM journals WHERE name='$fname'";
 	$result = mysqli_query($con, $query);
 	$row = mysqli_fetch_array($result);
 	echo '<tr>
