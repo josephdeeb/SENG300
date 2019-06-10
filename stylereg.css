@@ -7,10 +7,16 @@ h1{
     top: 2px;
     left: 210px;
 }
-.msg {
+h2 {
     font-family: Candara;
     position: absolute;
     top: 100px;
+    left: 40%;
+}
+h3{
+    font-family: Candara;
+    position: absolute;
+    top: 135px;
     left: 40%;
 }
 input[type=submit] {
@@ -72,13 +78,13 @@ input[type=reset]:hover {
     font-family: Gadugi;
     position: absolute;
     top: 240px;
-    left: 0px;
+    left: 40%;
 }
 .lastName {
     font-family: Gadugi;
     position: absolute;
     top: 240px;
-    left: 200px;
+    left: 50%;
 }
 .col-sm-4 {
     font-family: Gadugi;
