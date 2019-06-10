@@ -1,11 +1,11 @@
-body {
-	background-color:cadetblue;
+body{
+	background-color: cadetblue;
 }
 h1{
     font-family: Candara;
-    position: absolute;
-    top: 2px;
-    left: 210px;
+    position: relative;
+    top: 0px;
+    left: 200px;
 }
 input[type=file] {
     width: 100%;
@@ -20,7 +20,7 @@ input[type=file] {
 .upload {
     font-family: Gadugi;
     position: absolute;
-    top: 300px;
+    top: 100px;
     left: 40%;
 }
 input[type=submit] {
@@ -43,10 +43,23 @@ input[type=submit]:hover {
     border-radius: 4px;
     cursor: pointer;
 }
-.preferredd{
+.list{
+    font-family: Gadugi;
+    position: relative;
+    top: 88px;
+    left: 60%;
+    width: 8%;
+    background-color: #25b7d5;
+    font-family: Gadugi;
+    color: ghostwhite;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 100px;
+}
+.preferred{
     font-family: Gadugi;
     position: absolute;
-    top: 300px;/*wtf*/
+    top: 200px;
     left: 40%;
 }
 .preferred2{
@@ -81,15 +94,25 @@ input[type=submit]:hover {
     top: 40px;
     left: 0;
 }
+.logoutButton{
+    position: absolute;
+    top: -440px;
+    left: 800px;
+}
+.uploadJournal{
+     position: absolute;
+    top: 60px;
+    left: 0px;
+}
+.mainMenu{
+    position: absolute;
+    top: 50px;
+    left: 0px;
+}
 .failed {
     position: absolute;
     top: 450px;
     left: 48%;
-}
-.logoutButton{
-    position: absolute;
-    top: -575px;
-    left: 450%;
 }
 .rectangle {
     position: absolute;

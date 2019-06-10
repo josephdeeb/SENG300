@@ -16,7 +16,7 @@ Post inputs:
 <html>
 <head>
 <title>Register</title>
-<link href="stylesubmit1.css" type="text/css" rel="stylesheet" />
+<link href="stylesubmit.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <head>
@@ -51,16 +51,24 @@ Post inputs:
 				<input type="file" name="fileToUpload" id="fileToUpload" required	><br>
 				</div> ';
 	
+	echo '  <br>
+			<div class="list">
+			<option value="">Available Reviewers:</option>
+			</div>
+										';
 	$query = "SELECT * FROM users WHERE type = 2";
 	$result = mysqli_query($con,$query);
-	echo '								<option value="">Select a Reviewer</option>';
+	
 	while($row = mysqli_fetch_array($result)){
-		echo '								<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+		echo '					<br>
+			<div class="list">
+			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>
+			</div>			';
 	}
 	echo ' </select>
 		   <br>
 				<div class="preferred">
-				Preferred Reviewer 1: <select name="pref1">
+				Your Preferred Reviewer 1: <select name="pref1">
 				</div>
 
 										';
@@ -73,7 +81,7 @@ Post inputs:
 	echo ' </select>
 		   <br>
 				<div class="preferred2">
-				Preferred Reviewer 2: <select name="pref2">
+				Your Preferred Reviewer 2: <select name="pref2">
 				</div>
 										';
 	$query = "SELECT * FROM users WHERE type = 2";
@@ -85,7 +93,7 @@ Post inputs:
 	echo ' </select>
 		   <br>
 				<div class="preferred3">
-				Preferred Reviewer 3: <select name="pref3">
+				Your Preferred Reviewer 3: <select name="pref3">
 				</div>
 										';
 	$query = "SELECT * FROM users WHERE type = 2";
@@ -131,6 +139,7 @@ Post inputs:
 		   <br>';
 	echo '	<input type="hidden" name="username" value ='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
+				<div class="uploadJournal">
 				<input type="submit" value="Upload Journal">
 			</form>
 			
@@ -141,6 +150,7 @@ Post inputs:
 <form action="login.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
     <input type="hidden" name="lgdin" value=1>
+	<div class="mainMenu">
 	<input type="submit" value="Return to Main Menu">
 </form>
 </div>
