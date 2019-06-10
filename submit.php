@@ -12,11 +12,16 @@ Post inputs:
 	username	- username of logged in user
 	lgdin		- posted when logged in user is returning to main menu
 
---->
+-->
 <html>
+<head>
+<title>Register</title>
+<link href="stylesubmit.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
 <head>
-<h1>Submit Journal Page</h1>
+<div class="rectangle"></div>
+<h1>Submit Journal</h1>
 <?php
 	if(!isset($_POST["username"]) or !isset($_POST["lgdin"])){
 	  echo "<p>Please Login</p>";
@@ -31,7 +36,6 @@ Post inputs:
 	
 		// Create connection
 	$con = mysqli_connect("localhost","seng300","seng300Spr2019", "seng300");
-
 	// Check connection
 	if (mysqli_connect_errno($con)){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -42,9 +46,31 @@ Post inputs:
 	
 	// submit journal
 	echo '  <form action="upload.php" method="post" enctype="multipart/form-data">
+				<div class="upload">
 				Select Journal to upload:
 				<input type="file" name="fileToUpload" id="fileToUpload" required	><br>
-				Preferred Reviewer 1: <select name="pref1">
+				</div> ';
+	
+	echo '  <br>
+			<div class="list">
+			<option value="">Available Reviewers:</option>
+			</div>
+										';
+	$query = "SELECT * FROM users WHERE type = 2";
+	$result = mysqli_query($con,$query);
+	
+	while($row = mysqli_fetch_array($result)){
+		echo '					<br>
+			<div class="list">
+			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>
+			</div>			';
+	}
+	echo ' </select>
+		   <br>
+				<div class="preferred">
+				Your Preferred Reviewer 1: <select name="pref1">
+				</div>
+
 										';
 	$query = "SELECT * FROM users WHERE type = 2";
 	$result = mysqli_query($con,$query);
@@ -54,7 +80,9 @@ Post inputs:
 	}
 	echo ' </select>
 		   <br>
-				Preferred Reviewer 2: <select name="pref2">
+				<div class="preferred2">
+				Your Preferred Reviewer 2: <select name="pref2">
+				</div>
 										';
 	$query = "SELECT * FROM users WHERE type = 2";
 	$result = mysqli_query($con,$query);
@@ -64,7 +92,9 @@ Post inputs:
 	}
 	echo ' </select>
 		   <br>
-				Preferred Reviewer 3: <select name="pref3">
+				<div class="preferred3">
+				Your Preferred Reviewer 3: <select name="pref3">
+				</div>
 										';
 	$query = "SELECT * FROM users WHERE type = 2";
 	$result = mysqli_query($con,$query);
@@ -74,8 +104,9 @@ Post inputs:
 	}
 	echo ' </select>
 		   <br>
+				<div class="Notpreferred1">
 				Non-Preferred Reviewer 1: <select name="npref1">
-										';
+				</div>						';
 	$query = "SELECT * FROM users WHERE type = 2";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
@@ -84,8 +115,9 @@ Post inputs:
 	}
 	echo ' </select>
 		   <br>
+				<div class="Notpreferred2">
 				Non-Preferred Reviewer 2: <select name="npref2">
-										';
+				</div>					';
 	$query = "SELECT * FROM users WHERE type = 2";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
@@ -94,8 +126,9 @@ Post inputs:
 	}
 	echo ' </select>
 		   <br>
+				<div class="Notpreferred3">
 				Non-Preferred Reviewer 3: <select name="npref3">
-										';
+				</div>						';
 	$query = "SELECT * FROM users WHERE type = 2";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
@@ -104,28 +137,30 @@ Post inputs:
 	}
 	echo ' </select>
 		   <br>';
-
 	echo '	<input type="hidden" name="username" value ='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
+				<div class="uploadJournal">
 				<input type="submit" value="Upload Journal">
 			</form>
+			
 		 ';
-
 ?>
 
 <div id="button">
 <form action="login.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
     <input type="hidden" name="lgdin" value=1>
+	<div class="mainMenu">
 	<input type="submit" value="Return to Main Menu">
 </form>
 </div>
 <div id="button">
 <form action="../index.php" method="post">
+	<div class="logoutButton">
 	<input type="submit" value="Logout">
+	</div>
 </form>	
 </div>
-
 
 </body>
 </html>
