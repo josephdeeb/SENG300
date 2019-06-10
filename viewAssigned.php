@@ -1,6 +1,6 @@
 <!--
 
-complete.php
+viewAssigned.php
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -47,17 +47,17 @@ Post inputs:
 	if(isset($_POST["submitter"]) and $_POST["submitter"] != ""){
 		$submitter = $_POST["submitter"];
 		$reviewer = "";
-		$query = "SELECT * FROM journals, users WHERE submitter='$submitter' AND status=1 AND submitter=userName AND NOT EXISTS(SELECT * FROM reviewers WHERE name=journalName AND decision=0)";
+		$query = "SELECT * FROM journals, users WHERE submitter='$submitter' AND status=1 AND submitter=userName";
 		$skip = 0;
 	}else if(isset($_POST["reviewer"]) and $_POST["reviewer"] != ""){
 		$reviewer = $_POST["reviewer"];
 		$submitter = "";
-		$query = "SELECT * FROM journals, reviewers, users WHERE reviewer='$reviewer' AND journalName=name AND status=1 AND submitter=userName AND NOT EXISTS(SELECT * FROM reviewers WHERE name=journalName AND decision=0)";
+		$query = "SELECT * FROM journals, reviewers, users WHERE reviewer='$reviewer' AND journalName=name AND status=1";
 		$skip = 0;
 	}else{
 		$submitter = "";
 		$reviewer = "";
-		$query = "SELECT * FROM journals, users WHERE status=1 AND submitter=userName AND NOT EXISTS(SELECT * FROM reviewers WHERE name=journalName AND decision=0)";
+		$query = "SELECT * FROM journals, users WHERE status=1 AND submitter=userName";
 //		echo "<p>Please select which journals you wish to view.</p>";
 		$skip = 0;
 	}
@@ -105,7 +105,7 @@ Post inputs:
 					<tr>
 					<th>
 						<div id="sortButton">
-						<form action="complete.php" method="post">
+						<form action="viewAssigned.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="lgdin" value=1>			
 							<input type="hidden" name="submitter" value='.$submitter.'>
@@ -116,7 +116,7 @@ Post inputs:
 					</th>
 					<th>
 						<div id="sortButton">
-						<form action="complete.php" method="post">
+						<form action="viewAssigned.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="sortByCol" value=1>
 							<input type="hidden" name="lgdin" value=1>			
@@ -128,7 +128,7 @@ Post inputs:
 					</th>
 					<th>
 						<div id="sortButton">
-						<form action="complete.php" method="post">
+						<form action="viewAssigned.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="sortByCol" value=2>
 							<input type="hidden" name="lgdin" value=1>
@@ -140,7 +140,7 @@ Post inputs:
 					</th>
 					<th>
 						<div id="sortButton">
-						<form action="complete.php" method="post">
+						<form action="viewAssigned.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="sortByCol" value=3>
 							<input type="hidden" name="lgdin" value=1>
@@ -182,7 +182,7 @@ Post inputs:
 								<input type="hidden" name="fname" value='.$row["name"].'>
 								<input type="hidden" name="submitter" value='.$row["submitter"].'>
 								<input type="hidden" name="reviewer" value='.$reviewer.'>
-								<input type="hidden" name="returnPage" value=1>
+								<input type="hidden" name="returnPage" value=0>
 								<input type="submit" value="View Journal">
 							</form>
 							</div>
@@ -199,7 +199,7 @@ Post inputs:
 		}
 	}
 		// submit journal
-	echo '  <form action="complete.php" method="post" enctype="multipart/form-data" required>
+	echo '  <form action="viewAssigned.php" method="post" enctype="multipart/form-data" required>
 				Submitters: <select name="submitter">
 										';
 	$query = "SELECT * FROM users WHERE type = 1 or type = 2 ORDER BY lastName";

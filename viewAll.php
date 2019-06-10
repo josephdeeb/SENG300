@@ -1,6 +1,6 @@
 <!--
 
-complete.php
+viewAll.php
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -47,17 +47,17 @@ Post inputs:
 	if(isset($_POST["submitter"]) and $_POST["submitter"] != ""){
 		$submitter = $_POST["submitter"];
 		$reviewer = "";
-		$query = "SELECT * FROM journals, users WHERE submitter='$submitter' AND status=1 AND submitter=userName AND NOT EXISTS(SELECT * FROM reviewers WHERE name=journalName AND decision=0)";
+		$query = "SELECT * FROM journals, users WHERE submitter='$submitter'AND submitter=userName";
 		$skip = 0;
 	}else if(isset($_POST["reviewer"]) and $_POST["reviewer"] != ""){
 		$reviewer = $_POST["reviewer"];
 		$submitter = "";
-		$query = "SELECT * FROM journals, reviewers, users WHERE reviewer='$reviewer' AND journalName=name AND status=1 AND submitter=userName AND NOT EXISTS(SELECT * FROM reviewers WHERE name=journalName AND decision=0)";
+		$query = "SELECT * FROM journals, reviewers, users WHERE reviewer='$reviewer' AND journalName=name";
 		$skip = 0;
 	}else{
 		$submitter = "";
 		$reviewer = "";
-		$query = "SELECT * FROM journals, users WHERE status=1 AND submitter=userName AND NOT EXISTS(SELECT * FROM reviewers WHERE name=journalName AND decision=0)";
+		$query = "SELECT * FROM journals, users WHERE submitter=userName";
 //		echo "<p>Please select which journals you wish to view.</p>";
 		$skip = 0;
 	}
@@ -105,7 +105,7 @@ Post inputs:
 					<tr>
 					<th>
 						<div id="sortButton">
-						<form action="complete.php" method="post">
+						<form action="viewAll.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="lgdin" value=1>			
 							<input type="hidden" name="submitter" value='.$submitter.'>
@@ -116,7 +116,7 @@ Post inputs:
 					</th>
 					<th>
 						<div id="sortButton">
-						<form action="complete.php" method="post">
+						<form action="viewAll.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="sortByCol" value=1>
 							<input type="hidden" name="lgdin" value=1>			
@@ -128,7 +128,7 @@ Post inputs:
 					</th>
 					<th>
 						<div id="sortButton">
-						<form action="complete.php" method="post">
+						<form action="viewAll.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="sortByCol" value=2>
 							<input type="hidden" name="lgdin" value=1>
@@ -140,7 +140,7 @@ Post inputs:
 					</th>
 					<th>
 						<div id="sortButton">
-						<form action="complete.php" method="post">
+						<form action="viewAll.php" method="post">
 							<input type="hidden" name="username" value='.$username.'>
 							<input type="hidden" name="sortByCol" value=3>
 							<input type="hidden" name="lgdin" value=1>
@@ -156,7 +156,9 @@ Post inputs:
 			
 			// While we can pull rows from the database given the query we made...
 			while ($row = mysqli_fetch_array($result)) {
-				if($row['status'] == 1){
+				if($row['status'] == 0){
+					$status = "No Reviewers Assigned";
+				}else if($row['status'] == 1){
 					$status = "Reviewers Assigned";
 				}else if($row['status'] == 2){
 					$status = "Major Revisions Required";
@@ -182,14 +184,14 @@ Post inputs:
 								<input type="hidden" name="fname" value='.$row["name"].'>
 								<input type="hidden" name="submitter" value='.$row["submitter"].'>
 								<input type="hidden" name="reviewer" value='.$reviewer.'>
-								<input type="hidden" name="returnPage" value=1>
+								<input type="hidden" name="returnPage" value=2>
 								<input type="submit" value="View Journal">
 							</form>
 							</div>
 						</td>
 						';
 				echo	'</tr>
-				';
+				'; 
 			}
 			echo '</table>
 			';
@@ -199,7 +201,7 @@ Post inputs:
 		}
 	}
 		// submit journal
-	echo '  <form action="complete.php" method="post" enctype="multipart/form-data" required>
+	echo '  <form action="viewAll.php" method="post" enctype="multipart/form-data" required>
 				Submitters: <select name="submitter">
 										';
 	$query = "SELECT * FROM users WHERE type = 1 or type = 2 ORDER BY lastName";
@@ -222,7 +224,7 @@ Post inputs:
 		   <br>';
 		echo '	<input type="hidden" name="username" value='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
-				<input type="submit" value="View Journals">
+				<input type="submit" value="View Selected Journals">
 			</form>
 		 ';
 
