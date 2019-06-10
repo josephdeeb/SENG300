@@ -98,6 +98,13 @@ Post inputs:
 			<input type="submit" value="View Assigned Journals">
 		</form>	
 		</div>
+		<div class="reviewButton">
+		<form action="revPref.php" method="post">
+			<input type="hidden" name="username" value='.$username.'>
+            <input type="hidden" name="lgdin" value=1>
+			<input type="submit" value="Edit Submission Preferences">
+		</form>	
+		</div>
 	  ';
 	}
 	
