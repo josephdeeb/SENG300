@@ -13,7 +13,7 @@ Post inputs:
     fname     	- Filename of the journal being assigned reviewers
 	rev(1-3)	- Reviewers selected to be assigned
 
---->
+---> 
 <html>
 <body>
 
@@ -47,27 +47,27 @@ Post inputs:
 	//
 	//
 	if (!isset($_POST["submitted"])) {
-		$username = $_POST["username"];
-		$fname = $_POST["fname"];
 
-		
 		echo '<form action="assignReviewers.php" method="post" enctype="multipart/form-data">
 				Please select the reviewers for journal '.$fname;
 		
+		//
 		// REVIEWER 1
+		//
 		echo '<br>Reviewer 1: <select name="rev1">';
 		
 		$query = "SELECT * FROM users WHERE type = 2";
 		$result = mysqli_query($con, $query);
 		
-		echo '
-				<option value="">Select a Reviewer</option>';
+		echo '<option value="">Select a Reviewer</option>';
 		while ($row = mysqli_fetch_array($result)) {
 			echo '<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
 		}
 		echo '</select>';
 		
+		//
 		// REVIEWER 2
+		//
 		echo '<br>Reviewer 2: <select name="rev2">';
 		
 		$query = "SELECT * FROM users WHERE type = 2";
@@ -103,6 +103,8 @@ Post inputs:
 		
 		// End reviewer submission stuff
 	}
+	
+	
 	//
 	//
 	// Otherwise, the user has pressed the "assign reviewers" button from this page:
@@ -112,14 +114,49 @@ Post inputs:
 		$rev1 = $_POST["rev1"];
 		$rev2 = $_POST["rev2"];
 		$rev3 = $_POST["rev3"];
+		
+		// If the editor selected no reviewers, make them try again.
 		if ($rev1 == "" and $rev2 == "" and $rev3 == "") {
-			echo 'No reviewers were selected, please try again.';
+			echo 'No reviewers were selected, please try again';
 			echo '<br>
 					<form action="assignReviewers.php" method="post">
 						<input type="hidden" name="username" value='.$username.'>
 						<input type="hidden" name="lgdin" value=1>
 						<input type="hidden" name="fname" value='.$fname.'>
 						<input type="submit" value="Try Again">
+					</form>';
+		}
+		
+		
+		// Otherwise, add reviewers to reviewers table and then set the status of the journal to 1
+		else {
+			// If the first reviewer was selected, add it to reviewers table
+			if ($rev1 != "") {
+				$query = "INSERT INTO reviewers(journalName, reviewer, decision) VALUES ('".$fname."','".$rev1."',0)";
+				mysqli_query($con, $query);
+			}
+			
+			// If the second reviewer was selected, add it to reviewers table
+			if ($rev2 != "" && $rev2 != $rev1) {
+				$query = "INSERT INTO reviewers(journalName, reviewer, decision) VALUES ('".$fname."','".$rev2."',0)";
+				mysqli_query($con, $query);
+			}
+			
+			// If the third reviewer was selected, add it to reviewers table
+			if ($rev3 != "" && $rev3 != $rev1 && $rev3 != $rev2) {
+				$query = "INSERT INTO reviewers(journalName, reviewer, decision) VALUES ('".$fname."','".$rev3."',0)";
+				mysqli_query($con, $query);
+			}
+			
+			// Finally, set status of the journal to 1
+			$query = "UPDATE journals SET status=1 WHERE name='".$fname."'";
+			mysqli_query($con, $query);
+			
+			echo '<br>
+					<form action="login.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="lgdin" value=1>
+						<input type="submit" value="Success!">
 					</form>';
 		}
 		

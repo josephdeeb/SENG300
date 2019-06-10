@@ -39,8 +39,9 @@ Post inputs:
 	}
 	// end verify
     
-    $query = "SELECT * FROM journals WHERE NOT EXISTS (SELECT * FROM reviewers WHERE name = journalName)";
-    
+    //$query = "SELECT * FROM journals WHERE NOT EXISTS (SELECT * FROM reviewers WHERE name = journalName)";
+    $query = "SELECT * FROM journals WHERE status = 0";
+	
     // Check if sortRow was posted
     if (isset($_POST["sortRow"])) {
         $sortRow = $_POST["sortRow"];
