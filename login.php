@@ -80,6 +80,9 @@ Post inputs:
 	}else{
 		echo "<h1>Logged in as an Editor</h1>";
 	}
+	echo '
+<div class="login">';
+
 	//
 	//		REVIEWER options
 	//	
@@ -89,7 +92,7 @@ Post inputs:
 	  // give reviewer options
 	  echo '
 		<div class="reviewHead">
-			<p>Journals to Review</p>
+			<h2>Journals to Review</h2>
 		</div>
 		<div class="reviewButton">
 		<form action="review.php" method="post">
@@ -113,18 +116,16 @@ Post inputs:
 	//		SUBMITTER options
 	//
 	
-	
 	if($type == 1 or $type == 2){
 			// submit button
 	  echo '
-		<div class="submitJournalButton">                  <!--There is a bug here-->
-		<form action="submit.php" method="post">
-			<input type="hidden" name="username" value='.$username.'>
-			<input type="hidden" name="lgdin" value=1>
-			<input type="submit" value="Submit New Journal">
-		</form>	
-		</div>		
-	  ';
+	<div class="submitJournalButton">                  <!--There is a bug here-->
+	<form action="submit.php" method="post">
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="submit" value="Submit New Journal">
+	</form>	
+	</div>';
 			// display journals
 		if(isset($_POST["sortByCol"])){
 			$sortByCol = $_POST["sortByCol"];
@@ -148,49 +149,48 @@ Post inputs:
 		// print journals
 		if(!mysqli_num_rows($result)){
 			echo ' 
-				<div class="emptyJournal"> 
-				You have not submitted any Journals yet
-				</div> 
-			';
+	<div class="reviewHead"> 
+		<h2>You have not submitted any Journals yet</h2>
+	</div>';
 		}else{
-			echo '<p>Your Journals</p>
-			';
-			echo '<table>
-					<tr>
-					<th>
-						<div id="sortButton">
-						<form action="login.php" method="post">
-							<input type="hidden" name="username" value='.$username.'>
-							<input type="hidden" name="sortByCol" value=0>
-							<input type="hidden" name="lgdin" value=1>			
-							<input type="submit" value="Journal Name">
-						</form>
-						</div>
-					</th>
-					<th>
-						<div id="sortButton">
-						<form action="login.php" method="post">
-							<input type="hidden" name="username" value='.$username.'>
-							<input type="hidden" name="sortByCol" value=1>
-							<input type="hidden" name="lgdin" value=1>			
-							<input type="submit" value="Status">
-						</form>
-						</div>
-					</th>
-					<th>
-						<div id="sortButton">
-						<form action="login.php" method="post">
-							<input type="hidden" name="username" value='.$username.'>
-							<input type="hidden" name="sortByCol" value=2>
-							<input type="hidden" name="lgdin" value=1>			
-							<input type="submit" value="Date">
-						</form>
-						</div>
-					</th>
-					<th>
-					</th>
-					</tr>
-					';
+			echo '
+	<h2>Your Journals</h2>';
+			echo '
+	<table>
+		<tr>
+			<th>
+			<div id="sortButton">
+			<form action="login.php" method="post">
+				<input type="hidden" name="username" value='.$username.'>
+				<input type="hidden" name="sortByCol" value=0>
+				<input type="hidden" name="lgdin" value=1>			
+				<input type="submit" value="Journal Name">
+			</form>
+			</div>
+			</th>
+			<th>
+			<div id="sortButton">
+			<form action="login.php" method="post">
+				<input type="hidden" name="username" value='.$username.'>
+				<input type="hidden" name="sortByCol" value=1>
+				<input type="hidden" name="lgdin" value=1>			
+				<input type="submit" value="Status">
+			</form>
+			</div>
+			</th>
+			<th>
+			<div id="sortButton">
+			<form action="login.php" method="post">
+				<input type="hidden" name="username" value='.$username.'>
+				<input type="hidden" name="sortByCol" value=2>
+				<input type="hidden" name="lgdin" value=1>			
+				<input type="submit" value="Date">
+			</form>
+			</div>
+			</th>
+			<th>
+			</th>
+		</tr>';
 			while ($row = mysqli_fetch_array($result)) {
 				if($row['status'] == 0){
 					$status = 'Pending Review';
@@ -205,25 +205,25 @@ Post inputs:
 				}else {
 					$status = 'Rejected';
 				}
-				echo  '<tr>
-					    <td>'.$row["name"].'</td>
-					    <td>'.$status.'</td>
-						<td>'.$row["submissionDateTime"].'</td>
-					    <td>
-							<div id="button">
-							<form action="viewComs.php" method="post">
-								<input type="hidden" name="username" value='.$username.'>
-								<input type="hidden" name="lgdin" value=1>		
-								<input type="hidden" name="fname" value='.$row["name"].'>
-								<input type="submit" value="View Comments">
-							</form>
-							</div>								
-						 </td> 
-					</tr>
-					';
+				echo  '
+		<tr>
+			<td>'.$row["name"].'</td>
+			<td>'.$status.'</td>
+			<td>'.$row["submissionDateTime"].'</td>
+			<td>
+				<div id="button">
+					<form action="viewComs.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="lgdin" value=1>		
+						<input type="hidden" name="fname" value='.$row["name"].'>
+						<input type="submit" value="View Comments">
+					</form>
+				</div>								
+			 </td> 
+		</tr>';
 			}
-			echo '</table>
-			';
+			echo '
+	</table>';
 		}
 	}
 		
@@ -238,38 +238,39 @@ Post inputs:
 	if($type == 3){
 	  // give editor options
 	  echo '
-	  
-		<div class = "options">
-			<form action="viewUnassignedJournals.php" method="post">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="lgdin" value=1>		
-				<input type="submit" value="View Submitted Journals">
-			</form>
-			<form action="viewAssigned.php" method="post">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="lgdin" value=1>		
-				<input type="submit" value="View All Assigned Journals">
-			</form>
-			<form action="complete.php" method="post">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="lgdin" value=1>		
-				<input type="submit" value="View Completed Reviews">
-			</form>
-			<form action="viewAccepted.php" method="post">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="lgdin" value=1>		
-				<input type="submit" value="View Accepted Journals">
-			</form>
-			<form action="viewAll.php" method="post">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="lgdin" value=1>		
-				<input type="submit" value="View All Journals">
-			</form>
-		</div>
-		';
+	<div class = "options">
+		<form action="viewUnassignedJournals.php" method="post">
+			<input type="hidden" name="username" value='.$username.'>
+			<input type="hidden" name="lgdin" value=1>		
+			<input type="submit" value="View Submitted Journals">
+		</form>
+		<form action="viewAssigned.php" method="post">
+			<input type="hidden" name="username" value='.$username.'>
+			<input type="hidden" name="lgdin" value=1>		
+			<input type="submit" value="View All Assigned Journals">
+		</form>
+		<form action="complete.php" method="post">
+			<input type="hidden" name="username" value='.$username.'>
+			<input type="hidden" name="lgdin" value=1>		
+			<input type="submit" value="View Completed Reviews">
+		</form>
+		<form action="viewAccepted.php" method="post">
+			<input type="hidden" name="username" value='.$username.'>
+			<input type="hidden" name="lgdin" value=1>		
+			<input type="submit" value="View Accepted Journals">
+		</form>
+		<form action="viewAll.php" method="post">
+			<input type="hidden" name="username" value='.$username.'>
+			<input type="hidden" name="lgdin" value=1>		
+			<input type="submit" value="View All Journals">
+		</form>
+	</div>';
 	}
+	echo '
+</div>';
 	mysqli_close($con);
 ?>
+
 <form action="..\index.php" method="post">
 	<div class="logoutButton">
 	<input type="submit" value="Logout">

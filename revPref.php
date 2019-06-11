@@ -17,7 +17,7 @@ Post inputs:
 <html>
 <head>
 <title>Register</title>
-<link href="stylesubmit.css" type="text/css" rel="stylesheet" />
+<link href="stylerevpref.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <head>
@@ -134,6 +134,7 @@ Post inputs:
     <input type="hidden" name="lgdin" value=1>
 	<div class="mainMenu">
 	<input type="submit" value="Return to Main Menu">
+	</div>
 </form>
 </div>
 
