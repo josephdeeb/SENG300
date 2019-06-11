@@ -56,7 +56,7 @@ Post inputs:
 			<option value="">Available Reviewers:</option>
 			</div>
 										';
-	$query = "SELECT * FROM users WHERE type = 2";
+	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	
 	while($row = mysqli_fetch_array($result)){
@@ -72,7 +72,7 @@ Post inputs:
 				</div>
 
 										';
-	$query = "SELECT * FROM users WHERE type = 2";
+	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
@@ -84,7 +84,7 @@ Post inputs:
 				Your Preferred Reviewer 2: <select name="pref2">
 				</div>
 										';
-	$query = "SELECT * FROM users WHERE type = 2";
+	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
@@ -96,7 +96,7 @@ Post inputs:
 				Your Preferred Reviewer 3: <select name="pref3">
 				</div>
 										';
-	$query = "SELECT * FROM users WHERE type = 2";
+	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
@@ -107,7 +107,7 @@ Post inputs:
 				<div class="Notpreferred1">
 				Non-Preferred Reviewer 1: <select name="npref1">
 				</div>						';
-	$query = "SELECT * FROM users WHERE type = 2";
+	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
@@ -118,7 +118,7 @@ Post inputs:
 				<div class="Notpreferred2">
 				Non-Preferred Reviewer 2: <select name="npref2">
 				</div>					';
-	$query = "SELECT * FROM users WHERE type = 2";
+	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
@@ -129,7 +129,7 @@ Post inputs:
 				<div class="Notpreferred3">
 				Non-Preferred Reviewer 3: <select name="npref3">
 				</div>						';
-	$query = "SELECT * FROM users WHERE type = 2";
+	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '								<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){

@@ -82,7 +82,7 @@ Post inputs:
 	
 	
 	// Select all rows from journals and reviewers where the journalName == name and the reviewer == the current user
-    $query = "SELECT * FROM journals, reviewers WHERE journalName = name AND reviewer = '$username'";
+    $query = "SELECT * FROM journals, reviewers WHERE journalName = name AND reviewer = '$username' AND (decision=0 or status=1)";
     
 	// If the variable "sortByCol" was posted, 0 == by journalName, 1 by submitter, 2 by submissionDateTime
     if (isset($_POST["sortByCol"])) {

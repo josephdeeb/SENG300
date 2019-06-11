@@ -14,7 +14,6 @@ Post inputs:
 	submitter	- posted if the user wishes to view all journals from a specific submitter
 	reviewer	- posted if the user wishes to view all journals from a specific reviewer
 	sortByCol	- posted if the user wishes to sort the table by a specified column
-	filename	- posted if the user wishes to download a journal
 
 --->
 <html>

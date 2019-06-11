@@ -56,7 +56,7 @@ Post inputs:
 		//
 		echo '<br>Reviewer 1: <select name="rev1">';
 		
-		$query = "SELECT * FROM users WHERE type = 2";
+		$query = "SELECT * FROM users WHERE type = 2 AND NOT EXISTS (SELECT * FROM journals WHERE userName=submitter AND name='$fname')";
 		$result = mysqli_query($con, $query);
 		
 		echo '<option value="">Select a Reviewer</option>';
@@ -70,7 +70,7 @@ Post inputs:
 		//
 		echo '<br>Reviewer 2: <select name="rev2">';
 		
-		$query = "SELECT * FROM users WHERE type = 2";
+		$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 		$result = mysqli_query($con, $query);
 		
 		echo '<br>
@@ -83,7 +83,7 @@ Post inputs:
 		// REVIEWER 3
 		echo '<br>Reviewer 3: <select name="rev3">';
 		
-		$query = "SELECT * FROM users WHERE type = 2";
+		$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 		$result = mysqli_query($con, $query);
 		
 		echo '<br>
@@ -102,6 +102,80 @@ Post inputs:
 			';
 		
 		// End reviewer submission stuff
+		
+		
+		
+		$query = "SELECT * FROM users, subPrefs WHERE journalName='$fname' AND userName=reviewer ORDER BY preferred";
+		$result = mysqli_query($con, $query);
+		if (mysqli_num_rows($result)>0) {
+			$query = "SELECT * FROM users, journals WHERE name='$fname' AND userName=submitter";
+			$result1 = mysqli_query($con, $query);
+			$row = mysqli_fetch_array($result1);
+			echo "<h2>".$row["firstName"]." ".$row["lastName"]."'s Preferred and Non-Preferred Reviewers</h2>";
+
+			echo '
+<table>
+	<tr>
+		<th>Reviewer</th>
+		<th></th>
+	</tr>';
+			
+			// While we can pull rows from the database given the query we made...
+			while ($row = mysqli_fetch_array($result)) {
+				$prefer = "Not Preferred";
+				if($row["preferred"] == 1){
+					$prefer = "Preferred";
+				}
+				
+				echo '
+	<tr>
+		<td>'.$row["firstName"].' '.$row["lastName"].'</td>
+		<td>'.$prefer.'</td>
+	</tr>';
+			}
+			echo '
+</table>';
+		}else{
+			$query = "SELECT * FROM users, journals WHERE name='$fname' AND submitter=userName";
+			$result = mysqli_query($con,$query);
+			$row = mysqli_fetch_array($result);
+			echo "<h2>".$row["firstName"]." ".$row["lastName"]." has not set any preferences</h2>";
+		}
+
+
+
+// Show reviewer preferences
+
+		// get all reviewers
+		$query = "SELECT * FROM users WHERE type=2";
+		$result = mysqli_query($con, $query);
+
+		while ($row = mysqli_fetch_array($result)) {
+			// get preferences of reviewer
+			$query = "SELECT * FROM users, revprefs WHERE reviewer='".$row["userName"]."' AND userName=reviewer";
+			$result1 = mysqli_query($con,$query);
+			if(mysqli_num_rows($result1)>0) {
+				echo "<h2>".$row["firstName"]." ".$row["lastName"]."'s Preferred Submitters</h2>";
+				echo '
+<table>
+	<tr>
+		<th>Submitter</th>
+	</tr>';
+			
+				while($row1 = mysqli_fetch_array($result1)){
+					$query = "SELECT * FROM users WHERE userName='".$row1["submitter"]."'";
+//			echo "query: $query <br>";
+					$result2 = mysqli_query($con,$query);
+					$row2 = mysqli_fetch_array($result2);
+					echo '
+		<tr>
+			<td>'.$row2["firstName"].' '.$row2["lastName"].'</td>
+		</tr>';
+				}
+			echo '
+</table>';
+			}
+		}
 	}
 	
 	

@@ -12,6 +12,7 @@ Post inputs:
 	username	- username of logged in user
 	lgdin		- posted when logged in user is returning to main menu
 	pref(1-3)	- users new preferences
+	
 -->
 <html>
 <head>

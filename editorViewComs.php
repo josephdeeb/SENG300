@@ -1,11 +1,11 @@
 <!--
 
-viewUserComs.php
+editorViewComs.php
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-This page is for reviewers to view the comments that they have made on the selected journal.
-Reviewers are also given a text box to submit new comments on the journal as well as buttons to accept or reject the journal.
+This page is for editors to view the comments that have been made on the selected journal.
+Editors can ask for revisions or make their final decision for the journal.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 Post inputs:
@@ -14,7 +14,9 @@ Post inputs:
 	fname		- the filename of the journal the user wishes to view the comments for
 	comment		- the comment submitted by the reviewer
 	sortByCol	- posted if the user wishes to sort the table by a specified column
-
+	filename	- the filename of the file the editor would like to downloading
+	original	- whether the file was the original submission or a revision
+	
 --->
 <html>
 <body>
@@ -278,9 +280,9 @@ Post inputs:
 		<th>Last Name</th>
 		<th></th>
 	</tr>";
-		$query = "SELECT * FROM users, reviewers, journals WHERE submitter = '$submitter' AND userName = submitter AND name = journalName AND name = '$fname' AND decision = 0";
+		$query = "SELECT * FROM users, reviewers, journals WHERE userName = reviewer AND name = journalName AND name = '$fname' AND decision = 0";
 		$result = mysqli_query($con,$query);
-		echo "num rows: ".mysqli_num_rows($result);
+//		echo "num rows: ".mysqli_num_rows($result);
 		while ($row = mysqli_fetch_array($result)) {
 			echo  "
 	<tr>
