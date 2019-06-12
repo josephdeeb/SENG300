@@ -248,21 +248,29 @@ Post inputs:
 			<input type="hidden" name="lgdin" value=1>		
 			<input type="submit" value="View Submitted Journals">
 		</form>
+	</div>
+	<div class = "options">
 		<form action="viewAssigned.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>		
 			<input type="submit" value="View All Assigned Journals">
 		</form>
+	</div>
+	<div class = "options">
 		<form action="complete.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>		
 			<input type="submit" value="View Completed Reviews">
 		</form>
+	</div>
+	<div class = "options">
 		<form action="viewAccepted.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>		
 			<input type="submit" value="View Accepted Journals">
 		</form>
+	</div>
+	<div class = "options">
 		<form action="viewAll.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>		
