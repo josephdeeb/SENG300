@@ -72,13 +72,13 @@ input[type=reset]:hover {
     font-family: Gadugi;
     position: absolute;
     top: 240px;
-    left: 40%;
+    left: 0;
 }
 .lastName {
     font-family: Gadugi;
     position: absolute;
     top: 240px;
-    left: 50%;
+    left: 240px;
 }
 .col-sm-4 {
     font-family: Gadugi;
