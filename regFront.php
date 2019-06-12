@@ -65,8 +65,8 @@ $("#password2").keyup(validate);
 
 <form action="regBack.php" method="post">
 	<div class="msg">
-    <h2>Want to have your journal reviewed?<br></h2>
-    <h2>Register Here<br><hr width="400px" align="left"/><br></h2>
+		<h2>Want to have your journal reviewed?<br></h2>
+		<h2>Register Here<br><hr width="400px" align="left"/><br></h2>
 	</div>
 	<div class="checkUsername" id="frmCheckUsername">
 	    <label>Check Username:<br></label>
@@ -87,27 +87,27 @@ $("#password2").keyup(validate);
 		<div id="msg"></div>
 	</div>
 	<div class="names">
-	<div class="firstName">
-    Enter First Name:<br>
-    <input type="text" name="fname" required>*<br>
-	</div>
-	<div class="lastName">
-    Enter Last Name:<br>
-    <input type="text" name="lname" required>*<br>
-	</div>
+		<div class="firstName">
+			Enter First Name:<br>
+			<input type="text" name="fname" required>*<br>
+		</div>
+		<div class="lastName">
+			Enter Last Name:<br>
+			<input type="text" name="lname" required>*<br>
+		</div>
 	</div>
 	<div class="chooseUser">
-	Choose What Type of User You Are:<br>
-    <input type="radio" name="type" value=1 required> Submitter<br>
-    <input type="radio" name="type" value=2> Reviewer<br>
-    <input type="reset">
-    <input id="submit-button" type="submit" value="Submit">
+		Choose What Type of User You Are:<br>
+		<input type="radio" name="type" value=1 required> Submitter<br>
+		<input type="radio" name="type" value=2> Reviewer<br>
+		<input type="reset">
+		<input id="submit-button" type="submit" value="Submit">
 	</div>
 
 </form>
 <form action="..\index.php" method="post">
 	<div class="returnLoginButton">
-	<input type="submit" value="Return to Login Page">
+		<input type="submit" value="Return to Login Page">
 	</div>
 </form>	
 </body>

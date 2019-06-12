@@ -9,13 +9,34 @@ h1 {
 }
 .journals {
     font-family: Gadugi;
-    height: 0;
-    width: 100%;
     display: flex;
     position: fixed;
     align-items: center;
     justify-content: center;
-    top: 30%;
+}
+table {
+	position: absolute;
+	top: 100px;
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 4px;
+}
+tr {
+	background-color: #7eb0b3;	
+}
+tr:hover {
+	background-color: #558e90;
+}
+th {
+	padding: 3px;
+	border-bottom: 1px solid ghostwhite;
+	vertical-align: center;
+}
+td {
+	padding: 3px;
+    font-family: Gadugi;
+	color: ghostwhite;
+	border-bottom: 1px solid #ddd;
 }
 
 input[type=submit] {
