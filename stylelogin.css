@@ -1,15 +1,15 @@
 body{
 	background-color: cadetblue;
 }
-h1{
+h1 {
     font-family: Candara;
     position: absolute;
-    top: 15px;
-    left: 200px;
+    top: 2px;
+    left: 210px;
 }
 h2 {
     font-family: Candara;
-    position: relative;
+    position: absolute;
 }
 p {
     font-family: Gadugi;
@@ -43,7 +43,7 @@ td {
 	border-bottom: 1px solid #ddd;
 }
 input[type=submit] {
-	width: 100%;
+	width: 200px;
 	background-color: #9CC7D5;
     font-family: Gadugi;
 	color: ghostwhite;
@@ -53,7 +53,7 @@ input[type=submit] {
 	cursor: pointer;
 }
 input[type=submit]:hover {
-	width: 100%;
+	width: 200px;
 	background-color: #8BB6C4;
     font-family: Gadugi;
 	color: ghostwhite;
@@ -63,52 +63,92 @@ input[type=submit]:hover {
 	cursor: pointer;
 }
 .login {
-	position: relative;
-	top: 20%;
+    position: relative;
+    top: 20%;
+    z-index: 10;
 }
+
+/*------------------------------Subject to change--------------------------*/
 .reviewHead {
-    font-family: Gadugi;
-    width: 200px;
-<!--    height: 0px;--->
-    position: relative;
-    top: 0%;
-	bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+    height: 0;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 15%;
+    left: -0.0%;
 }
-.reviewButton {
+.emptyJournals {
     font-family: Gadugi;
-    width: 15%;
-    position: relative;
-    left: 0;
-    right: 0;
-    margin: auto;
+    height: 50%;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
 }
-.emptyJournal {
-    font-family: Gadugi;
-    position: relative;
-	width: 50%;
-    margin: auto;
+.editPreferenceButton {
+    
+    /*
+    height: 40%;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 17;*/
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+.assignedJourButton {
+    
 }
 .submitJournalButton {
-    width: 13%;
-    height: 100px;
-    position: relative;
-    left: 0px;
-    right: 0px;
-    margin: auto;
+    display: flex;
+    justify-content: center;
+   
+   
 }
+/*------------------------------------------------------*/
 .options{
     position: relative;
     width: 99%;
 }
 .logoutButton {
     position: absolute;
-    top: 14px;
-    right: 140px;
+    top: 25px;
+    right: 5%;
 }
-
+.returnToLogin {
+    position: absolute;
+    top: 25px;
+    right: 5%;
+}
+.pleaseLogin {
+    font-family: Gadugi;
+    left: 0;
+    line-height: 200px;
+    margin: auto;
+    margin-top: -100px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+.loginFailed {
+    font-family: Gadugi;
+    left: 0;
+    line-height: 200px;
+    margin: auto;
+    margin-top: -100px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
 .rectangle {
     position: absolute;
     top: 0px;
