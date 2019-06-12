@@ -86,6 +86,7 @@ $("#password2").keyup(validate);
 		</div>
 		<div id="msg"></div>
 	</div>
+	<div class="names">
 	<div class="firstName">
     Enter First Name:<br>
     <input type="text" name="fname" required>*<br>
@@ -93,6 +94,7 @@ $("#password2").keyup(validate);
 	<div class="lastName">
     Enter Last Name:<br>
     <input type="text" name="lname" required>*<br>
+	</div>
 	</div>
 	<div class="chooseUser">
 	Choose What Type of User You Are:<br>
