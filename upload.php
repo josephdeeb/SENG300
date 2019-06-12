@@ -16,16 +16,20 @@ Post inputs:
 	npref(1-3)	- the non-preferred reviewers of the submitting user
 	resub		- a variable indicating if the file being uploaded is a revised version or not
 
---->
+-->
 <html>
+<head>
+<title>Upload</title>
+<link href="styleupload.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
-
+<div class="rectangle"></div>
 <?php
 	if(!isset($_POST["lgdin"]) or !isset($_POST["username"])){
-	  echo "<p>Please Login</p>";
-	  echo '<form action="index.php" method="post">
+	  echo '<div class="pleaseLogin"><p>Please Login</p></div>';
+	  echo '<div class="buttons"><form action="index.php" method="post">
 			  <input type="submit" value="Return to Login Page">
-			</form>	
+			</form>	</div>
 	  ';
 	  die();
 	}
@@ -152,7 +156,7 @@ Post inputs:
 		if($check !== false) {
 			$uploadOk = 1;
 		} else {
-			echo "<p>File is not a PDF.</p>";
+			echo '<div class="errorMsg"><p>File is not a PDF.</p></div>';
 			$uploadOk = 0;
 		}
 		
@@ -162,7 +166,7 @@ Post inputs:
 		if(!isset($_POST["resub"])){
 			// Check if file already exists
 			if(file_exists($target)) {
-				echo "<p>Sorry, file already exists.</p>";
+				echo '<div class="fileExists"><p>Sorry, file already exists.</p></div>';
 				$uploadOk = 0;
 			}
 		}else{
@@ -186,17 +190,17 @@ Post inputs:
 		}
 		// Check file size
 		if ($_FILES["fileToUpload"]["size"] > 500000) {
-			echo "<p>Sorry, your file is too large.</p>";
+			echo '<div class="fileTooLarge"><p>Sorry, your file is too large.</p></div>';
 			$uploadOk = 0;
 		}
 		// Allow certain file formats
 		if($fileType != "pdf") {
-			echo "<p>Sorry, only PDF files are allowed.</p>";
+			echo '<div class="pdfOnly"><p>Sorry, only PDF files are allowed.</p></div>';
 			$uploadOk = 0;
 		}
 		// Check if $uploadOk is set to 0 by an error
 		if ($uploadOk == 0) {
-			echo "<p>Sorry, your file was not uploaded.</p>";
+			echo '<div class="fileNotUploaded"><p>Sorry, your file was not uploaded.</p></div>';
 		// if everything is ok, try to upload file
 		} else {
 			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target)) {
@@ -205,9 +209,13 @@ Post inputs:
 					mysqli_query($con,$query2);
 				}
 				
-				// successful file upload
-				echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+				// --------------------------------------------successful file upload-----------------------------
+
+
+				echo '<div class="successfulUpload">The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</div>';
 				
+
+				// ------------------------------------------------------------------------------------------------
 				// insert revisions into journal table
 				// add if necessary
 				if(!isset($_POST["resub"])){
@@ -240,29 +248,29 @@ Post inputs:
 					}
 				}
 			}else{
-				echo "<p>Sorry, there was an error uploading your file.</p>";
+				echo '<div class="errorMsg"><p>Sorry, there was an error uploading your file.</p></div>';
 			}
 		}
 	}else{
-		echo "<p>Your file was not uploaded</p>";
+		echo '<div class="fileNotUploaded"><p>Your file was not uploaded</p></div>';
 	}
 
 	mysqli_close($con);
 ?>
-
-<div id="button">
+<div class="buttons">
+<div class="returnMenuButton" id="button">
 <form action="login.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
 	<input type="hidden" name="lgdin" value=1>			
 	<input type="submit" value="Return to Main Menu">
 </form>
 </div>
-<div id="button">
+<div class="logoutButton" id="button">
 <form action="index.php" method="post">
 	<input type="submit" value="Logout">
 </form>	
 </div>
-
+</div>
 
 </body>
 </html>
