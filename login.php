@@ -24,10 +24,10 @@ Post inputs:
 <?php
 	if(!isset($_POST["lgdin"])){
 		if(!isset($_POST["username"]) or !isset($_POST["password"])){
-		  echo "<p>Please Login</p>";
-		  echo '<form action="..\index.php" method="post">
+		  echo '<div class="pleaseLogin"><p>Please Login</p></div>';
+		  echo '<div class="returnToLogin"><form action="..\index.php" method="post">
 				  <input type="submit" value="Return to Login Page">
-                </form>	
+                </form>	</div>
 		  ';
 		  die();
 		}
@@ -46,10 +46,10 @@ Post inputs:
 		$query = "SELECT password FROM users WHERE userName = '$username'";
 		$pw = mysqli_query($con, $query);
 		if(!$pw){
-		  echo "<p>Please Login</p>";
-		  echo '<form action="..\index.php" method="post">
+		  echo '<div class="pleaseLogin"><p>Please Login</p></div>';
+		  echo '<div class="returnToLogin"><form action="..\index.php" method="post">
 				  <input type="submit" value="Return to Login Page">
-				</form>	
+				</form>	 </div>
 		  ';
 		  die();
 		}else{
@@ -59,10 +59,10 @@ Post inputs:
 		if(strcmp($row['password'], $password) == 0){
 		  //echo "login successful<br>";
 		}else{
-		  echo "<p>login failed </p>";
-		  echo '<form action="..\index.php" method="post">
+		  echo '<div class="loginFailed"><p>Login failed </p></div>';
+		  echo '<div class="returnToLogin"><form action="..\index.php" method="post">
 				  <input type="submit" value="Return to Login Page">
-				</form>	
+				</form>	</div>
 		  ';
 		  die();
 		}
@@ -74,7 +74,7 @@ Post inputs:
 	$sql = mysqli_query($con,$query);
 	$type = $sql->fetch_assoc()['type'];
 	if($type == 1){
-		echo "<h1>Logged in as a Submitter</h1>";
+		echo "<h1>Logged in as an Author</h1>";
 	}else if($type == 2){
 		echo "<h1>Logged in as a Reviewer</h1>";
 	}else{
@@ -94,19 +94,23 @@ Post inputs:
 		<div class="reviewHead">
 			<h2>Journals to Review</h2>
 		</div>
-		<div class="reviewButton">
+		<div class="buttons">
+		<div class="assignedJourButton">
 		<form action="review.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>
             <input type="hidden" name="lgdin" value=1>
 			<input type="submit" value="View Assigned Journals">
 		</form>	
 		</div>
-		<div class="reviewButton">
+		</div>
+		<div class="buttons">
+		<div class="editPreferenceButton">
 		<form action="revPref.php" method="post">
 			<input type="hidden" name="username" value='.$username.'>
             <input type="hidden" name="lgdin" value=1>
 			<input type="submit" value="Edit Submission Preferences">
 		</form>	
+		</div>
 		</div>
 	  ';
 	}
@@ -119,7 +123,7 @@ Post inputs:
 	if($type == 1 or $type == 2){
 			// submit button
 	  echo '
-	<div class="submitJournalButton">                  <!--There is a bug here-->
+	<div class="submitJournalButton">                 
 	<form action="submit.php" method="post">
 		<input type="hidden" name="username" value='.$username.'>
 		<input type="hidden" name="lgdin" value=1>
@@ -149,8 +153,8 @@ Post inputs:
 		// print journals
 		if(!mysqli_num_rows($result)){
 			echo ' 
-	<div class="reviewHead"> 
-		<h2>You have not submitted any Journals yet</h2>
+	<div class="emptyJournals"> 
+		You have not submitted any Journals yet
 	</div>';
 		}else{
 			echo '
