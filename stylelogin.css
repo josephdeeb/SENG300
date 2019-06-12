@@ -115,9 +115,9 @@ input[type=submit]:hover {
    
 }
 /*------------------------------------------------------*/
-.options{
-    position: relative;
-    width: 99%;
+.options {
+    display: flex;
+    justify-content: center;
 }
 .logoutButton {
     position: absolute;
