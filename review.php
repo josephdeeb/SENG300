@@ -15,18 +15,22 @@ Post inputs:
 	fname		- the filename of the journal the user wishes to view the comments for
 	sortByCol	- posted if the user wishes to sort the table by a specified column
 
---->
+-->
 <html>
+<head>
+<title>Review</title>
+<link href="stylereview.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
-
+<div class="rectangle"></div>
 <?php
 
 	// Check if user is logged in
     if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
-        echo "<p>Please Login</p>";
-        echo '<form action="..\index.php" method="post">
-                <input type="submit" value="Return to Login Page">
-              </form>	
+        echo '<div class="pleaseLogin"><p>Please Login</p></div>';
+        echo '<div class="buttons"><form action="..\index.php" method="post">
+                <input type="submit" value="Return to Menu">
+              </form> </div>	
         ';
         die();
     }
@@ -111,12 +115,12 @@ Post inputs:
     $result = mysqli_query($con, $query);
     
     if ($result) {
-        echo '<p>Journals</p>';
+        echo '<h1>Journals</h1>';
 		// The button starts at <div id="sortButton"> and ends at </div>
 		// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
 		// <input type="hidden" means that what we're about to add to the post isn't actually visible to the user.  name="username" is the variable name we're posting, value is the value of that variable that we post.
 		// Finally, the last line is the actual name of the button and the "submit" action.
-        echo '<table>
+        echo '<table class="journals">
                 <tr>
                 <th>
                     <div id="sortButton">
@@ -198,19 +202,19 @@ Post inputs:
     // Close the mysql connectiion
     mysqli_close($con);
 ?>
-
-<div id="button">
+<div class="buttons">
+<div class="returnMenuButton" id="button">
 <form action="login.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
     <input type="hidden" name="lgdin" value=1>
 	<input type="submit" value="Return to Main Menu">
 </form>
 </div>
-<div id="button">
+<div class="logoutButton" id="button">
 <form action="../index.php" method="post">
 	<input type="submit" value="Logout">
 </form>	
 </div>
-
+</div>
 </body>
 </html>
