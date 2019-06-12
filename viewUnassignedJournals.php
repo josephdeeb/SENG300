@@ -12,17 +12,21 @@ Post inputs:
 	lgdin		- posted when logged in user is returning to main menu
     sortRow     - determines how the journals are sorted
 
---->
+-->
 <html>
+<head>
+<title>Unassigned Journals</title>
+<link href="styleunassignedjournals.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
-
+<div class="rectangle"></div>
 <?php
     // Make sure the user is logged in
 	if(!isset($_POST["lgdin"]) or !isset($_POST["username"])){
-	  echo "<p>Please Login</p>";
-	  echo '<form action="index.php" method="post">
+	  echo '<div class="pleaseLogin"><p>Please Login</p></div>';
+	  echo '<div class="buttons"><form action="index.php" method="post">
 			  <input type="submit" value="Return to Login Page">
-			</form>	
+			</form>	</div>
 	  ';
 	  die();
 	}
@@ -61,8 +65,8 @@ Post inputs:
     $result = mysqli_query($con, $query);
     
     if (mysqli_num_rows($result) > 0) {
-        echo '<p>Unassigned Journals</p>';
-        echo '<table>
+        echo '<h1>Unassigned Journals</h1>';
+        echo '<table class="unassignedJournals">
                 <tr>
                 <th>
                     <div id="sortButton">
@@ -123,8 +127,8 @@ Post inputs:
     mysqli_close($con);
     
 ?>
-
-<div id="button">
+<div class="buttons">
+<div class="returnMenuButton"id="button">
 <form action="login.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
     <input type="hidden" name="lgdin" value=1>
@@ -132,10 +136,10 @@ Post inputs:
 </form>
 </div>
 <div id="button">
-<form action="../index.php" method="post">
+<form class="logoutButton"action="../index.php" method="post">
 	<input type="submit" value="Logout">
 </form>	
 </div>
-
+</div>
 </body>
 </html>
