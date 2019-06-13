@@ -76,11 +76,6 @@ input[type=submit]:hover {
     border-radius: 4px;
     cursor: pointer;
 }
-.buttons {
-    position: absolute;
-    top: 20px;
-    right: 5%;
-}
 .pleaseLogin {
     font-family: Gadugi;
     height: 0;
@@ -90,6 +85,11 @@ input[type=submit]:hover {
     align-items: center;
     justify-content: center;
     top: 45%;
+}
+.buttons {
+    position: absolute;
+    top: 20px;
+    right: 5%;
 }
 .logoutButton {
     position: absolute;

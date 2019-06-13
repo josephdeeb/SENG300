@@ -168,23 +168,22 @@ Post inputs:
 	</form>';
 ?>
 
-	<div id="button">
-		<form action="login.php" method="post">
-			<input type="hidden" name="username" value="<?php echo $username; ?>">
-			<input type="hidden" name="lgdin" value=1>
-			<div class="mainMenu">
-				<input type="submit" value="Return to Main Menu">
-			</div>
-		</form>
+</div>
+<div class="buttons">
+	<div class="returnMenuButton" id="button">
+	<form action="login.php" method="post">
+		<input type="hidden" name="username" value="<?php echo $username; ?>">
+		<input type="hidden" name="lgdin" value=1>
+		<input type="submit" value="Return to Main Menu">
+	</form>
+	</div>
+	<div class="logoutButton" id="button">
+	<form action="../index.php" method="post">
+		<input type="submit" value="Logout">
+	</form>	
 	</div>
 </div>
-<div id="button">
-	<form action="../index.php" method="post">
-		<div class="logoutButton">
-			<input type="submit" value="Logout">
-		</div>
-	</form>	
-</div>
+
 
 </body>
 </html>

@@ -82,21 +82,26 @@ table {
     position: relative;
 	padding: 2px;
 }
+.buttons {
+    position: absolute;
+    top: 20px;
+    right: 5%;
+}
 .logoutButton {
     position: absolute;
-    top: 25px;
-    right: 5%;
+    top: 0;
+    right: 0;
+}
+.returnMenuButton {
+    position: absolute;
+    top: 0;
+    right: 100px;
 }
 .uploadJournal{
     position: relative;
 	width: 37%;
 	margin: auto;
 	padding: 5px;
-}
-.mainMenu{
-    position: relative;
-	width: 40%;
-	margin: auto;
 }
 .failed {
     position: absolute;

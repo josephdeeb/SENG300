@@ -43,6 +43,18 @@ input[type=submit]:hover {
     border-radius: 4px;
     cursor: pointer;
 }
+select {
+    font-family: Gadugi;
+    background-color: #9CC7D5;
+	color: ghostwhite;
+    border: 2px;
+    border-radius: 5px;
+}
+select:hover {
+    background-color: #8BB6C4;
+    border: 2px;
+    border-radius: 5px;
+}
 .list{
     font-family: Gadugi;
     position: relative;
@@ -69,26 +81,6 @@ input[type=submit]:hover {
     left: 0;
 }
 .preferred3 {
-    font-family: Gadugi;
-    position: absolute;
-    top: 40px;
-    left: 0;
-}
-.Notpreferred1{
-    font-family: Gadugi;
-    position: absolute;
-    top: 40px;
-    left: 0;
-}
-
-.Notpreferred2{
-    font-family: Gadugi;
-    position: absolute;
-    top: 40px;
-    left: 0;
-}
-
-.Notpreferred3{
     font-family: Gadugi;
     position: absolute;
     top: 40px;

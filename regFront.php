@@ -97,19 +97,11 @@ $("#password2").keyup(validate);
 		</div>
 	</div>
 	<div class="chooseUser">
-<<<<<<< Updated upstream
 		Choose What Type of User You Are:<br>
 		<input type="radio" name="type" value=1 required> Submitter<br>
 		<input type="radio" name="type" value=2> Reviewer<br>
 		<input type="reset">
 		<input id="submit-button" type="submit" value="Submit">
-=======
-	Choose What Type of User You Are:<br>
-    <input type="radio" name="type" value=1 required> Author<br>
-    <input type="radio" name="type" value=2> Reviewer<br>
-    <input type="reset">
-    <input id="submit-button" type="submit" value="Submit">
->>>>>>> Stashed changes
 	</div>
 
 </form>
