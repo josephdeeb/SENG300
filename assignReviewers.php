@@ -52,50 +52,85 @@ Post inputs:
 	//
 	if (!isset($_POST["submitted"])) {
 
+<<<<<<< Updated upstream
 		echo '<h1><form action="assignReviewers.php" method="post" enctype="multipart/form-data">
 				Please select the reviewers for journal '.$fname;
 		echo '</h1>';
+=======
+		echo '
+<form action="assignReviewers.php" method="post" enctype="multipart/form-data">
+	<h2>Please select the reviewers for journal '.$fname.'</h2>';
+>>>>>>> Stashed changes
 		
 		//
 		// REVIEWER 1
 		//
+<<<<<<< Updated upstream
 		echo '<div class="assignReviewers"><div class="assignReviewer1"><br>Reviewer 1: <select name="rev1">';
+=======
+		echo '
+	<br>Reviewer 1: <select name="rev1">';
+>>>>>>> Stashed changes
 		
 		$query = "SELECT * FROM users WHERE type = 2 AND NOT EXISTS (SELECT * FROM journals WHERE userName=submitter AND name='$fname')";
 		$result = mysqli_query($con, $query);
 		
-		echo '<option value="">Select a Reviewer</option>';
+		echo '
+		<option value="">Select a Reviewer</option>';
 		while ($row = mysqli_fetch_array($result)) {
-			echo '<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
+			echo '
+		<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
 		}
+<<<<<<< Updated upstream
 		echo '</select> </div>';
+=======
+		echo '
+	</select>';
+>>>>>>> Stashed changes
 		
 		//
 		// REVIEWER 2
 		//
+<<<<<<< Updated upstream
 		echo '<div class="assignReviewer2"><br>Reviewer 2: <select name="rev2">';
+=======
+		echo '
+	<br>Reviewer 2: <select name="rev2">';
+>>>>>>> Stashed changes
 		
-		$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
+		$query = "SELECT * FROM users WHERE type = 2 AND NOT EXISTS (SELECT * FROM journals WHERE userName=submitter AND name='$fname')";
 		$result = mysqli_query($con, $query);
 		
-		echo '<br>
-				<option value="">Select a Reviewer</option>';
+		echo '
+		<option value="">Select a Reviewer</option>';
 		while ($row = mysqli_fetch_array($result)) {
-			echo '<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
+			echo '
+		<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
 		}
+<<<<<<< Updated upstream
 		echo '</select> </div>';
 		
 		// REVIEWER 3
 		echo '<div class="assignReviewer3"><br>Reviewer 3: <select name="rev3">';
+=======
+		echo '
+	</select>';
 		
-		$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
+		// REVIEWER 3
+		echo '
+	<br>Reviewer 3: <select name="rev3">';
+>>>>>>> Stashed changes
+		
+		$query = "SELECT * FROM users WHERE type = 2 AND NOT EXISTS (SELECT * FROM journals WHERE userName=submitter AND name='$fname')";
 		$result = mysqli_query($con, $query);
 		
-		echo '<br>
-				<option value="">Select a Reviewer</option>';
+		echo '
+		<option value="">Select a Reviewer</option>';
 		while ($row = mysqli_fetch_array($result)) {
-			echo '<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
+			echo '
+		<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
 		}
+<<<<<<< Updated upstream
 		echo '</select> </div> 
 				<br> 
 				<div class="assignReviewersButton">
@@ -106,6 +141,18 @@ Post inputs:
 				<input type="submit" value="Assign Reviewers">
 			</form> </div> </div>
 			';
+=======
+		echo '
+	</select>
+	<br><br>
+	<input type="hidden" name="username" value='.$username.'>
+	<input type="hidden" name="lgdin" value=1>
+	<input type="hidden" name="fname" value='.$fname.'>
+	<input type="hidden" name="submitted" value=1>
+	<input type="submit" value="Assign Above Reviewers">
+</form>';
+		
+>>>>>>> Stashed changes
 		// End reviewer submission stuff
 
 		$query = "SELECT * FROM users, subPrefs WHERE journalName='$fname' AND userName=reviewer ORDER BY preferred";
@@ -114,7 +161,8 @@ Post inputs:
 			$query = "SELECT * FROM users, journals WHERE name='$fname' AND userName=submitter";
 			$result1 = mysqli_query($con, $query);
 			$row = mysqli_fetch_array($result1);
-			echo "<h2>".$row["firstName"]." ".$row["lastName"]."'s Preferred and Non-Preferred Reviewers</h2>";
+			echo "
+<h2>".$row["firstName"]." ".$row["lastName"]."'s Preferred and Non-Preferred Reviewers</h2>";
 
 			echo '
 <table>
@@ -158,22 +206,22 @@ Post inputs:
 			$query = "SELECT * FROM users, revprefs WHERE reviewer='".$row["userName"]."' AND userName=reviewer";
 			$result1 = mysqli_query($con,$query);
 			if(mysqli_num_rows($result1)>0) {
-				echo "<h2>".$row["firstName"]." ".$row["lastName"]."'s Preferred Submitters</h2>";
+				echo "
+<h2>".$row["firstName"]." ".$row["lastName"]."'s Preferred Authors</h2>";
 				echo '
 <table>
 	<tr>
-		<th>Submitter</th>
+		<th>Author</th>
 	</tr>';
 			
 				while($row1 = mysqli_fetch_array($result1)){
 					$query = "SELECT * FROM users WHERE userName='".$row1["submitter"]."'";
-//			echo "query: $query <br>";
 					$result2 = mysqli_query($con,$query);
 					$row2 = mysqli_fetch_array($result2);
 					echo '
-		<tr>
-			<td>'.$row2["firstName"].' '.$row2["lastName"].'</td>
-		</tr>';
+	<tr>
+		<td>'.$row2["firstName"].' '.$row2["lastName"].'</td>
+	</tr>';
 				}
 			echo '
 </table>';
@@ -195,13 +243,14 @@ Post inputs:
 		// If the editor selected no reviewers, make them try again.
 		if ($rev1 == "" and $rev2 == "" and $rev3 == "") {
 			echo 'No reviewers were selected, please try again';
-			echo '<br>
-					<form action="assignReviewers.php" method="post">
-						<input type="hidden" name="username" value='.$username.'>
-						<input type="hidden" name="lgdin" value=1>
-						<input type="hidden" name="fname" value='.$fname.'>
-						<input type="submit" value="Try Again">
-					</form>';
+			echo '
+<br>
+<form action="assignReviewers.php" method="post">
+	<input type="hidden" name="username" value='.$username.'>
+	<input type="hidden" name="lgdin" value=1>
+	<input type="hidden" name="fname" value='.$fname.'>
+	<input type="submit" value="Try Again">
+</form>';
 		}
 		
 		
@@ -229,12 +278,13 @@ Post inputs:
 			$query = "UPDATE journals SET status=1 WHERE name='".$fname."'";
 			mysqli_query($con, $query);
 			
-			echo '<br>
-					<form action="login.php" method="post">
-						<input type="hidden" name="username" value='.$username.'>
-						<input type="hidden" name="lgdin" value=1>
-						<input type="submit" value="Success!">
-					</form>';
+			echo '
+<br>
+<form action="login.php" method="post">
+	<input type="hidden" name="username" value='.$username.'>
+	<input type="hidden" name="lgdin" value=1>
+	<input type="submit" value="Success!">
+</form>';
 		}
 		
 		
