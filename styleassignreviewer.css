@@ -1,0 +1,103 @@
+body{
+	background-color: cadetblue;
+}
+h1 {
+    font-family: Candara;
+    position: absolute;
+    top: 2px;
+    left: 210px;
+}
+h2 {
+    font-family: Gadugi;
+    height: 0;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 65%;
+}
+.assignReviewer1 {
+    position: absolute;
+    top: 0px;
+}
+
+.assignReviewer2 {
+    position: absolute;
+    top: 60px;
+}
+
+.assignReviewer3 {
+    position: absolute;
+    top: 120px;
+}
+
+.assignReviewers {
+    font-family: Gadugi;
+    height: 0;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 20%;
+}
+
+.assignReviewersButton {
+    position: absolute;
+    top: 200px;
+}
+.pleaseLogin {
+    font-family: Gadugi;
+    height: 0;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 45%;
+}
+input[type=submit] {
+    width: 100%;
+    background-color: #9CC7D5;
+    font-family: Gadugi;
+    color: ghostwhite;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    width: 100%;
+    background-color: #8BB6C4;
+    font-family: Gadugi;
+    color: ghostwhite;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.buttons {
+    position: absolute;
+    top: 25px;
+    right: 5%;
+}
+.logoutButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.returnMenuButton {
+    position: absolute;
+    top: 0;
+    right: 100px;
+}
+.rectangle {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 90px;
+    width: 100%;
+    background-color: ghostwhite;
+}
