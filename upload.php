@@ -212,7 +212,7 @@ Post inputs:
 				// --------------------------------------------successful file upload-----------------------------
 
 
-				echo '<div class="successfulUpload">The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</div>';
+				echo '<div class="successfulUpload">The file '.basename( $_FILES["fileToUpload"]["name"]).' has been uploaded.</div>';
 				
 
 				// ------------------------------------------------------------------------------------------------

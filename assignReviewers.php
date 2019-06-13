@@ -17,7 +17,9 @@ Post inputs:
 <html>
 <head>
 <title>Assign Reviewer</title>
+<!--
 <link href="styleassignreviewer.css" type="text/css" rel="stylesheet" />
+-->
 </head>
 <body>
 <div class="rectangle"></div>

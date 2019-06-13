@@ -77,6 +77,30 @@ Post inputs:
 		}
 	}
 	// user has logged in successfully
+    
+    if (isset($_POST["deleteJournal"])) {
+        $revisionPath = "\\journals\\revisions\\";
+        $journalPath = "\\journals\\";
+        $file = $_POST["deleteJournal"];
+        
+        $query = "SELECT * FROM revisions WHERE originalName = '$file'";
+        $result = mysqli_query($con, $query);
+        while ($row = mysqli_fetch_array($result)) {
+            unlink($revisionPath.$row["revisionName"]);
+        }
+        
+        unlink($journalPath.$file);
+        $query = "DELETE FROM comments WHERE journalName = '$file'";
+        mysqli_query($con,$query);
+        $query = "DELETE FROM reviewers WHERE journalName = '$file'";
+        mysqli_query($con,$query);
+        $query = "DELETE FROM revisions WHERE originalName = '$file'";
+        mysqli_query($con,$query);
+        $query = "DELETE FROM subprefs WHERE journalName = '$file'";
+        mysqli_query($con,$query);
+        $query = "DELETE FROM journals WHERE name = '$file'";
+        mysqli_query($con,$query);
+    }
 	
 	// determine user type in order to show correct information
 	$query = "SELECT * FROM users WHERE userName = '$username'";
@@ -205,6 +229,8 @@ Post inputs:
 			</th>
 			<th>
 			</th>
+            <th>
+            </th>
 		</tr>';
 			while ($row = mysqli_fetch_array($result)) {
 				if($row['status'] == 0){
@@ -234,7 +260,17 @@ Post inputs:
 						<input type="submit" value="View Comments">
 					</form>
 				</div>								
-			 </td> 
+			 </td>
+             <td>
+                <div id="button">
+                    <form action="login.php" method="post" onsubmit="return confirmation()">
+                        <input type="hidden" name="username" value='.$username.'>
+                        <input type="hidden" name="lgdin" value=1>
+                        <input type="hidden" name="deleteJournal" value='.$row["name"].'>
+                        <input type="submit" value="Delete">
+                    </form>
+                </div>
+             </td>
 		</tr>';
 			}
 			echo '
@@ -298,6 +334,15 @@ Post inputs:
 	<div class="logoutButton">
 		<input type="submit" value="Logout">
 	</div>
-</form>	
+</form>
+<script>
+function confirmation() {
+    if(confirm("Are you sure you would like to delete this journal?")) {
+        return true;
+    } else {
+        return false;
+    }
+}
+</script>	
 </body>
 </html>
