@@ -158,7 +158,7 @@ Post inputs:
 						<input type="hidden" name="username" value='.$username.'>
 						<input type="hidden" name="sortByCol" value=2>
 						<input type="hidden" name="lgdin" value=1>
-						<input type="submit" value="Submission Date">
+						<input type="submit" value="Review Deadline">
 					</form>
 				</div>
 			</th>
@@ -177,7 +177,7 @@ Post inputs:
 		<tr>
 			<td>'.$row["journalName"].'</td>
 			<td>'.$row["submitter"].'</td>
-			<td>'.$row["submissionDateTime"].'</td>
+			<td>'.$row["deadline"].'</td>
 			<td>
 				<div class="button">
 					<form action="viewUserComs.php" method="post">

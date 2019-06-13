@@ -225,6 +225,8 @@ No reviewers were selected, please try again
 			if ($rev1 != "") {
 				$query = "INSERT INTO reviewers(journalName, reviewer, decision) VALUES ('".$fname."','".$rev1."',0)";
 				mysqli_query($con, $query);
+				$query = "UPDATE `journals` SET `deadline`= DATE_ADD(NOW(), INTERVAL 3 MONTH) WHERE name='$fname'";
+				mysqli_query($con, $query);
 			}
 			
 			// If the second reviewer was selected, add it to reviewers table
