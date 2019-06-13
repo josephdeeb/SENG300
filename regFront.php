@@ -70,7 +70,7 @@ $("#password2").keyup(validate);
 	</div>
 	<div class="checkUsername" id="frmCheckUsername">
 	    <label>Check Username:<br></label>
-		<input name="username" type="text" id="username" class="demoInputBox" onBlur="checkAvailability()" required>*<span id="user-availability-status"></span>    
+		<input name="username" type="text" id="username" class="demoInputBox" onBlur="checkAvailability()" required><span id="user-availability-status"></span>    
 	</div>
 	<p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
 
@@ -89,11 +89,11 @@ $("#password2").keyup(validate);
 	<div class="names">
 		<div class="firstName">
 			Enter First Name:<br>
-			<input type="text" name="fname" required>*<br>
+			<input type="text" name="fname" required>
 		</div>
 		<div class="lastName">
 			Enter Last Name:<br>
-			<input type="text" name="lname" required>*<br>
+			<input type="text" name="lname" required>
 		</div>
 	</div>
 	<div class="chooseUser">
