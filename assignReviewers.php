@@ -13,17 +13,21 @@ Post inputs:
     fname     	- Filename of the journal being assigned reviewers
 	rev(1-3)	- Reviewers selected to be assigned
 
----> 
+--> 
 <html>
+<head>
+<title>Assign Reviewer</title>
+<link href="styleassignreviewer.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
-
+<div class="rectangle"></div>
 <?php
     // Make sure the user is logged in
 	if(!isset($_POST["lgdin"]) or !isset($_POST["username"])){
-	  echo "<p>Please Login</p>";
-	  echo '<form action="index.php" method="post">
+	  echo '<div class="pleaseLogin"><p>Please Login</p></div>';
+	  echo '<div class="buttons"><form action="index.php" method="post">
 			  <input type="submit" value="Return to Login Page">
-			</form>	
+			</form>	</div>
 	  ';
 	  die();
 	}
@@ -48,13 +52,14 @@ Post inputs:
 	//
 	if (!isset($_POST["submitted"])) {
 
-		echo '<form action="assignReviewers.php" method="post" enctype="multipart/form-data">
+		echo '<h1><form action="assignReviewers.php" method="post" enctype="multipart/form-data">
 				Please select the reviewers for journal '.$fname;
+		echo '</h1>';
 		
 		//
 		// REVIEWER 1
 		//
-		echo '<br>Reviewer 1: <select name="rev1">';
+		echo '<div class="assignReviewers"><div class="assignReviewer1"><br>Reviewer 1: <select name="rev1">';
 		
 		$query = "SELECT * FROM users WHERE type = 2 AND NOT EXISTS (SELECT * FROM journals WHERE userName=submitter AND name='$fname')";
 		$result = mysqli_query($con, $query);
@@ -63,12 +68,12 @@ Post inputs:
 		while ($row = mysqli_fetch_array($result)) {
 			echo '<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
 		}
-		echo '</select>';
+		echo '</select> </div>';
 		
 		//
 		// REVIEWER 2
 		//
-		echo '<br>Reviewer 2: <select name="rev2">';
+		echo '<div class="assignReviewer2"><br>Reviewer 2: <select name="rev2">';
 		
 		$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 		$result = mysqli_query($con, $query);
@@ -78,10 +83,10 @@ Post inputs:
 		while ($row = mysqli_fetch_array($result)) {
 			echo '<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
 		}
-		echo '</select>';
+		echo '</select> </div>';
 		
 		// REVIEWER 3
-		echo '<br>Reviewer 3: <select name="rev3">';
+		echo '<div class="assignReviewer3"><br>Reviewer 3: <select name="rev3">';
 		
 		$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 		$result = mysqli_query($con, $query);
@@ -91,20 +96,18 @@ Post inputs:
 		while ($row = mysqli_fetch_array($result)) {
 			echo '<option value='.$row["userName"].'>'.$row["firstName"].' '.$row["lastName"].'</option>';
 		}
-		echo '</select>
-				<br>
+		echo '</select> </div> 
+				<br> 
+				<div class="assignReviewersButton">
 				<input type="hidden" name="username" value='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
 				<input type="hidden" name="fname" value='.$fname.'>
 				<input type="hidden" name="submitted" value=1>
 				<input type="submit" value="Assign Reviewers">
-			</form>
+			</form> </div> </div>
 			';
-		
 		// End reviewer submission stuff
-		
-		
-		
+
 		$query = "SELECT * FROM users, subPrefs WHERE journalName='$fname' AND userName=reviewer ORDER BY preferred";
 		$result = mysqli_query($con, $query);
 		if (mysqli_num_rows($result)>0) {
@@ -238,19 +241,19 @@ Post inputs:
 	}
 	
 ?>
-
-<div id="button">
+<div class="buttons">
+<div class="returnMenuButton" id="button">
 <form action="login.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
 	<input type="hidden" name="lgdin" value=1>			
 	<input type="submit" value="Return to Main Menu">
 </form>
 </div>
-<div id="button">
+<div class="logoutButton" id="button">
 <form action="index.php" method="post">
 	<input type="submit" value="Logout">
 </form>	
 </div>
-
+</div>
 </body>
 </html>
