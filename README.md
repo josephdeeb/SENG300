@@ -18,6 +18,6 @@
 
 8. move the "index.php" file from the "seng300" folder and place it into the "htdocs" folder.
 
-9. move style.css into htdocs folder
+9. move style.css and index.css into htdocs folder
 
 10. click "Admin" beside "Apache". this will open the web app
