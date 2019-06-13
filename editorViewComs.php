@@ -23,11 +23,11 @@ Post inputs:
 
 <?php
 	if(!isset($_POST["username"]) or !isset($_POST["lgdin"])){
-	  echo "<p>Please Login</p>";
-	  echo '<form action="index.php" method="post">
-			  <input type="submit" value="Return to Login Page">
-			</form>	
-	  ';
+	  echo '
+<p>Please Login</p>
+<form action="index.php" method="post">
+	<input type="submit" value="Return to Login Page">
+</form>';
 	  die();
 	}
 	
@@ -76,19 +76,23 @@ Post inputs:
 	
 	// updates db with editors decision on refresh
 	if(isset($_POST["review"]) and $_POST["review"]==1){
-		echo "<p>You have made Major Revisions necessary for $fname by $submitter</p>";
+		echo "
+<p>You have made Major Revisions necessary for $fname by $submitter</p>";
 		$query = "UPDATE journals SET status=2 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==2){		
-		echo "<p>You have made Minor Revisions necessary for $fname by $submitter</p>";
+		echo "
+<h2>You have made Minor Revisions necessary for $fname by $submitter</p>";
 		$query = "UPDATE journals SET status=3 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==3){		
-		echo "<p>You have Accepted $fname by $submitter</p>";
+		echo "
+<p>You have Accepted $fname by $submitter</p>";
 		$query = "UPDATE journals SET status=4 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==4){		
-		echo "<p>You have Rejected $fname by $submitter</p>";
+		echo "
+<p>You have Rejected $fname by $submitter</p>";
 		$query = "UPDATE journals SET status=5 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}
@@ -100,7 +104,8 @@ Post inputs:
 		
 		$query = "INSERT INTO comments VALUES ('$fname','$username','$comment')";
 		if(!mysqli_query($con,$query)){
-			echo "<p>Error during adding comment. Please try again.</p>";
+			echo "
+<p>Error during adding comment. Please try again.</p>";
 		}
 	}
 
@@ -110,15 +115,15 @@ Post inputs:
 	$query = "SELECT * FROM users WHERE userName='$submitter'";
 	$result = mysqli_query($con,$query);
 	$row = mysqli_fetch_array($result);
-	echo "<p>All Versions of $fname Submitted by ".$row["firstName"]." ".$row["lastName"]."</p>";
-	echo '
+	echo "
+<p>All Versions of $fname Submitted by ".$row["firstName"]." ".$row["lastName"]."</p>
 <table>
 	<tr>
 		<th>Version</th>
 		<th>Journal Name</th>
 		<th>Submission Date</th>
 		<th></th>
-	</tr>';
+	</tr>";
 	
 	$query = "SELECT * FROM journals WHERE name='$fname'";
 	$result = mysqli_query($con, $query);
@@ -129,17 +134,17 @@ Post inputs:
 		<td>'.$row["name"].'</td>
 		<td>'.$row["submissionDateTime"].'</td>
 		<td>
-		<div id="button">
-		<form action="editorViewComs.php" method="post">
-			<input type="hidden" name="username" value='.$username.'>
-			<input type="hidden" name="lgdin" value=1>
-			<input type="hidden" name="fname" value='.$fname.'>
-			<input type="hidden" name="submitter" value='.$submitter.'>
-			<input type="hidden" name="fileName" value='.$row["name"].'>
-			<input type="hidden" name="original" value=1>
-			<input type="submit" value="Download Journal">
-		</form>
-		</div>
+			<div id="button">
+				<form action="editorViewComs.php" method="post">
+					<input type="hidden" name="username" value='.$username.'>
+					<input type="hidden" name="lgdin" value=1>
+					<input type="hidden" name="fname" value='.$fname.'>
+					<input type="hidden" name="submitter" value='.$submitter.'>
+					<input type="hidden" name="fileName" value='.$row["name"].'>
+					<input type="hidden" name="original" value=1>
+					<input type="submit" value="Download Journal">
+				</form>
+			</div>
 		</td>
 	 </tr>';
 	
@@ -154,17 +159,17 @@ Post inputs:
 		<td>'.$row["revisionName"].'</td>
 		<td>'.$row["date"].'</td>
 		<td>
-		<div id="button">
-		<form action="editorViewComs.php" method="post">
-			<input type="hidden" name="username" value='.$username.'>
-			<input type="hidden" name="lgdin" value=1>
-			<input type="hidden" name="fname" value='.$fname.'>
-			<input type="hidden" name="submitter" value='.$submitter.'>
-			<input type="hidden" name="fileName" value='.$row["revisionName"].'>
-			<input type="hidden" name="original" value=0>
-			<input type="submit" value="Download Journal">
-		</form>
-		</div>
+			<div id="button">
+				<form action="editorViewComs.php" method="post">
+					<input type="hidden" name="username" value='.$username.'>
+					<input type="hidden" name="lgdin" value=1>
+					<input type="hidden" name="fname" value='.$fname.'>
+					<input type="hidden" name="submitter" value='.$submitter.'>
+					<input type="hidden" name="fileName" value='.$row["revisionName"].'>
+					<input type="hidden" name="original" value=0>
+					<input type="submit" value="Download Journal">
+				</form>
+			</div>
 		</td>
 	 </tr>';
 	}
@@ -174,11 +179,13 @@ Post inputs:
 
 
 	// display all comments made on the journal
-	echo "<p>Comments made on ". $fname. "</p>";
+	echo "
+<p>Comments made on ". $fname. "</p>";
 	$query = "SELECT * FROM comments WHERE journalName = '$fname'";
 	$result = mysqli_query($con, $query);
 	if(!mysqli_num_rows($result)){
-		echo '<p>No comments have been made for this Journal</p>';
+		echo '
+<p>No comments have been made for this Journal</p>';
 	}else{
 		$num = 1;
 		// print comments
@@ -218,55 +225,56 @@ Post inputs:
 		echo '
 <p>All assigned reviewers have completed their reviews</p>
 <div id="button">
-<form action="editorViewComs.php" method="post" onsubmit="return major()">
-	Major Revisions Comments
-	<input type="text" name="comment" required>
-	<input type="hidden" name="username" value='.$username.'>
-	<input type="hidden" name="lgdin" value=1>
-	<input type="hidden" name="fname" value='.$fname.'>
-	<input type="hidden" name="submitter" value='.$submitter.'>
-	<input type="hidden" name="review" value=1>
-	<input type="submit" value="Major">
-</form>
+	<form action="editorViewComs.php" method="post" onsubmit="return major()">
+		Major Revisions Comments
+		<input type="text" name="comment" required>
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="hidden" name="fname" value='.$fname.'>
+		<input type="hidden" name="submitter" value='.$submitter.'>
+		<input type="hidden" name="review" value=1>
+		<input type="submit" value="Major">
+	</form>
 </div>
 <div id="button">
-<form action="editorViewComs.php" method="post" onsubmit="return minor()">
-	Minor Revisions Comments
-	<input type="text" name="comment" required>
-	<input type="hidden" name="username" value='.$username.'>
-	<input type="hidden" name="lgdin" value=1>
-	<input type="hidden" name="fname" value='.$fname.'>
-	<input type="hidden" name="submitter" value='.$submitter.'>
-	<input type="hidden" name="review" value=2>
-	<input type="submit" value="Minor">
-</form>
+	<form action="editorViewComs.php" method="post" onsubmit="return minor()">
+		Minor Revisions Comments
+		<input type="text" name="comment" required>
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="hidden" name="fname" value='.$fname.'>
+		<input type="hidden" name="submitter" value='.$submitter.'>
+		<input type="hidden" name="review" value=2>
+		<input type="submit" value="Minor">
+	</form>
 </div>
 <div id="button">
-<form action="editorViewComs.php" method="post" onsubmit="return accept()">
-	Add Acceptance Comments
-	<input type="text" name="comment" required>
-	<input type="hidden" name="username" value='.$username.'>
-	<input type="hidden" name="lgdin" value=1>
-	<input type="hidden" name="fname" value='.$fname.'>
-	<input type="hidden" name="submitter" value='.$submitter.'>
-	<input type="hidden" name="review" value=3>
-	<input type="submit" value="Accept">
-</form>
+	<form action="editorViewComs.php" method="post" onsubmit="return accept()">
+		Add Acceptance Comments
+		<input type="text" name="comment" required>
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="hidden" name="fname" value='.$fname.'>
+		<input type="hidden" name="submitter" value='.$submitter.'>
+		<input type="hidden" name="review" value=3>
+		<input type="submit" value="Accept">
+	</form>
 </div>
 <div id="button">
-<form action="editorViewComs.php" method="post" onsubmit="return reject()">
-	Add Rejection Comments
-	<input type="text" name="comment" required>
-	<input type="hidden" name="username" value='.$username.'>
-	<input type="hidden" name="lgdin" value=1>
-	<input type="hidden" name="fname" value='.$fname.'>
-	<input type="hidden" name="submitter" value='.$submitter.'>
-	<input type="hidden" name="review" value=4>
-	<input type="submit" value="Reject">
-</form>
+	<form action="editorViewComs.php" method="post" onsubmit="return reject()">
+		Add Rejection Comments
+		<input type="text" name="comment" required>
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="hidden" name="fname" value='.$fname.'>
+		<input type="hidden" name="submitter" value='.$submitter.'>
+		<input type="hidden" name="review" value=4>
+		<input type="submit" value="Reject">
+	</form>
 </div>';
 	}else{
-		echo "<p>Not all reviewers have completed their reviews</p>";
+		echo "
+<p>Not all reviewers have completed their reviews</p>";
 		$query = "SELECT * FROM journals WHERE name = '$fname'";
 		$result = mysqli_query($con,$query);
 		$row = mysqli_fetch_array($result);
@@ -298,38 +306,38 @@ Post inputs:
 	if($returnPage == 0){
 		echo '
 <div id="button">
-<form action="viewAssigned.php" method="post">
-    <input type="hidden" name="username" value='.$username.'>
-    <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to Assigned Journals Page">
-</form>
+	<form action="viewAssigned.php" method="post">
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="submit" value="Return to Assigned Journals Page">
+	</form>
 </div>';		
 	}else if($returnPage == 1){
 		echo '
 <div id="button">
-<form action="complete.php" method="post">
-    <input type="hidden" name="username" value='.$username.'>
-    <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to Completed Journals Page">
-</form>
+	<form action="complete.php" method="post">
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="submit" value="Return to Completed Journals Page">
+	</form>
 </div>';
 	}else if($returnPage == 2){
 		echo '
 <div id="button">
-<form action="viewAll.php" method="post">
-    <input type="hidden" name="username" value='.$username.'>
-    <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to All Journals Page">
-</form>
+	<form action="viewAll.php" method="post">
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="submit" value="Return to All Journals Page">
+	</form>
 </div>';		
 	}else{
 		echo '
 <div id="button">
-<form action="viewAccepted.php" method="post">
-    <input type="hidden" name="username" value='.$username.'>
-    <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to Accepted Journals Page">
-</form>
+	<form action="viewAccepted.php" method="post">
+		<input type="hidden" name="username" value='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="submit" value="Return to Accepted Journals Page">
+	</form>
 </div>';		
 	}
 	// Close the mysql connectiion
@@ -338,16 +346,16 @@ Post inputs:
 
 
 <div id="button">
-<form action="login.php" method="post">
-    <input type="hidden" name="username" value="<?php echo $username; ?>">
-    <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to Main Menu">
-</form>
+	<form action="login.php" method="post">
+		<input type="hidden" name="username" value="<?php echo $username; ?>">
+		<input type="hidden" name="lgdin" value=1>
+		<input type="submit" value="Return to Main Menu">
+	</form>
 </div>
 <div id="button">
-<form action="../index.php" method="post">
-	<input type="submit" value="Logout">
-</form>	
+	<form action="../index.php" method="post">
+		<input type="submit" value="Logout">
+	</form>	
 </div>
 
 <script>
