@@ -16,20 +16,19 @@ Post inputs:
 -->
 <html>
 <head>
-<title>Register</title>
+<title>Select Preferences</title>
 <link href="stylerevpref.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-<head>
 <div class="rectangle"></div>
-<h1>Submit Journal</h1>
+<h1>Select Preferences</h1>
 <?php
 	if(!isset($_POST["username"]) or !isset($_POST["lgdin"])){
-	  echo "<p>Please Login</p>";
-	  echo '<form action="index.php" method="post">
-			  <input type="submit" value="Return to Login Page">
-			</form>	
-	  ';
+	  echo '
+<p>Please Login</p>
+<form action="index.php" method="post">
+	<input type="submit" value="Return to Login Page">
+</form>';
 	  die();
 	}
 	$username = $_POST["username"];
@@ -80,75 +79,75 @@ Post inputs:
 		echo '
 </form>';
 	}else{
-		echo "<p>You have not submitted your preferences yet</p>";
+		echo "
+<p>You have not submitted your preferences yet</p>";
 	}
 	echo '
-	
 <form action="revPref.php" method="post" enctype="multipart/form-data">
 	<div class="preferred">
 		Preference 1: <select name="pref1" required>
-	</div>';
+	';
 	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
 	$result = mysqli_query($con,$query);
 	echo '
+			<option value="">Select a Submitter</option>';
 		<option value="">Select an Author</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
-		<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo '
-	</select>
-	<div class="preferred2">
-		Preference 2: <select name="pref2">
+		</select>
 	</div>
-';
 	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
+	<div class="preferred">
+		Preference 2: <select name="pref2">
+	';
 	$result = mysqli_query($con,$query);
 	echo '
 		<option value="">Select an Author</option>	';
 	while($row = mysqli_fetch_array($result)){
 		echo '
-		<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo '
-	</select>
-	<div class="preferred3">
+		</select>
+	</div>
+	<div class="preferred">
 		Preference 3: <select name="pref3">
-	</div>';
+	';
 	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
 	$result = mysqli_query($con,$query);
 	echo '
 		<option value="">Select an Author</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
-		<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo '
-	</select>
+		</select>
+	</div>
 	<input type="hidden" name="username" value ='.$username.'>
 	<input type="hidden" name="lgdin" value=1>
 	<div class="uploadJournal">
-	<input type="submit" value="Update Preferences">
+		<input type="submit" value="Update Preferences">
+	</div>
 </form>';
 ?>
 
-
-<div id="button">
-<form action="login.php" method="post">
-    <input type="hidden" name="username" value="<?php echo $username; ?>">
-    <input type="hidden" name="lgdin" value=1>
-	<div class="mainMenu">
-	<input type="submit" value="Return to Main Menu">
+<div class="buttons">
+	<div class="returnMenuButton">
+		<form action="login.php" method="post">
+			<input type="hidden" name="username" value="<?php echo $username; ?>">
+			<input type="hidden" name="lgdin" value=1>
+			<input type="submit" value="Return to Main Menu">
+		</form>
 	</div>
-</form>
-</div>
-
-<div id="button">
-<form action="../index.php" method="post">
 	<div class="logoutButton">
-	<input type="submit" value="Logout">
+		<form action="../index.php" method="post">
+			<input type="submit" value="Logout">
+		</form>	
 	</div>
-</form>	
 </div>
 
 </body>

@@ -24,11 +24,14 @@ Post inputs:
 <?php
 	if(!isset($_POST["lgdin"])){
 		if(!isset($_POST["username"]) or !isset($_POST["password"])){
-		  echo '<div class="pleaseLogin"><p>Please Login</p></div>';
-		  echo '<div class="returnToLogin"><form action="..\index.php" method="post">
-				  <input type="submit" value="Return to Login Page">
-                </form>	</div>
-		  ';
+		  echo '
+<div class="pleaseLogin"><p>Please Login</p></div>';
+		  echo '
+<div class="returnToLogin">
+	<form action="..\index.php" method="post">
+		<input type="submit" value="Return to Login Page">
+	</form>
+</div>';
 		  die();
 		}
 	}
@@ -46,24 +49,30 @@ Post inputs:
 		$query = "SELECT password FROM users WHERE userName = '$username'";
 		$pw = mysqli_query($con, $query);
 		if(!$pw){
-		  echo '<div class="pleaseLogin"><p>Please Login</p></div>';
-		  echo '<div class="returnToLogin"><form action="..\index.php" method="post">
-				  <input type="submit" value="Return to Login Page">
-				</form>	 </div>
-		  ';
+		  echo '
+<div class="pleaseLogin">
+	<p>Please Login</p>
+</div>
+<div class="returnToLogin">
+	<form action="..\index.php" method="post">
+		<input type="submit" value="Return to Login Page">
+	</form>
+</div>';
 		  die();
 		}else{
 		  $row = $pw->fetch_assoc();
-		  //echo "pw: ". $row['password']. " password: ". $password. "<br>";
 		}
 		if(strcmp($row['password'], $password) == 0){
-		  //echo "login successful<br>";
 		}else{
-		  echo '<div class="loginFailed"><p>Login failed </p></div>';
-		  echo '<div class="returnToLogin"><form action="..\index.php" method="post">
-				  <input type="submit" value="Return to Login Page">
-				</form>	</div>
-		  ';
+		  echo '
+<div class="loginFailed">
+	<p>Login failed </p>
+</div>
+<div class="returnToLogin">
+	<form action="..\index.php" method="post">
+		<input type="submit" value="Return to Login Page">
+	</form>
+</div>';
 		  die();
 		}
 	}
@@ -74,11 +83,14 @@ Post inputs:
 	$sql = mysqli_query($con,$query);
 	$type = $sql->fetch_assoc()['type'];
 	if($type == 1){
-		echo "<h1>Logged in as an Author</h1>";
+		echo "
+<h1>Logged in as an Author</h1>";
 	}else if($type == 2){
-		echo "<h1>Logged in as a Reviewer</h1>";
+		echo "
+<h1>Logged in as a Reviewer</h1>";
 	}else{
-		echo "<h1>Logged in as an Editor</h1>";
+		echo "
+<h1>Logged in as an Editor</h1>";
 	}
 	echo '
 <div class="login">';
@@ -91,28 +103,27 @@ Post inputs:
 	if($type == 2){
 	  // give reviewer options
 	  echo '
-		<div class="reviewHead">
-			<h2>Journals to Review</h2>
-		</div>
-		<div class="buttons">
+	<div class="reviewHead">
+		<h2>Journals to Review</h2>
+	</div>
+	<div class="buttons">
 		<div class="assignedJourButton">
-		<form action="review.php" method="post">
-			<input type="hidden" name="username" value='.$username.'>
-            <input type="hidden" name="lgdin" value=1>
-			<input type="submit" value="View Assigned Journals">
-		</form>	
+			<form action="review.php" method="post">
+				<input type="hidden" name="username" value='.$username.'>
+				<input type="hidden" name="lgdin" value=1>
+				<input type="submit" value="View Assigned Journals">
+			</form>	
 		</div>
-		</div>
-		<div class="buttons">
+	</div>
+	<div class="buttons">
 		<div class="editPreferenceButton">
-		<form action="revPref.php" method="post">
-			<input type="hidden" name="username" value='.$username.'>
-            <input type="hidden" name="lgdin" value=1>
-			<input type="submit" value="Edit Submission Preferences">
-		</form>	
+			<form action="revPref.php" method="post">
+				<input type="hidden" name="username" value='.$username.'>
+				<input type="hidden" name="lgdin" value=1>
+				<input type="submit" value="Edit Submission Preferences">
+			</form>	
 		</div>
-		</div>
-	  ';
+	</div>';
 	}
 	
 	
@@ -124,11 +135,11 @@ Post inputs:
 			// submit button
 	  echo '
 	<div class="submitJournalButton">                 
-	<form action="submit.php" method="post">
-		<input type="hidden" name="username" value='.$username.'>
-		<input type="hidden" name="lgdin" value=1>
-		<input type="submit" value="Submit New Journal">
-	</form>	
+		<form action="submit.php" method="post">
+			<input type="hidden" name="username" value='.$username.'>
+			<input type="hidden" name="lgdin" value=1>
+			<input type="submit" value="Submit New Journal">
+		</form>	
 	</div>';
 			// display journals
 		if(isset($_POST["sortByCol"])){
@@ -163,34 +174,34 @@ Post inputs:
 	<table>
 		<tr>
 			<th>
-			<div id="sortButton">
-			<form action="login.php" method="post">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="sortByCol" value=0>
-				<input type="hidden" name="lgdin" value=1>			
-				<input type="submit" value="Journal Name">
-			</form>
-			</div>
+				<div id="sortButton">
+					<form action="login.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="sortByCol" value=0>
+						<input type="hidden" name="lgdin" value=1>			
+						<input type="submit" value="Journal Name">
+					</form>
+				</div>
 			</th>
 			<th>
-			<div id="sortButton">
-			<form action="login.php" method="post">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="sortByCol" value=1>
-				<input type="hidden" name="lgdin" value=1>			
-				<input type="submit" value="Status">
-			</form>
-			</div>
+				<div id="sortButton">
+					<form action="login.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="sortByCol" value=1>
+						<input type="hidden" name="lgdin" value=1>			
+						<input type="submit" value="Status">
+					</form>
+				</div>
 			</th>
 			<th>
-			<div id="sortButton">
-			<form action="login.php" method="post">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="sortByCol" value=2>
-				<input type="hidden" name="lgdin" value=1>			
-				<input type="submit" value="Date">
-			</form>
-			</div>
+				<div id="sortButton">
+					<form action="login.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="sortByCol" value=2>
+						<input type="hidden" name="lgdin" value=1>			
+						<input type="submit" value="Date">
+					</form>
+				</div>
 			</th>
 			<th>
 			</th>
@@ -285,7 +296,7 @@ Post inputs:
 
 <form action="..\index.php" method="post">
 	<div class="logoutButton">
-	<input type="submit" value="Logout">
+		<input type="submit" value="Logout">
 	</div>
 </form>	
 </body>

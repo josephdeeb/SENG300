@@ -1,3 +1,21 @@
+.rectangle {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 90px;
+    width: 100%;
+    background-color: ghostwhite;
+}
+.review {
+	position: relative;
+	top: 100px;
+}
+.fnf {
+    font-family: Gadugi;
+	color: ghostwhite;
+	padding: 20px;
+	text-align: center;
+}
 body{
 	background-color: cadetblue;
 }
@@ -15,11 +33,10 @@ h1 {
     justify-content: center;
 }
 table {
-	position: absolute;
-	top: 100px;
 	width: 100%;
 	border-collapse: collapse;
 	border-radius: 4px;
+	padding: 10px;
 }
 tr {
 	background-color: #7eb0b3;	
@@ -38,7 +55,6 @@ td {
 	color: ghostwhite;
 	border-bottom: 1px solid #ddd;
 }
-
 input[type=submit] {
     width: 100%;
     background-color: #9CC7D5;
@@ -62,7 +78,7 @@ input[type=submit]:hover {
 }
 .buttons {
     position: absolute;
-    top: 25px;
+    top: 20px;
     right: 5%;
 }
 .pleaseLogin {
@@ -84,12 +100,4 @@ input[type=submit]:hover {
     position: absolute;
     top: 0;
     right: 100px;
-}
-.rectangle {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 90px;
-    width: 100%;
-    background-color: ghostwhite;
 }

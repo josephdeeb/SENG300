@@ -25,10 +25,11 @@ Post inputs:
 <div class="submit">
 <?php
 	if(!isset($_POST["username"]) or !isset($_POST["lgdin"])){
-	  echo "<p>Please Login</p>";
-	  echo '<form action="index.php" method="post">
-			  <input type="submit" value="Return to Login Page">
-			</form>	
+	  echo '
+	<p>Please Login</p>
+	<form action="index.php" method="post">
+		<input type="submit" value="Return to Login Page">
+	</form>	
 	  ';
 	  die();
 	}
@@ -54,134 +55,135 @@ Post inputs:
 		</div>';
 	
 	echo '
-	<table>
-		<tr>
-			<th>
-				<div class="list">
-					<option value="">Available Reviewers:</option>
-				</div>';
+		<table>
+			<tr>
+				<th>
+					<div class="list">
+						<option value="">Available Reviewers:</option>
+					</div>';
 	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	
 	while($row = mysqli_fetch_array($result)){
 		echo '
-				<div class="list">
-					<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>
-				</div>';
+					<div class="list">
+						<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>
+					</div>';
 	}
 	echo '
-			</th>
-			<th>
-				<div class="preferred">
-					Your Preferred Reviewer 1:
-					<select name="pref1">';
-	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
-	$result = mysqli_query($con,$query);
-	echo '								<option value="">Select a Reviewer</option>';
-	while($row = mysqli_fetch_array($result)){
-		echo '
-					<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
-	}
-	echo '
-					</select>
-				</div>
-				<div class="preferred2">
-					Your Preferred Reviewer 2:
-					<select name="pref2">';
+				</th>
+				<th>
+					<div class="preferred">
+						Your Preferred Reviewer 1:
+						<select name="pref1">';
 	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '
-					<option value="">Select a Reviewer</option>';
+							<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
-					<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+							<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo '
-					</select>
-				</div>
-				<div class="preferred3">
-					Your Preferred Reviewer 3:
-					<select name="pref3">';
+						</select>
+					</div>
+					<div class="preferred">
+						Your Preferred Reviewer 2:
+						<select name="pref2">';
 	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '
-					<option value="">Select a Reviewer</option>';
+							<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
-					<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+							<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo '
-					</select>
-				</div>
-				<div class="Notpreferred1">
-					Non-Preferred Reviewer 1:
-					<select name="npref1">';
+						</select>
+					</div>
+					<div class="preferred">
+						Your Preferred Reviewer 3:
+						<select name="pref3">';
 	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '
-					<option value="">Select a Reviewer</option>';
+							<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
-					<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+							<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo '
-					</select>
-				</div>
-				<div class="Notpreferred2">
-					Non-Preferred Reviewer 2:
-					<select name="npref2">';
+						</select>
+					</div>
+					<div class="preferred">
+						Non-Preferred Reviewer 1:
+						<select name="npref1">';
 	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '
-					<option value="">Select a Reviewer</option>';
+							<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
-					<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+							<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo '
-					</select>
-				</div>
-				<div class="Notpreferred3">
-					Non-Preferred Reviewer 3:
-					<select name="npref3">';
+						</select>
+					</div>
+					<div class="preferred">
+						Non-Preferred Reviewer 2:
+						<select name="npref2">';
 	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
 	$result = mysqli_query($con,$query);
 	echo '
-					<option value="">Select a Reviewer</option>';
+							<option value="">Select a Reviewer</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
-					<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+							<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
 	}
 	echo '
-					</select>
-				</div>
-				<input type="hidden" name="username" value ='.$username.'>
-				<input type="hidden" name="lgdin" value=1>
-				<div class="uploadJournal">
-					<input type="submit" value="Upload Journal">
-				</div>
-			</form>
-		</th>
-	</tr>
-</table>';
+						</select>
+					</div>
+					<div class="preferred">
+						Non-Preferred Reviewer 3:
+						<select name="npref3">';
+	$query = "SELECT * FROM users WHERE type = 2 AND userName<>'$username'";
+	$result = mysqli_query($con,$query);
+	echo '
+							<option value="">Select a Reviewer</option>';
+	while($row = mysqli_fetch_array($result)){
+		echo '
+							<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
+	}
+	echo '
+						</select>
+					</div>
+					<input type="hidden" name="username" value ='.$username.'>
+					<input type="hidden" name="lgdin" value=1>
+					<div class="uploadJournal">
+						<input type="submit" value="Upload Journal">
+					</div>
+				</th>
+			</tr>
+		</table>
+	</form>';
 ?>
 
 	<div id="button">
-	<form action="login.php" method="post">
-		<input type="hidden" name="username" value="<?php echo $username; ?>">
-		<input type="hidden" name="lgdin" value=1>
-		<div class="mainMenu">
-		<input type="submit" value="Return to Main Menu">
-		</div>
-	</form>
+		<form action="login.php" method="post">
+			<input type="hidden" name="username" value="<?php echo $username; ?>">
+			<input type="hidden" name="lgdin" value=1>
+			<div class="mainMenu">
+				<input type="submit" value="Return to Main Menu">
+			</div>
+		</form>
 	</div>
-	<div id="button">
+</div>
+<div id="button">
 	<form action="../index.php" method="post">
 		<div class="logoutButton">
-		<input type="submit" value="Logout">
+			<input type="submit" value="Logout">
 		</div>
 	</form>	
-	</div>
 </div>
 
 </body>

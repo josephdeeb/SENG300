@@ -23,15 +23,22 @@ Post inputs:
 </head>
 <body>
 <div class="rectangle"></div>
-<?php
+<h1>Journals</h1>
+<div class="review">
 
+<?php
 	// Check if user is logged in
     if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
-        echo '<div class="pleaseLogin"><p>Please Login</p></div>';
-        echo '<div class="buttons"><form action="..\index.php" method="post">
-                <input type="submit" value="Return to Menu">
-              </form> </div>	
-        ';
+        echo '
+	<div class="pleaseLogin">
+		<p>Please Login</p>
+	</div>';
+        echo '
+	<div class="buttons">
+		<form action="..\index.php" method="post">
+            <input type="submit" value="Return to Menu">
+        </form>
+	</div>';
         die();
     }
     
@@ -72,8 +79,12 @@ Post inputs:
             header('Pragma: public');
             header('Content-Length: ' . filesize($file));
             readfile($file);
+		}else{
+			echo '
+	<div class="fnf">
+		ERROR: '.$fileName.' NOT FOUND
+	</div>';
 		}
-        echo 'ERROR: FILE NOT FOUND';
     }
 
 	// add reviewers decision to the db is review accepted or rejected journal
@@ -115,99 +126,99 @@ Post inputs:
     $result = mysqli_query($con, $query);
     
     if ($result) {
-        echo '<h1>Journals</h1>';
 		// The button starts at <div id="sortButton"> and ends at </div>
 		// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
 		// <input type="hidden" means that what we're about to add to the post isn't actually visible to the user.  name="username" is the variable name we're posting, value is the value of that variable that we post.
 		// Finally, the last line is the actual name of the button and the "submit" action.
         echo '
-<table class="journals">
-    <tr>
-        <th>
-            <div id="sortButton">
-                <form action="review.php" method="post">
-                    <input type="hidden" name="username" value='.$username.'>
-                    <input type="hidden" name="lgdin" value=1>			
-                    <input type="submit" value="Journal Name">
-                </form>
-            </div>
-        </th>
-        <th>
-            <div id="sortButton">
-                <form action="review.php" method="post">
-                    <input type="hidden" name="username" value='.$username.'>
-                    <input type="hidden" name="sortByCol" value=1>
-                    <input type="hidden" name="lgdin" value=1>			
-                    <input type="submit" value="Submitter">
-                </form>
-            </div>
-        </th>
-        <th>
-            <div id="sortButton">
-                <form action="review.php" method="post">
-					<input type="hidden" name="username" value='.$username.'>
-                    <input type="hidden" name="sortByCol" value=2>
-                    <input type="hidden" name="lgdin" value=1>
-                    <input type="submit" value="Submission Date">
-                </form>
-            </div>
-        </th>
-        <th>
-        </th>
-        <th>
-        </th>
-        <th>
-        </th>
-    </tr>';
+	<table class="journals">
+		<tr>
+			<th>
+				<div id="button">
+					<form action="review.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="lgdin" value=1>			
+						<input type="submit" value="Journal Name">
+					</form>
+				</div>
+			</th>
+			<th>
+				<div id="button">
+					<form action="review.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="sortByCol" value=1>
+						<input type="hidden" name="lgdin" value=1>			
+						<input type="submit" value="Submitter">
+					</form>
+				</div>
+			</th>
+			<th>
+				<div id="button">
+					<form action="review.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="sortByCol" value=2>
+						<input type="hidden" name="lgdin" value=1>
+						<input type="submit" value="Submission Date">
+					</form>
+				</div>
+			</th>
+			<th>
+			</th>
+			<th>
+			</th>
+			<th>
+			</th>
+		</tr>';
         
 		// While we can pull rows from the database given the query we made...
         while ($row = mysqli_fetch_array($result)) {
 			// Show the journalName, submitter, then submissionDateTime, then a button for editing comments, and a button for downloading the journal
             echo '
-	<tr>
-		<td>'.$row["journalName"].'</td>
-        <td>'.$row["submitter"].'</td>
-		<td>'.$row["submissionDateTime"].'</td>
-		<td>
-			<div id="button">
-				<form action="viewUserComs.php" method="post">
-					<input type="hidden" name="username" value='.$username.'>
-					<input type="hidden" name="lgdin" value=1>
-					<input type="hidden" name="fname" value='.$row["journalName"].'>
-					<input type="submit" value="View Comments">
-				</form>
-			</div>
-		</td>
-		<td>
-			<div id="button">
-				<form action="review.php" method="post">
-					<input type="hidden" name="username" value='.$username.'>
-					<input type="hidden" name="lgdin" value=1>
-					<input type="hidden" name="sortByCol" value='.$sortByCol.'>
-					<input type="hidden" name="fileName" value='.$row["journalName"].'>
-					<input type="submit" value="Download Journal">
-				</form>
-			</div>
-		</td>';
+		<tr>
+			<td>'.$row["journalName"].'</td>
+			<td>'.$row["submitter"].'</td>
+			<td>'.$row["submissionDateTime"].'</td>
+			<td>
+				<div class="button">
+					<form action="viewUserComs.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="lgdin" value=1>
+						<input type="hidden" name="fname" value='.$row["journalName"].'>
+						<input type="submit" value="View Comments">
+					</form>
+				</div>
+			</td>
+			<td>
+				<div id="button">
+					<form action="review.php" method="post">
+						<input type="hidden" name="username" value='.$username.'>
+						<input type="hidden" name="lgdin" value=1>
+						<input type="hidden" name="sortByCol" value='.$sortByCol.'>
+						<input type="hidden" name="fileName" value='.$row["journalName"].'>
+						<input type="submit" value="Download Journal">
+					</form>
+				</div>
+			</td>';
 			if($row["decision"] == 0){
 				echo	'
-		<td>You have not made a decision on this journal yet</td>';
+			<td>You have not made a decision on this journal yet</td>';
 			}else if($row["decision"] == 1){
 				echo	'
-		<td>You have Accepted this Journal</td>';
+			<td>You have Accepted this Journal</td>';
 			}else{
 				echo	'
-		<td>You have Rejected this Journal</td>';					
+			<td>You have Rejected this Journal</td>';					
 			}
             echo	'
-	</tr>';
+		</tr>';
         }
         echo '
-</table>';
+	</table>';
     }
     // Close the mysql connectiion
     mysqli_close($con);
 ?>
+</div>
 <div class="buttons">
 	<div class="returnMenuButton" id="button">
 	<form action="login.php" method="post">

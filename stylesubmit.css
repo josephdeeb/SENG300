@@ -17,6 +17,18 @@ input[type=file] {
     border-radius: 4px;
     cursor: pointer;
 }
+select {
+    font-family: Gadugi;
+    background-color: #9CC7D5;
+	color: ghostwhite;
+    border: 2px;
+    border-radius: 5px;
+}
+select:hover {
+    background-color: #8BB6C4;
+    border: 2px;
+    border-radius: 5px;
+}
 .upload {
     font-family: Gadugi;
     position: relative;
@@ -60,45 +72,26 @@ table {
     background-color: #25b7d5;
     font-family: Gadugi;
     color: ghostwhite;
-    padding: 10px 15px;
-    border: none;
+    padding: 10px 10px;
+    border: 2px;
     border-radius: 100px;
+	border-color: cadetBlue;
 }
 .preferred{
     font-family: Gadugi;
     position: relative;
+	padding: 2px;
 }
-.preferred2{
-    font-family: Gadugi;
-    position: relative;
-}
-.preferred3 {
-    font-family: Gadugi;
-    position: relative;
-}
-.Notpreferred1{
-    font-family: Gadugi;
-    position: relative;
-}
-
-.Notpreferred2{
-    font-family: Gadugi;
-    position: relative;
-}
-
-.Notpreferred3{
-    font-family: Gadugi;
-    position: relative;
-}
-.logoutButton{
+.logoutButton {
     position: absolute;
-    top: -50%;
-    right: 0px;
+    top: 25px;
+    right: 5%;
 }
 .uploadJournal{
     position: relative;
 	width: 37%;
 	margin: auto;
+	padding: 5px;
 }
 .mainMenu{
     position: relative;

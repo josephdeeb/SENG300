@@ -17,15 +17,19 @@ Post inputs:
 
 --->
 <html>
+<head>
+<title>Comments</title>
+<link href="styleviewComs.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
-
+<div class="rectangle"></div>
 <?php
 	if(!isset($_POST["username"]) or !isset($_POST["lgdin"])){
-	  echo "<p>Please Login</p>";
-	  echo '<form action="index.php" method="post">
-			  <input type="submit" value="Return to Login Page">
-			</form>	
-	  ';
+	  echo '
+<p>Please Login</p>
+<form action="index.php" method="post">
+	<input type="submit" value="Return to Login Page">
+</form>';
 	  die();
 	}
 	
@@ -43,20 +47,24 @@ Post inputs:
 	$lgdin = $_POST["lgdin"];
 	$fname = $_POST["fname"];
 	
+	echo '
+<h1>Comments you\'ve made on '. $fname. '</h1>
+<div class="view">';
+
 	// add comment to db
 	if(isset($_POST["comment"]) and $_POST["comment"] != ""){
 		$comment = $_POST["comment"];
 		
 		$query = "INSERT INTO comments VALUES ('$fname','$username','$comment')";
 		if(mysqli_query($con,$query)){
-			echo "<p>Comment Added Successfully.</p>";
+			echo "
+	<p>Comment Added Successfully.</p>";
 		}else{
-			echo "<p>Error during adding comment. Please try again.</p>";
+			echo "
+	<p>Error during adding comment. Please try again.</p>";
 		}
 	}
 
-
-	echo "<p>Comments you've made on ". $fname. "</p>";
 
 		// display journals
 	if(isset($_POST["sortByCol"])){
@@ -84,86 +92,88 @@ Post inputs:
 		$num = 1;
 		// print comments
 		echo '
-		<table>
-				<tr>
-				<th>Number</th>
-				<th>Comment</th>
-				</tr>';
+	<table class="comments">
+		<tr>
+			<th>Number</th>
+			<th>Comment</th>
+		</tr>';
 			while ($row = mysqli_fetch_array($result)) {
-				echo  "<tr>".
-					  "  <td>".$num."</td>" .
-					  "  <td>".$row['comment']."</td>" .
-				  "</tr>";
+				echo  "
+		<tr>
+		    <td>".$num."</td>
+			<td>".$row['comment']."</td>
+		</tr>";
 				$num = $num + 1;
 			}
-			echo "
-			</table>";
+			echo '
+	</table>';
 	}
 
-	echo "<p>Add Comments to ". $fname. "</p>";
 	echo '	
-		<div id="button">
+	<div class="button">
 		<form action="viewUserComs.php" method="post">
-			<input type="text" name="comment">
+			<div class="pad">
+				Add Comments to '.$fname.'
+				<input type="text" name="comment">
+			</div>
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>
 			<input type="hidden" name="fname" value='.$fname.'>
 			<input type="submit" value="Add Comment to Journal">
 		</form>
-		</div>
-	';
+	</div>';
 	
 	$query = "SELECT * FROM reviewers WHERE reviewer = '$username' and journalName = '$fname'";
 	$result = mysqli_query($con,$query);
 	$row = mysqli_fetch_array($result);
 	if($row["decision"] == 0){
 		echo '
-			<p>Have you completed your review?</p>
-			<div id="button">
-			<form action="review.php" method="post" onsubmit="return accept()">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="lgdin" value=1>
-				<input type="hidden" name="fname" value='.$fname.'>
-				<input type="hidden" name="review" value=1>
-				<input type="submit" value="Accept">
-			</form>
-			</div>
-			<div id="button">
-			<form action="review.php" method="post" onsubmit="return reject()">
-				<input type="hidden" name="username" value='.$username.'>
-				<input type="hidden" name="lgdin" value=1>
-				<input type="hidden" name="fname" value='.$fname.'>
-				<input type="hidden" name="review" value=2>
-				<input type="submit" value="Reject">
-			</form>
-			</div>
-		';
+	<p>Have you completed your review?</p>
+	<div class="button">
+		<form action="review.php" method="post" onsubmit="return accept()">
+			<input type="hidden" name="username" value='.$username.'>
+			<input type="hidden" name="lgdin" value=1>
+			<input type="hidden" name="fname" value='.$fname.'>
+			<input type="hidden" name="review" value=1>
+			<input type="submit" value="Accept">
+		</form>
+	</div>
+	<div class="button">
+		<form action="review.php" method="post" onsubmit="return reject()">
+			<input type="hidden" name="username" value='.$username.'>
+			<input type="hidden" name="lgdin" value=1>
+			<input type="hidden" name="fname" value='.$fname.'>
+			<input type="hidden" name="review" value=2>
+			<input type="submit" value="Reject">
+		</form>
+	</div>';
 	}
 	// Close the mysql connectiion
     mysqli_close($con);
 ?>
 
-
-<div id="button">
-<form action="review.php" method="post">
-    <input type="hidden" name="username" value="<?php echo $username; ?>">
-    <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to Journals to Review Page">
-</form>
+	<div class="button">
+		<form action="review.php" method="post">
+			<input type="hidden" name="username" value="<?php echo $username; ?>">
+			<input type="hidden" name="lgdin" value=1>
+			<input type="submit" value="Return to Journals to Review Page">
+		</form>
+	</div>
 </div>
-<div id="button">
-<form action="login.php" method="post">
-    <input type="hidden" name="username" value="<?php echo $username; ?>">
-    <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to Main Menu">
-</form>
+<div class="buttons">
+	<div class="returnMenuButton">
+		<form action="login.php" method="post">
+			<input type="hidden" name="username" value="<?php echo $username; ?>">
+			<input type="hidden" name="lgdin" value=1>
+			<input type="submit" value="Return to Main Menu">
+		</form>
+	</div>
+	<div class="logoutButton">
+		<form action="../index.php" method="post">
+			<input type="submit" value="Logout">
+		</form>	
+	</div>
 </div>
-<div id="button">
-<form action="../index.php" method="post">
-	<input type="submit" value="Logout">
-</form>	
-</div>
-
 <script>
 function accept() {
 	if(confirm("Are you sure you want to accept this Journal?")) {

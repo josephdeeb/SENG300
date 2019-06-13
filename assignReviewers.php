@@ -24,11 +24,11 @@ Post inputs:
 <?php
     // Make sure the user is logged in
 	if(!isset($_POST["lgdin"]) or !isset($_POST["username"])){
-	  echo '<div class="pleaseLogin"><p>Please Login</p></div>';
-	  echo '<div class="buttons"><form action="index.php" method="post">
-			  <input type="submit" value="Return to Login Page">
-			</form>	</div>
-	  ';
+	  echo '
+<p>Please Login</p>
+<form action="index.php" method="post">
+	<input type="submit" value="Return to Login Page">
+</form>';
 	  die();
 	}
 	
@@ -153,7 +153,8 @@ Post inputs:
 			$query = "SELECT * FROM users, journals WHERE name='$fname' AND submitter=userName";
 			$result = mysqli_query($con,$query);
 			$row = mysqli_fetch_array($result);
-			echo "<h2>".$row["firstName"]." ".$row["lastName"]." has not set any preferences</h2>";
+			echo "
+<h2>".$row["firstName"]." ".$row["lastName"]." has not set any preferences</h2>";
 		}
 
 
@@ -205,8 +206,8 @@ Post inputs:
 		
 		// If the editor selected no reviewers, make them try again.
 		if ($rev1 == "" and $rev2 == "" and $rev3 == "") {
-			echo 'No reviewers were selected, please try again';
 			echo '
+No reviewers were selected, please try again
 <br>
 <form action="assignReviewers.php" method="post">
 	<input type="hidden" name="username" value='.$username.'>
