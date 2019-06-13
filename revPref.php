@@ -47,12 +47,17 @@ Post inputs:
 	
 	//
 	if(isset($_POST["pref1"]) and $_POST["pref1"] != ""){
+		mysqli_query($con,"DELETE FROM revprefs WHERE reviewer='$username'");
 		$pref1 = $_POST["pref1"];
 		$pref2 = $_POST["pref2"];
 		$pref3 = $_POST["pref3"];
 		mysqli_query($con,"INSERT INTO revprefs VALUES('$pref1','$username',1)");
-		mysqli_query($con,"INSERT INTO revprefs VALUES('$pref2','$username',1)");
-		mysqli_query($con,"INSERT INTO revprefs VALUES('$pref3','$username',1)");
+		if($pref2 != $pref1){
+			mysqli_query($con,"INSERT INTO revprefs VALUES('$pref2','$username',1)");
+		}
+		if($pref3 != $pref1 and $pref3 != $pref2){
+			mysqli_query($con,"INSERT INTO revprefs VALUES('$pref3','$username',1)");
+		}
 	}
 	//
 	
@@ -64,13 +69,13 @@ Post inputs:
 		echo '
 <form>
 	<div class="list">
-		<option value="">Your Current Submitter Preferences</option>
-	</div>';
+		<option value="">Your Current Author Preferences</option>
+	</div><br>';
 		while($row = mysqli_fetch_array($result)){
 			echo '
 	<div class="list">
 		<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>
-	</div>';
+	</div><br>';
 		}
 		echo '
 </form>';
@@ -86,7 +91,7 @@ Post inputs:
 	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
 	$result = mysqli_query($con,$query);
 	echo '
-		<option value="">Select a Submitter</option>';
+		<option value="">Select an Author</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
 		<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
@@ -97,10 +102,10 @@ Post inputs:
 		Preference 2: <select name="pref2">
 	</div>
 ';
-	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username'";
+	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
 	$result = mysqli_query($con,$query);
 	echo '
-		<option value="">Select a Submitter</option>	';
+		<option value="">Select an Author</option>	';
 	while($row = mysqli_fetch_array($result)){
 		echo '
 		<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
@@ -110,10 +115,10 @@ Post inputs:
 	<div class="preferred3">
 		Preference 3: <select name="pref3">
 	</div>';
-	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username'";
+	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
 	$result = mysqli_query($con,$query);
 	echo '
-		<option value="">Select a Submitter</option>';
+		<option value="">Select an Author</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
 		<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
