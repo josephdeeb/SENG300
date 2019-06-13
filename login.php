@@ -117,7 +117,7 @@ Post inputs:
 	
 	
 	//
-	//		SUBMITTER options
+	//		Author options
 	//
 	
 	if($type == 1 or $type == 2){
