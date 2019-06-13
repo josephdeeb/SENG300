@@ -115,7 +115,6 @@ Post inputs:
 	<input type="submit" value="Assign Above Reviewers">
 </form>';
 		
->>>>>>> Stashed changes
 		// End reviewer submission stuff
 
 		$query = "SELECT * FROM users, subPrefs WHERE journalName='$fname' AND userName=reviewer ORDER BY preferred";
