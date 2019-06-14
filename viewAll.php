@@ -205,7 +205,7 @@ Post inputs:
 			echo '</table> </div>
 			';
 		}else{
-			echo "<h2>This user has no journals associated with them</h2>
+			echo "<h1>This user has no journals associated with them</h1>
 			";
 		}
 	}
