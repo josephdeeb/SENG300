@@ -23,7 +23,6 @@ Post inputs:
 </head>
 <body>
 <div class="rectangle"></div>
-<h1>Accepted Journals</h1>
 <?php
 	
 	// Check if user is logged in
@@ -102,15 +101,15 @@ Post inputs:
 		
 		if (mysqli_num_rows($result)>0) {
 			if($submitter == ""){
-				echo "<p>Journals Reviewed by $reviewer</p>";
+				echo "<h1>Journals Reviewed by $reviewer</h1>";
 			}else if($reviewer == ""){
-				echo "<p>Journals Submitted by $submitter</p>";
+				echo "<h1>Journals Submitted by $submitter</h1>";
 			}
 			// The button starts at <div id="sortButton"> and ends at </div>
 			// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
 			// <input type="hidden" means that what we're about to add to the post isn't actually visible to the user.  name="username" is the variable name we're posting, value is the value of that variable that we post.
 			// Finally, the last line is the actual name of the button and the "submit" action.
-			echo '<table class="acceptedJournals">
+			echo '<div class="core"> <table class="acceptedJournals">
 					<tr>
 					<th>
 						<div id="sortButton">
@@ -200,15 +199,15 @@ Post inputs:
 				echo	'</tr>
 				';
 			}
-			echo '</table>
+			echo '</table> </div>
 			';
 		}else{
-			echo "<h2>This user has no journals associated with them</h2>
+			echo "<h1>This user has no journals associated with them</h1>
 			";
 		}
 	}
 		// submit journal
-	echo ' <div class="selectt"> <form action="viewAccepted.php" method="post" enctype="multipart/form-data" required>
+	echo '<div class="core"> <div class="selectt"> <form action="viewAccepted.php" method="post" enctype="multipart/form-data" required>
 				Submitters: <select name="submitter">
 										';
 	$query = "SELECT * FROM users WHERE type = 1 or type = 2 ORDER BY lastName";
@@ -232,7 +231,7 @@ Post inputs:
 		echo '	<input type="hidden" name="username" value='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
 				<input type="submit" value="View Journals">
-			</form> </div>
+			</form> </div> </div>
 		 ';
 
     // Close the mysql connectiion
