@@ -5,36 +5,24 @@ h1 {
     font-family: Candara;
     position: absolute;
     top: 2px;
-    left: 210px;
+    left: 150px;
 }
-h2 {
-    font-family: Gadugi;
-    height: 0;
-    width: 100%;
-    display: flex;
-    position: fixed;
-    align-items: center;
-    justify-content: center;
-    top: 18%;
-    left: -0.0%;
+.core {
+    position: absolute;
+    left: 10%;
+    top: 140px;
 }
+
 .selectt {
-    font-family: Gadugi;
-    height: 0;
-    width: 100%;
-    display: flex;
-    position: fixed;
-    align-items: center;
-    justify-content: center;
-    top: 35%;
-    left: -0.0%;
+    width: 230px;
+    position: relative;
+    top: 40px;
+    left: 0;
 }
+
 .completeJournals {
-    font-family: Gadugi;
-    display: flex;
-    position: fixed;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    left: 300px;
 }
 input[type=submit] {
     width: 100%;
