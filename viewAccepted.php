@@ -16,19 +16,28 @@ Post inputs:
 	sortByCol	- posted if the user wishes to sort the table by a specified column
 	filename	- posted if the user wishes to download a journal
 
---->
-<html>
+-->
+<html><head>
+<title>Accepted Journals</title>
+<link href="styleacceptedjournals.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
-
+<div class="rectangle"></div>
+<h1>Accepted Journals</h1>
 <?php
 	
 	// Check if user is logged in
     if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
-        echo "<p>Please Login</p>";
-        echo '<form action="..\index.php" method="post">
-                <input type="submit" value="Return to Login Page">
-              </form>	
-        ';
+        echo '
+	<div class="pleaseLogin">
+		<p>Please Login</p>
+	</div>';
+        echo '
+	<div class="buttons">
+		<form action="..\index.php" method="post">
+            <input type="submit" value="Return to Menu">
+        </form>
+	</div>';
         die();
     }
     
@@ -101,7 +110,7 @@ Post inputs:
 			// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
 			// <input type="hidden" means that what we're about to add to the post isn't actually visible to the user.  name="username" is the variable name we're posting, value is the value of that variable that we post.
 			// Finally, the last line is the actual name of the button and the "submit" action.
-			echo '<table>
+			echo '<table class="acceptedJournals">
 					<tr>
 					<th>
 						<div id="sortButton">
@@ -194,12 +203,12 @@ Post inputs:
 			echo '</table>
 			';
 		}else{
-			echo "<p>This user has no journals associated with them</p>
+			echo "<h2>This user has no journals associated with them</h2>
 			";
 		}
 	}
 		// submit journal
-	echo '  <form action="viewAccepted.php" method="post" enctype="multipart/form-data" required>
+	echo ' <div class="selectt"> <form action="viewAccepted.php" method="post" enctype="multipart/form-data" required>
 				Submitters: <select name="submitter">
 										';
 	$query = "SELECT * FROM users WHERE type = 1 or type = 2 ORDER BY lastName";
@@ -223,24 +232,26 @@ Post inputs:
 		echo '	<input type="hidden" name="username" value='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
 				<input type="submit" value="View Journals">
-			</form>
+			</form> </div>
 		 ';
 
     // Close the mysql connectiion
     mysqli_close($con);
 ?>
 
-<div id="button">
+<div class="buttons">
+<div class="returnMenuButton" id="button">
 <form action="login.php" method="post">
     <input type="hidden" name="username" value="<?php echo $username; ?>">
-    <input type="hidden" name="lgdin" value=1>
+	<input type="hidden" name="lgdin" value=1>			
 	<input type="submit" value="Return to Main Menu">
 </form>
 </div>
-<div id="button">
-<form action="../index.php" method="post">
+<div class="logoutButton" id="button">
+<form action="index.php" method="post">
 	<input type="submit" value="Logout">
 </form>	
+</div>
 </div>
 
 </body>
