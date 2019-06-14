@@ -25,14 +25,19 @@ Post inputs:
 <div class="rectangle"></div>
 <?php
     // Make sure the user is logged in
-	if(!isset($_POST["lgdin"]) or !isset($_POST["username"])){
-	  echo '
-<p>Please Login</p>
-<form action="index.php" method="post">
-	<input type="submit" value="Return to Login Page">
-</form>';
-	  die();
-	}
+	if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
+        echo '
+	<div class="pleaseLogin">
+		<p>Please Login</p>
+	</div>';
+        echo '
+	<div class="buttons">
+		<form action="..\index.php" method="post">
+            <input type="submit" value="Return to Menu">
+        </form>
+	</div>';
+        die();
+    }
 	
 	// Create connection
 	$con = mysqli_connect("localhost","seng300","seng300Spr2019", "seng300");
