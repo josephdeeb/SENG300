@@ -20,7 +20,7 @@ Post inputs:
 <link href="styleassignreviewer.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-<!--<div class="rectangle"></div>-->
+<div class="rectangle"></div>
 <?php
     // Make sure the user is logged in
 	if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
