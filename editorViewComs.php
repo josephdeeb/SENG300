@@ -17,19 +17,29 @@ Post inputs:
 	filename	- the filename of the file the editor would like to downloading
 	original	- whether the file was the original submission or a revision
 	
---->
+-->
 <html>
+<head>
+<title>Comments</title>
+<link href="styleeditorcoms.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
-
+<div class="rectangle"></div>
+<h1>Comments</h1>
 <?php
-	if(!isset($_POST["username"]) or !isset($_POST["lgdin"])){
-	  echo '
-<p>Please Login</p>
-<form action="index.php" method="post">
-	<input type="submit" value="Return to Login Page">
-</form>';
-	  die();
-	}
+	if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
+        echo '
+	<div class="pleaseLogin">
+		<p>Please Login</p>
+	</div>';
+        echo '
+	<div class="buttons">
+		<form action="..\index.php" method="post">
+            <input type="submit" value="Return to Menu">
+        </form>
+	</div>';
+        die();
+    }
 	
 	// Create connection
 	$con = mysqli_connect("localhost","seng300","seng300Spr2019", "seng300");
@@ -76,23 +86,23 @@ Post inputs:
 	
 	// updates db with editors decision on refresh
 	if(isset($_POST["review"]) and $_POST["review"]==1){
-		echo "
-<p>You have made Major Revisions necessary for $fname by $submitter</p>";
+		echo ' <div class="update">
+<p>You have made Major Revisions necessary for $fname by $submitter</p> </div>';
 		$query = "UPDATE journals SET status=2 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==2){		
-		echo "
-<h2>You have made Minor Revisions necessary for $fname by $submitter</p>";
+		echo ' <div class="update">
+<p>You have made Minor Revisions necessary for $fname by $submitter</p> </div>';
 		$query = "UPDATE journals SET status=3 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==3){		
-		echo "
-<p>You have Accepted $fname by $submitter</p>";
+		echo ' <div class="update">
+<p>You have Accepted $fname by $submitter</p> </div>';
 		$query = "UPDATE journals SET status=4 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==4){		
-		echo "
-<p>You have Rejected $fname by $submitter</p>";
+		echo ' <div class="update">
+<p>You have Rejected $fname by $submitter</h2> </p> </div>';
 		$query = "UPDATE journals SET status=5 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}
@@ -115,15 +125,15 @@ Post inputs:
 	$query = "SELECT * FROM users WHERE userName='$submitter'";
 	$result = mysqli_query($con,$query);
 	$row = mysqli_fetch_array($result);
-	echo "
-<p>All Versions of $fname Submitted by ".$row["firstName"]." ".$row["lastName"]."</p>
-<table>
+	echo '
+<div class="title"> <h2>All versions of $fname submitted by '.$row["firstName"].' '.$row["lastName"].' </h2> </div> <div class="infoTables">
+<table class="journal">
 	<tr>
 		<th>Version</th>
 		<th>Journal Name</th>
 		<th>Submission Date</th>
 		<th></th>
-	</tr>";
+	</tr>';
 	
 	$query = "SELECT * FROM journals WHERE name='$fname'";
 	$result = mysqli_query($con, $query);
@@ -174,23 +184,23 @@ Post inputs:
 	 </tr>';
 	}
 	echo '
-</table>';
+</table> </div>';
 		
 
 
 	// display all comments made on the journal
-	echo "
-<p>Comments made on ". $fname. "</p>";
+	echo ' <div class="infoTables"> <div class="comTitle">
+<h2>Comments made on '. $fname. '</h2> </div> </div>';
 	$query = "SELECT * FROM comments WHERE journalName = '$fname'";
 	$result = mysqli_query($con, $query);
 	if(!mysqli_num_rows($result)){
-		echo '
-<p>No comments have been made for this Journal</p>';
+		echo '<div class="infoTables"> div class="comments">
+<p>No comments have been made for this Journal</p> </div> </div>';
 	}else{
 		$num = 1;
 		// print comments
-		echo '
-<table>
+		echo ' <div class="infoTables">
+<table class="comments">
 	<tr>
 		<th>Number</th>
 		<th>Reviewer</th>
@@ -206,7 +216,7 @@ Post inputs:
 			$num = $num + 1;
 		}
 		echo '
-</table>';
+</table> </div>';
 	}
 
 	
@@ -222,7 +232,7 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	$row1 = mysqli_fetch_array($result);
 	if(mysqli_num_rows($result)){
-		echo '
+		echo ' <div class="reviewJournal">
 <p>All assigned reviewers have completed their reviews</p>
 <div id="button">
 	<form action="editorViewComs.php" method="post" onsubmit="return major()">
@@ -271,7 +281,7 @@ Post inputs:
 		<input type="hidden" name="review" value=4>
 		<input type="submit" value="Reject">
 	</form>
-</div>';
+</div> </div>';
 	}else{
 		echo "
 <p>Not all reviewers have completed their reviews</p>";
@@ -304,58 +314,60 @@ Post inputs:
 	}
 
 	if($returnPage == 0){
-		echo '
-<div id="button">
+		echo ' <div class="buttons">
+<div class="returnButton" id="button">
 	<form action="viewAssigned.php" method="post">
 		<input type="hidden" name="username" value='.$username.'>
 		<input type="hidden" name="lgdin" value=1>
 		<input type="submit" value="Return to Assigned Journals Page">
 	</form>
-</div>';		
+</div> </div>';		
 	}else if($returnPage == 1){
-		echo '
-<div id="button">
+		echo ' <div class="buttons">
+<div class="returnButton" id="button">
 	<form action="complete.php" method="post">
 		<input type="hidden" name="username" value='.$username.'>
 		<input type="hidden" name="lgdin" value=1>
 		<input type="submit" value="Return to Completed Journals Page">
 	</form>
-</div>';
+</div> </div>';
 	}else if($returnPage == 2){
-		echo '
-<div id="button">
+		echo ' <div class="buttons">
+<div class="returnButton" id="button">
 	<form action="viewAll.php" method="post">
 		<input type="hidden" name="username" value='.$username.'>
 		<input type="hidden" name="lgdin" value=1>
 		<input type="submit" value="Return to All Journals Page">
 	</form>
-</div>';		
+</div> </div>';		
 	}else{
-		echo '
-<div id="button">
+		echo ' <div class="buttons">
+<div class="returnButton" id="button">
 	<form action="viewAccepted.php" method="post">
 		<input type="hidden" name="username" value='.$username.'>
 		<input type="hidden" name="lgdin" value=1>
 		<input type="submit" value="Return to Accepted Journals Page">
 	</form>
-</div>';		
+</div> </div>';		
 	}
 	// Close the mysql connectiion
     mysqli_close($con);
 ?>
 
 
-<div id="button">
-	<form action="login.php" method="post">
-		<input type="hidden" name="username" value="<?php echo $username; ?>">
-		<input type="hidden" name="lgdin" value=1>
-		<input type="submit" value="Return to Main Menu">
-	</form>
+<div class="buttons">
+<div class="returnMenuButton" id="button">
+<form action="login.php" method="post">
+    <input type="hidden" name="username" value="<?php echo $username; ?>">
+	<input type="hidden" name="lgdin" value=1>			
+	<input type="submit" value="Return to Main Menu">
+</form>
 </div>
-<div id="button">
-	<form action="../index.php" method="post">
-		<input type="submit" value="Logout">
-	</form>	
+<div class="logoutButton" id="button">
+<form action="index.php" method="post">
+	<input type="submit" value="Logout">
+</form>	
+</div>
 </div>
 
 <script>
