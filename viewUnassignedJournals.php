@@ -63,7 +63,6 @@ Post inputs:
     }
     
     $result = mysqli_query($con, $query);
-    
     if (mysqli_num_rows($result) > 0) {
         echo '<h1>Unassigned Journals</h1>';
         echo '<table class="unassignedJournals">
@@ -122,7 +121,9 @@ Post inputs:
                     </tr>';
         }
         echo '</table>';
-    }
+    }else{
+		echo'<h1>All journals have been assigned</h1>';
+	}
     
     mysqli_close($con);
     
@@ -143,3 +144,4 @@ Post inputs:
 </div>
 </body>
 </html>
+
