@@ -17,12 +17,10 @@ Post inputs:
 <html>
 <head>
 <title>Assign Reviewer</title>
-<!--
 <link href="styleassignreviewer.css" type="text/css" rel="stylesheet" />
--->
 </head>
 <body>
-<div class="rectangle"></div>
+<!--<div class="rectangle"></div>-->
 <?php
     // Make sure the user is logged in
 	if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
@@ -59,9 +57,9 @@ Post inputs:
 	//
 	if (!isset($_POST["submitted"])) {
 
-		echo '
-<form action="assignReviewers.php" method="post" enctype="multipart/form-data">
-	<h2>Please select the reviewers for journal '.$fname.'</h2>';
+		echo '<h1>Please select the reviewers for journal '.$fname.'</h1> <div class="core"> <div class="assignReviewer">
+			<form action="assignReviewers.php" method="post" enctype="multipart/form-data">
+	';
 		
 		//
 		// REVIEWER 1
@@ -120,7 +118,7 @@ Post inputs:
 	<input type="hidden" name="fname" value='.$fname.'>
 	<input type="hidden" name="submitted" value=1>
 	<input type="submit" value="Assign Above Reviewers">
-</form>';
+</form> </div> </div>';
 		
 		// End reviewer submission stuff
 
@@ -130,11 +128,10 @@ Post inputs:
 			$query = "SELECT * FROM users, journals WHERE name='$fname' AND userName=submitter";
 			$result1 = mysqli_query($con, $query);
 			$row = mysqli_fetch_array($result1);
-			echo "
-<h2>".$row["firstName"]." ".$row["lastName"]."'s Preferred and Non-Preferred Reviewers</h2>";
+			echo '<div class="core"> <h2> '.$row["firstName"].' '.$row["lastName"].' preferred and non-preferred reviewers</h2> </div>';
 
-			echo '
-<table>
+			echo ' <div class="core">
+<table class="preference">
 	<tr>
 		<th>Reviewer</th>
 		<th></th>
@@ -154,13 +151,13 @@ Post inputs:
 	</tr>';
 			}
 			echo '
-</table>';
+</table> </div>';
 		}else{
 			$query = "SELECT * FROM users, journals WHERE name='$fname' AND submitter=userName";
 			$result = mysqli_query($con,$query);
 			$row = mysqli_fetch_array($result);
-			echo "
-<h2>".$row["firstName"]." ".$row["lastName"]." has not set any preferences</h2>";
+			echo '
+			<div class="preference">".$row["firstName"]." ".$row["lastName"]." has not set any preferences</div> </div>';
 		}
 
 
@@ -176,8 +173,8 @@ Post inputs:
 			$query = "SELECT * FROM users, revprefs WHERE reviewer='".$row["userName"]."' AND userName=reviewer";
 			$result1 = mysqli_query($con,$query);
 			if(mysqli_num_rows($result1)>0) {
-				echo "
-<h2>".$row["firstName"]." ".$row["lastName"]."'s Preferred Authors</h2>";
+				echo '
+						<h2>'.$row["firstName"]." ".$row["lastName"].'s Preferred Authors</h2>';
 				echo '
 <table>
 	<tr>
@@ -252,11 +249,13 @@ No reviewers were selected, please try again
 			
 			echo '
 <br>
+<div class="successButton">
 <form action="login.php" method="post">
 	<input type="hidden" name="username" value='.$username.'>
 	<input type="hidden" name="lgdin" value=1>
 	<input type="submit" value="Success!">
-</form>';
+</form>
+</div>';
 		}
 		
 		
@@ -279,3 +278,4 @@ No reviewers were selected, please try again
 </div>
 </body>
 </html>
+
