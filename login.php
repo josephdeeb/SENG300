@@ -79,17 +79,21 @@ Post inputs:
 	// user has logged in successfully
     
     if (isset($_POST["deleteJournal"])) {
-        $revisionPath = "\\journals\\revisions\\";
-        $journalPath = "\\journals\\";
+        $revisionPath = "journals\\revisions\\";
+        $journalPath = "journals\\";
         $file = $_POST["deleteJournal"];
         
         $query = "SELECT * FROM revisions WHERE originalName = '$file'";
         $result = mysqli_query($con, $query);
+		
         while ($row = mysqli_fetch_array($result)) {
-            unlink($revisionPath.$row["revisionName"]);
+			if (file_exists($revisionPath.$row["revisionName"])) {
+				unlink($revisionPath.$row["revisionName"]);
+			}
         }
-        
-        unlink($journalPath.$file);
+		if (file_exists($journalPath.$file)) {
+			unlink($journalPath.$file);
+		}
         $query = "DELETE FROM comments WHERE journalName = '$file'";
         mysqli_query($con,$query);
         $query = "DELETE FROM reviewers WHERE journalName = '$file'";

@@ -91,7 +91,6 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	echo '
 			<option value="">Select a Submitter</option>';
-		<option value="">Select an Author</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
 			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
@@ -99,7 +98,6 @@ Post inputs:
 	echo '
 		</select>
 	</div>
-	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
 	<div class="preferred">
 		Preference 2: <select name="pref2">
 	';
