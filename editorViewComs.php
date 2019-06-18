@@ -87,22 +87,22 @@ Post inputs:
 	// updates db with editors decision on refresh
 	if(isset($_POST["review"]) and $_POST["review"]==1){
 		echo ' <div class="update">
-<p>You have made Major Revisions necessary for $fname by $submitter</p> </div>';
+<p>You have made Major Revisions necessary for '.$fname.' by '.$submitter.'</p> </div>';
 		$query = "UPDATE journals SET status=2 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==2){		
 		echo ' <div class="update">
-<p>You have made Minor Revisions necessary for $fname by $submitter</p> </div>';
+<p>You have made Minor Revisions necessary for '.$fname.' by '.$submitter.'</p> </div>';
 		$query = "UPDATE journals SET status=3 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==3){		
 		echo ' <div class="update">
-<p>You have Accepted $fname by $submitter</p> </div>';
+<p>You have Accepted '.$fname.' by '.$submitter.'</p> </div>';
 		$query = "UPDATE journals SET status=4 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}else if(isset($_POST["review"]) and $_POST["review"]==4){		
 		echo ' <div class="update">
-<p>You have Rejected $fname by $submitter</h2> </p> </div>';
+<p>You have Rejected '.$fname.' by '.$submitter.'</h2> </p> </div>';
 		$query = "UPDATE journals SET status=5 WHERE name='$fname'";
 		mysqli_query($con,$query);
 	}
@@ -126,7 +126,7 @@ Post inputs:
 	$result = mysqli_query($con,$query);
 	$row = mysqli_fetch_array($result);
 	echo '
-<div class="title"> <h2>All versions of $fname submitted by '.$row["firstName"].' '.$row["lastName"].' </h2> </div> <div class="infoTables">
+<div class="title"> <h2>All versions of '.$fname.' submitted by '.$row["firstName"].' '.$row["lastName"].' </h2> </div> <div class="infoTables">
 <table class="journal">
 	<tr>
 		<th>Version</th>
