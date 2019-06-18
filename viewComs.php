@@ -14,24 +14,34 @@ Post inputs:
 	fname		- the filename of the journal the user wishes to view the comments for
 	sortByCol	- posted if the user wishes to sort the table by a specified column
 	
---->
+-->
 <html>
+<head>
+<title>Comments</title>
+<link href="styleviewsubcoms.css" type="text/css" rel="stylesheet" />
+</head>
 <body>
-
+<div class="rectangle"></div>
 <?php
-	if(!isset($_POST["username"]) or !isset($_POST["lgdin"])){
-	  echo "<p>Please Login</p>";
-	  echo '<form action="index.php" method="post">
-			  <input type="submit" value="Return to Login Page">
-			</form>	
-	  ';
-	  die();
-	}
+	// Check if user is logged in
+	if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
+        echo '
+	<div class="pleaseLogin">
+		<p>Please Login</p>
+	</div>';
+        echo '
+	<div class="buttons">
+		<form action="..\index.php" method="post">
+            <input type="submit" value="Return to Menu">
+        </form>
+	</div>';
+        die();
+    }
 	$username = $_POST["username"];
 	$lgdin = $_POST["lgdin"];
 	$fname = $_POST["fname"];
 	
-	echo '<h1>View Comments Made on '. $fname. '</h1>';
+	echo '<h2>View Comments Made on '. $fname. '</h2>';
 
 	// Create connection
 	$con = mysqli_connect("localhost","seng300","seng300Spr2019", "seng300");
@@ -65,12 +75,12 @@ Post inputs:
 
 	$result = mysqli_query($con, $query);
 	if(!mysqli_num_rows($result)){
-		echo '<p>No comments have been made for this Journal</p>';
+		echo '<div class="comments"><p>No comments have been made for this Journal</p></div>';
 	}else{
 		
 		// print comments
 		echo '
-		<table>
+		<table class="comments">
 				<tr>
 				<th>
 					<div id="sortButton">
@@ -126,17 +136,19 @@ Post inputs:
 	mysqli_close($con);
 ?>
 
-<div id="button">
-<form action="login.php" method="post">
-    <input type="hidden" name="username" value="<?php echo $username; ?>">
-    <input type="hidden" name="lgdin" value=1>
-	<input type="submit" value="Return to Main Menu">
-</form>
-</div>
-<div id="button">
-<form action="../index.php" method="post">
-	<input type="submit" value="Logout">
-</form>	
+<div class="buttons">
+	<div class="returnMenuButton">
+		<form action="login.php" method="post">
+			<input type="hidden" name="username" value="<?php echo $username; ?>">
+			<input type="hidden" name="lgdin" value=1>
+			<input type="submit" value="Return to Main Menu">
+		</form>
+	</div>
+	<div class="logoutButton">
+		<form action="../index.php" method="post">
+			<input type="submit" value="Logout">
+		</form>	
+	</div>
 </div>
 
 </body>
