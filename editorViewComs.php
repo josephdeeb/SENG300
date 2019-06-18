@@ -292,21 +292,21 @@ Post inputs:
 	</form>
 </div> </div>';
 	}else{
-		echo "
-<p>Not all reviewers have completed their reviews</p>";
+		echo '<div class="reviewJournal">
+<p>Not all reviewers have completed their reviews</p> </div>';
 		$query = "SELECT * FROM journals WHERE name = '$fname'";
 		$result = mysqli_query($con,$query);
 		$row = mysqli_fetch_array($result);
 		$deadline = $row["deadline"];
-		echo "<p>Deadline for the reviews is on $deadline</p>";
-		echo "
-<table>
+		echo '<div class="deadlineMsg"><h4>Deadline for the reviews is on $deadline</h4></div>';
+		echo '
+<table class="reviewPref">
 	<tr>
 		<th>Reviewer</th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th></th>
-	</tr>";
+	</tr>';
 		$query = "SELECT * FROM users, reviewers, journals WHERE userName = reviewer AND name = journalName AND name = '$fname' AND decision = 0";
 		$result = mysqli_query($con,$query);
 //		echo "num rows: ".mysqli_num_rows($result);
