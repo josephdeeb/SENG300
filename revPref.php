@@ -85,12 +85,11 @@ Post inputs:
 	echo '
 <form action="revPref.php" method="post" enctype="multipart/form-data">
 	<div class="preferred">
-		Preference 1: <select name="pref1" required>
-	';
+		Preference 1: <select name="pref1" required>';
 	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
 	$result = mysqli_query($con,$query);
 	echo '
-			<option value="">Select a Submitter</option>';
+			<option value="">Select an Author</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
 			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
@@ -98,12 +97,11 @@ Post inputs:
 	echo '
 		</select>
 	</div>
-	<div class="preferred">
-		Preference 2: <select name="pref2">
-	';
+	<div class="preferred2">
+		Preference 2: <select name="pref2">';
 	$result = mysqli_query($con,$query);
 	echo '
-		<option value="">Select an Author</option>	';
+			<option value="">Select an Author</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
 			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
@@ -111,13 +109,12 @@ Post inputs:
 	echo '
 		</select>
 	</div>
-	<div class="preferred">
-		Preference 3: <select name="pref3">
-	';
+	<div class="preferred3">
+		Preference 3: <select name="pref3">';
 	$query = "SELECT * FROM users WHERE (type=2 OR type=1) AND userName<>'$username' ORDER BY lastName ASC";
 	$result = mysqli_query($con,$query);
 	echo '
-		<option value="">Select an Author</option>';
+			<option value="">Select an Author</option>';
 	while($row = mysqli_fetch_array($result)){
 		echo '
 			<option value='.$row["userName"].'>'.$row["firstName"]. ' '. $row["lastName"]. '</option>';
