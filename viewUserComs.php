@@ -15,7 +15,7 @@ Post inputs:
 	comment		- the comment submitted by the reviewer
 	sortByCol	- posted if the user wishes to sort the table by a specified column
 
---->
+-->
 <html>
 <head>
 <title>Comments</title>
@@ -24,14 +24,20 @@ Post inputs:
 <body>
 <div class="rectangle"></div>
 <?php
-	if(!isset($_POST["username"]) or !isset($_POST["lgdin"])){
-	  echo '
-<p>Please Login</p>
-<form action="index.php" method="post">
-	<input type="submit" value="Return to Login Page">
-</form>';
-	  die();
-	}
+	// Check if user is logged in
+	if (!isset($_POST["lgdin"]) or !isset($_POST["username"])) {
+        echo '
+	<div class="pleaseLogin">
+		<p>Please Login</p>
+	</div>';
+        echo '
+	<div class="buttons">
+		<form action="..\index.php" method="post">
+            <input type="submit" value="Return to Menu">
+        </form>
+	</div>';
+        die();
+    }
 	
 	// Create connection
 	$con = mysqli_connect("localhost","seng300","seng300Spr2019", "seng300");
@@ -48,7 +54,7 @@ Post inputs:
 	$fname = $_POST["fname"];
 	
 	echo '
-<h1>Comments you\'ve made on '. $fname. '</h1>
+<h2>Comments you\'ve made on '. $fname. '</h2>
 <div class="view">';
 
 	// add comment to db
@@ -57,11 +63,11 @@ Post inputs:
 		
 		$query = "INSERT INTO comments VALUES ('$fname','$username','$comment')";
 		if(mysqli_query($con,$query)){
-			echo "
-	<p>Comment Added Successfully.</p>";
+			echo ' <div class="content"> <div class="answer">
+	<p>Comment Added Successfully.</p> </div> </div>';
 		}else{
-			echo "
-	<p>Error during adding comment. Please try again.</p>";
+			echo ' <div class="content"> <div class="answer">
+	<p>Error during adding comment. Please try again.</p> </div> </div>';
 		}
 	}
 
@@ -87,11 +93,11 @@ Post inputs:
 
 	$result = mysqli_query($con, $query);
 	if(!mysqli_num_rows($result)){
-		echo '<p>No comments have been made for this Journal</p>';
+		echo '<div class="content"> <div class="comments"><p>No comments have been made for this Journal</p> </div> </div>';
 	}else{
 		$num = 1;
 		// print comments
-		echo '
+		echo ' <div class="content">
 	<table class="comments">
 		<tr>
 			<th>Number</th>
@@ -106,11 +112,11 @@ Post inputs:
 				$num = $num + 1;
 			}
 			echo '
-	</table>';
+	</table> </div>';
 	}
 
-	echo '	
-	<div class="button">
+	echo '	<div class="content">
+	<div class="addCommentbutton">
 		<form action="viewUserComs.php" method="post">
 			<div class="pad">
 				Add Comments to '.$fname.'
@@ -121,15 +127,15 @@ Post inputs:
 			<input type="hidden" name="fname" value='.$fname.'>
 			<input type="submit" value="Add Comment to Journal">
 		</form>
-	</div>';
+	</div> </div>';
 	
 	$query = "SELECT * FROM reviewers WHERE reviewer = '$username' and journalName = '$fname'";
 	$result = mysqli_query($con,$query);
 	$row = mysqli_fetch_array($result);
 	if($row["decision"] == 0){
-		echo '
+		echo ' <div class="content"> <div class="complete">
 	<p>Have you completed your review?</p>
-	<div class="button">
+	<div class="acceptButton">
 		<form action="review.php" method="post" onsubmit="return accept()">
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>
@@ -138,7 +144,7 @@ Post inputs:
 			<input type="submit" value="Accept">
 		</form>
 	</div>
-	<div class="button">
+	<div class="rejectButton">
 		<form action="review.php" method="post" onsubmit="return reject()">
 			<input type="hidden" name="username" value='.$username.'>
 			<input type="hidden" name="lgdin" value=1>
@@ -146,21 +152,19 @@ Post inputs:
 			<input type="hidden" name="review" value=2>
 			<input type="submit" value="Reject">
 		</form>
-	</div>';
+	</div> </div> </div>';
 	}
 	// Close the mysql connectiion
     mysqli_close($con);
 ?>
-
-	<div class="button">
+<div class="buttons">
+	<div class="returnButton">
 		<form action="review.php" method="post">
 			<input type="hidden" name="username" value="<?php echo $username; ?>">
 			<input type="hidden" name="lgdin" value=1>
 			<input type="submit" value="Return to Journals to Review Page">
 		</form>
 	</div>
-</div>
-<div class="buttons">
 	<div class="returnMenuButton">
 		<form action="login.php" method="post">
 			<input type="hidden" name="username" value="<?php echo $username; ?>">
