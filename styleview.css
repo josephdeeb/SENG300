@@ -12,19 +12,20 @@ h1 {
     left: 10%;
     top: 140px;
 }
-.selectt {
-    width: 230px;
-    position: relative;
-    top: 40px;
-    left: 0;
+.select2 {
+	top: 25px;
 }
-.assignedJournals {
+.select3  {
+	position: relative;
+	top: 20px;
+}
+.journals {
     position: absolute;
     left: 300px;
 }
 table {
 	position: relative;
-		height: 20%;
+	height: 20%;
 	width: 100%;
 	border-collapse: collapse;
 	border-radius: 4px;

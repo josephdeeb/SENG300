@@ -19,7 +19,7 @@ Post inputs:
 -->
 <html><head>
 <title>Accepted Journals</title>
-<link href="styleacceptedjournals.css" type="text/css" rel="stylesheet" />
+<link href="styleview.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div class="rectangle"></div>
@@ -109,7 +109,7 @@ Post inputs:
 			// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
 			// <input type="hidden" means that what we're about to add to the post isn't actually visible to the user.  name="username" is the variable name we're posting, value is the value of that variable that we post.
 			// Finally, the last line is the actual name of the button and the "submit" action.
-			echo '<div class="core"> <table class="acceptedJournals">
+			echo '<div class="core"> <table class="journals">
 					<tr>
 					<th>
 						<div id="sortButton">

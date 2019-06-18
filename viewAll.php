@@ -20,7 +20,7 @@ Post inputs:
 <html>
 <head>
 <title>All Journals</title>
-<link href="stylealljournals.css" type="text/css" rel="stylesheet" />
+<link href="styleview.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div class="rectangle"></div>
@@ -110,7 +110,7 @@ Post inputs:
 			// <form action="review.php" means it points to itself (review.php) when you press the button, and method="post"> means it posts some info and goes to that page
 			// <input type="hidden" means that what we're about to add to the post isn't actually visible to the user.  name="username" is the variable name we're posting, value is the value of that variable that we post.
 			// Finally, the last line is the actual name of the button and the "submit" action.
-			echo '<div class="core"> <table class="allJournals">
+			echo '<div class="core"> <table class="journals">
 					<tr>
 					<th>
 						<div id="sortButton">
@@ -210,7 +210,7 @@ Post inputs:
 		}
 	}
 		// submit journal
-	echo ' <div class="core">  <div class="selectt"><form action="viewAll.php" method="post" enctype="multipart/form-data" required>
+	echo ' <div class="core">  <div class="select1"><form action="viewAll.php" method="post" enctype="multipart/form-data" required>
 				Submitters: <select name="submitter">
 										';
 	$query = "SELECT * FROM users WHERE type = 1 or type = 2 ORDER BY lastName";
@@ -221,6 +221,7 @@ Post inputs:
 	}
 	echo ' </select>
 		   <br>
+		   </div><div class="select2">
 				Reviewers: <select name="reviewer">
 										';
 	$query = "SELECT * FROM users WHERE type = 2 ORDER BY lastName";
@@ -230,7 +231,8 @@ Post inputs:
 		echo '								<option value='.$row["userName"].'>'. $row["lastName"]. ', '.$row["firstName"]. '</option>';
 	}
 	echo ' </select>
-		   <br>';
+		   <br>
+		   </div><div class="select3">';
 		echo '	<input type="hidden" name="username" value='.$username.'>
 				<input type="hidden" name="lgdin" value=1>
 				<input type="submit" value="View Selected Journals">
