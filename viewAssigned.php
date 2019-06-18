@@ -55,17 +55,17 @@ Post inputs:
 	if(isset($_POST["submitter"]) and $_POST["submitter"] != ""){
 		$submitter = $_POST["submitter"];
 		$reviewer = "";
-		$query = "SELECT * FROM journals, users WHERE submitter='$submitter' AND status=1 AND submitter=userName";
+		$query = "SELECT * FROM journals, users WHERE submitter='$submitter' AND (status=1 OR status=2 OR status=3) AND submitter=userName";
 		$skip = 0;
 	}else if(isset($_POST["reviewer"]) and $_POST["reviewer"] != ""){
 		$reviewer = $_POST["reviewer"];
 		$submitter = "";
-		$query = "SELECT * FROM journals, reviewers, users WHERE reviewer='$reviewer' AND journalName=name AND status=1";
+		$query = "SELECT * FROM journals, reviewers, users WHERE reviewer='$reviewer' AND journalName=name AND (status=1 OR status=2 OR status=3)";
 		$skip = 0;
 	}else{
 		$submitter = "";
 		$reviewer = "";
-		$query = "SELECT * FROM journals, users WHERE status=1 AND submitter=userName";
+		$query = "SELECT * FROM journals, users WHERE (status=1 OR status=2 OR status=3) AND submitter=userName";
 //		echo "<p>Please select which journals you wish to view.</p>";
 		$skip = 0;
 	}

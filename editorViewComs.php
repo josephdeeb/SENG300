@@ -90,17 +90,26 @@ Post inputs:
 <p>You have made Major Revisions necessary for '.$fname.' by '.$submitter.'</p> </div>';
 		$query = "UPDATE journals SET status=2 WHERE name='$fname'";
 		mysqli_query($con,$query);
-	}else if(isset($_POST["review"]) and $_POST["review"]==2){		
+		// Also reset the reviewers decisions
+		$query = "UPDATE reviewers SET decision=0 WHERE journalName='$fname'";
+		mysqli_query($con,$query);
+		
+	} else if(isset($_POST["review"]) and $_POST["review"]==2) {		
 		echo ' <div class="update">
 <p>You have made Minor Revisions necessary for '.$fname.' by '.$submitter.'</p> </div>';
 		$query = "UPDATE journals SET status=3 WHERE name='$fname'";
 		mysqli_query($con,$query);
-	}else if(isset($_POST["review"]) and $_POST["review"]==3){		
+		// Also reset the reviewers decisions
+		$query = "UPDATE reviewers SET decision=0 WHERE journalName='$fname'";
+		mysqli_query($con,$query);
+		
+	} else if(isset($_POST["review"]) and $_POST["review"]==3) {		
 		echo ' <div class="update">
 <p>You have Accepted '.$fname.' by '.$submitter.'</p> </div>';
 		$query = "UPDATE journals SET status=4 WHERE name='$fname'";
 		mysqli_query($con,$query);
-	}else if(isset($_POST["review"]) and $_POST["review"]==4){		
+		
+	} else if(isset($_POST["review"]) and $_POST["review"]==4) {		
 		echo ' <div class="update">
 <p>You have Rejected '.$fname.' by '.$submitter.'</h2> </p> </div>';
 		$query = "UPDATE journals SET status=5 WHERE name='$fname'";
