@@ -1,71 +1,70 @@
 body{
 	background-color: cadetblue;
+    font-family: Gadugi;
+	color: ghostwhite;
 }
 h1 {
     font-family: Candara;
     position: absolute;
     top: 2px;
     left: 50px;
+	color: black;
 }
 table {
 	width: 100%;
-	border-collapse: collapse;
-	border-radius: 4px;
 	padding: 10px;
+	position: relative;
+	text-align: center;
 }
-tr {
+.page {
+	width: 90%;	
+	top: 90px;
+}
+.row {
 	background-color: #7eb0b3;	
 }
-tr:hover {
+.row:hover {
 	background-color: #558e90;
 }
-th {
-	padding: 3px;
+.head {
+	padding: 10px;
 	border-bottom: 1px solid ghostwhite;
 	vertical-align: center;
 }
-td {
-	padding: 3px;
+.entry {
+	padding: 10px;
     font-family: Gadugi;
 	color: ghostwhite;
 	border-bottom: 1px solid #ddd;
 }
+.title {
+	padding: 20px;
+}
 .infoTables {
-    position: absolute;
-    top: 140px;  
+	padding: 20px;
 }
 .journal {
     font-family: Gadugi;
-    position: absolute;
-    left: 0px;
-    top: 50px;
+	border-collapse: collapse;
+	border-radius: 4px;
+	padding: 10px;
+}
+.reviewPref {
+    font-family: Gadugi;
+	border-collapse: collapse;
+	border-radius: 4px;
+	padding: 10px;
 }
 .comTitle {
-    width: 500px;
-    font-family: Gadugi;
-    position: absolute;
-    left: 470px;
-    top: 0px;
+	padding: 20px;
 }
 .comments {
-    width: 500px;
-
-    font-family: Gadugi;
-    position: absolute;
-    left: 470px;
-    top: 50px;
+	border-collapse: collapse;
+	border-radius: 4px;
+	padding: 20px;
 }
 .reviewJournal {
-    font-family: Gadugi;
-    width: 400px;
-    position: absolute;
-    top: 500px;
-}
-.title {
-    font-family: Candara;
-    position: absolute;
-    top: 90px;
-    left: 10%;
+	text-align: center;
 }
 .update {
     font-family: Candara;
@@ -75,16 +74,7 @@ td {
 }
 .deadlineMsg {
     font-family: Gadugi;
-    position: absolute;
-    top: 430px;
-    left: 30px;
-}
-.reviewPref {
-    font-family: Gadugi;
-    position: absolute;
-    top: 550px;
-    left: 30px;
-	width: 60%;
+	text-align: center;
 }
 .pleaseLogin {
     font-family: Gadugi;
@@ -133,7 +123,12 @@ select:hover {
     position: absolute;
     top: 25px;
     right: 5%;
-   
+}
+.finalButtons {
+	width: 100%;
+}
+#button1 {
+	width: 30%;
 }
 .returnButton{
     position: absolute;

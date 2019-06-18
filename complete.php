@@ -208,10 +208,11 @@ Post inputs:
 		}
 	}
 		// submit journal
-	echo '  <div class="core">
-			<div class="select1"> <form action="complete.php" method="post" enctype="multipart/form-data" required>
-				Submitters: <select name="submitter">
-										';
+	echo '  
+		<div class="core">
+			<div class="select1">
+			<form action="complete.php" method="post" enctype="multipart/form-data" required>
+				Submitters: <select name="submitter">';
 	$query = "SELECT * FROM users WHERE type = 1 or type = 2 ORDER BY lastName";
 	$result = mysqli_query($con,$query);
 	echo '		
