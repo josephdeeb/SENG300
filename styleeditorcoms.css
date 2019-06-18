@@ -48,7 +48,19 @@ h1 {
     font-family: Candara;
     position: absolute;
     top: 470px;
-    left: 50px;
+    left: 30px;
+}
+.deadlineMsg {
+    font-family: Gadugi;
+    position: absolute;
+    top: 430px;
+    left: 30px;
+}
+.reviewPref {
+    font-family: Gadugi;
+    position: absolute;
+    top: 550px;
+    left: 30px;
 }
 .pleaseLogin {
     font-family: Gadugi;
