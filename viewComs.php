@@ -41,7 +41,8 @@ Post inputs:
 	$lgdin = $_POST["lgdin"];
 	$fname = $_POST["fname"];
 	
-	echo '<h2>View Comments Made on '. $fname. '</h2>';
+	echo '
+	<h2>View Comments Made on '. $fname. '</h2>';
 
 	// Create connection
 	$con = mysqli_connect("localhost","seng300","seng300Spr2019", "seng300");
@@ -75,15 +76,18 @@ Post inputs:
 
 	$result = mysqli_query($con, $query);
 	if(!mysqli_num_rows($result)){
-		echo '<div class="comments"><p>No comments have been made for this Journal</p></div>';
+		echo '
+	<div class="comments">
+		<p>No comments have been made for this Journal</p>
+	</div>';
 	}else{
 		
 		// print comments
 		echo '
-		<table class="comments">
-				<tr>
-				<th>
-					<div id="sortButton">
+	<table class="comments">
+		<tr>
+			<th>
+				<div id="sortButton">
 					<form action="viewComs.php" method="post">
 						<input type="hidden" name="username" value='.$username.'>
 						<input type="hidden" name="lgdin" value='.$lgdin.'>
@@ -91,27 +95,28 @@ Post inputs:
 						<input type="hidden" name="sortByCol" value=0>
 						<input type="submit" value="Reviewer Name">
 					</form>
-					</div>
-				</th>
-				<th>
-					<div id="sortButton">
+				</div>
+			</th>
+			<th>
+				<div id="sortButton">
 					<form action="viewComs.php" method="post">
 						<input type="hidden" name="username" value='.$username.'>
 						<input type="hidden" name="lgdin" value='.$lgdin.'>
 						<input type="hidden" name="fname" value='.$fname.'>
 						<input type="submit" value="Comment">
 					</form>
-					</div>
-				</th>
-				</tr>';
+				</div>
+			</th>
+		</tr>';
 			while ($row = mysqli_fetch_array($result)) {
-				echo  "<tr>".
-					  "  <td>".$row['reviewer']."</td>" .
-					  "  <td>".$row['comment']."</td>" .
-				  "</tr>";
+				echo  "
+		<tr>
+			<td>".$row['reviewer']."</td>
+			<td>".$row['comment']."</td>
+		</tr>";
 			}
 			echo "
-			</table>";
+	</table>";
 	}
 	
 	$query = "SELECT * FROM journals WHERE name = '$fname '";
@@ -122,16 +127,15 @@ Post inputs:
 	// remove if for second iteration
 	if ($row['status'] == 2 or $row['status'] == 3) {
 		echo ' 
-				<form action="upload.php" method="post" enctype="multipart/form-data">
-					Select Revised Journal to Upload:
-					<input type="file" name="fileToUpload" id="fileToUpload" required><br>
-					<input type="hidden" name="username" value ='.$username.'>
-					<input type="hidden" name="lgdin" value=1>
-					<input type="hidden" name="resub" value=1>
-					<input type="hidden" name="fname" value='.$fname.'>
-					<input type="submit" value="Upload Journal">
-				</form>
-			 ';
+	<form action="upload.php" method="post" enctype="multipart/form-data">
+		Select Revised Journal to Upload:
+		<input type="file" name="fileToUpload" id="fileToUpload" required><br>
+		<input type="hidden" name="username" value ='.$username.'>
+		<input type="hidden" name="lgdin" value=1>
+		<input type="hidden" name="resub" value=1>
+		<input type="hidden" name="fname" value='.$fname.'>
+		<input type="submit" value="Upload Journal">
+	</form>';
 	}
 	mysqli_close($con);
 ?>

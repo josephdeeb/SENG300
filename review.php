@@ -64,7 +64,7 @@ Post inputs:
 		$result = mysqli_query($con,$query);
 		$row = mysqli_fetch_array($result);
 		if($row["version"]>0){
-			$query = "SELECT * FROM revisions WHERE originalName='$fileName' and version=".$row["version"];
+			$query = "SELECT * FROM revisions WHERE originalName='$fileName' AND version=".$row["version"];
 			$result = mysqli_query($con,$query);
 			$row = mysqli_fetch_array($result);
 			$file = "journals\\revisions\\".$row["revisionName"];
@@ -91,7 +91,7 @@ Post inputs:
 	if(isset($_POST["review"]) and isset($_POST["fname"])){
 		$review = $_POST["review"];
 		$fname = $_POST["fname"];
-		$query = "UPDATE reviewers SET decision=$review WHERE journalName='$fname' and reviewer='$username'";
+		$query = "UPDATE reviewers SET decision=$review WHERE journalName='$fname' AND reviewer='$username'";
 		mysqli_query($con,$query);	
 	}
 	

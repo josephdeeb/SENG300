@@ -298,14 +298,13 @@ Post inputs:
 		$result = mysqli_query($con,$query);
 		$row = mysqli_fetch_array($result);
 		$deadline = $row["deadline"];
-		echo '<div class="deadlineMsg"><h4>Deadline for the reviews is on $deadline</h4></div>';
+		echo '<div class="deadlineMsg"><h4>Deadline for the reviews is on '.$deadline.'</h4></div>';
 		echo '
 <table class="reviewPref">
 	<tr>
 		<th>Reviewer</th>
 		<th>First Name</th>
 		<th>Last Name</th>
-		<th></th>
 	</tr>';
 		$query = "SELECT * FROM users, reviewers, journals WHERE userName = reviewer AND name = journalName AND name = '$fname' AND decision = 0";
 		$result = mysqli_query($con,$query);

@@ -63,11 +63,19 @@ Post inputs:
 		
 		$query = "INSERT INTO comments VALUES ('$fname','$username','$comment')";
 		if(mysqli_query($con,$query)){
-			echo ' <div class="content"> <div class="answer">
-	<p>Comment Added Successfully.</p> </div> </div>';
+			echo '
+	<div class="content">
+		<div class="answer">
+			<p>Comment Added Successfully.</p>
+		</div>
+	</div>';
 		}else{
-			echo ' <div class="content"> <div class="answer">
-	<p>Error during adding comment. Please try again.</p> </div> </div>';
+			echo '
+	<div class="content">
+		<div class="answer">
+			<p>Error during adding comment. Please try again.</p>
+		</div>
+	</div>';
 		}
 	}
 
@@ -93,11 +101,16 @@ Post inputs:
 
 	$result = mysqli_query($con, $query);
 	if(!mysqli_num_rows($result)){
-		echo '<div class="content"> <div class="comments"><p>No comments have been made for this Journal</p> </div> </div>';
+		echo '
+	<div class="content">
+		<div class="comments">
+			<p>No comments have been made for this Journal</p>
+		</div>
+	</div>';
 	}else{
 		$num = 1;
 		// print comments
-		echo ' <div class="content">
+		echo '
 	<table class="comments">
 		<tr>
 			<th>Number</th>
@@ -112,48 +125,54 @@ Post inputs:
 				$num = $num + 1;
 			}
 			echo '
-	</table> </div>';
+	</table>';
 	}
 
-	echo '	<div class="content">
-	<div class="addCommentbutton">
-		<form action="viewUserComs.php" method="post">
-			<div class="pad">
+	echo '	
+	<div class="content">
+		<div class="addCommentbutton">
+			<form action="viewUserComs.php" method="post">
 				Add Comments to '.$fname.'
 				<input type="text" name="comment">
-			</div>
-			<input type="hidden" name="username" value='.$username.'>
-			<input type="hidden" name="lgdin" value=1>
-			<input type="hidden" name="fname" value='.$fname.'>
-			<input type="submit" value="Add Comment to Journal">
-		</form>
-	</div> </div>';
+ 				<input type="hidden" name="username" value='.$username.'>
+				<input type="hidden" name="lgdin" value=1>
+				<input type="hidden" name="fname" value='.$fname.'>
+				<br><br>
+				<input type="submit" value="Add Comment to Journal">
+			</form>
+		</div>';
 	
 	$query = "SELECT * FROM reviewers WHERE reviewer = '$username' and journalName = '$fname'";
 	$result = mysqli_query($con,$query);
 	$row = mysqli_fetch_array($result);
 	if($row["decision"] == 0){
-		echo ' <div class="content"> <div class="complete">
-	<p>Have you completed your review?</p>
-	<div class="acceptButton">
-		<form action="review.php" method="post" onsubmit="return accept()">
-			<input type="hidden" name="username" value='.$username.'>
-			<input type="hidden" name="lgdin" value=1>
-			<input type="hidden" name="fname" value='.$fname.'>
-			<input type="hidden" name="review" value=1>
-			<input type="submit" value="Accept">
-		</form>
-	</div>
-	<div class="rejectButton">
-		<form action="review.php" method="post" onsubmit="return reject()">
-			<input type="hidden" name="username" value='.$username.'>
-			<input type="hidden" name="lgdin" value=1>
-			<input type="hidden" name="fname" value='.$fname.'>
-			<input type="hidden" name="review" value=2>
-			<input type="submit" value="Reject">
-		</form>
-	</div> </div> </div>';
+		echo '
+		<div class="complete">
+			<br>
+			<h3>Have you completed your review?</h3>
+			<div class="acceptButton">
+				<form action="review.php" method="post" onsubmit="return accept()">
+					<input type="hidden" name="username" value='.$username.'>
+					<input type="hidden" name="lgdin" value=1>
+					<input type="hidden" name="fname" value='.$fname.'>
+					<input type="hidden" name="review" value=1>
+					<input type="submit" value="Accept">
+				</form>
+			</div>
+			<div class="rejectButton">
+				<form action="review.php" method="post" onsubmit="return reject()">
+					<input type="hidden" name="username" value='.$username.'>
+					<input type="hidden" name="lgdin" value=1>
+					<input type="hidden" name="fname" value='.$fname.'>
+					<input type="hidden" name="review" value=2>
+					<input type="submit" value="Reject">
+				</form>
+			</div>
+		</div>
+	</div>';
 	}
+	echo '
+</div>';
 	// Close the mysql connectiion
     mysqli_close($con);
 ?>

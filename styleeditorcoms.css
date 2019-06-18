@@ -7,6 +7,29 @@ h1 {
     top: 2px;
     left: 50px;
 }
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 4px;
+	padding: 10px;
+}
+tr {
+	background-color: #7eb0b3;	
+}
+tr:hover {
+	background-color: #558e90;
+}
+th {
+	padding: 3px;
+	border-bottom: 1px solid ghostwhite;
+	vertical-align: center;
+}
+td {
+	padding: 3px;
+    font-family: Gadugi;
+	color: ghostwhite;
+	border-bottom: 1px solid #ddd;
+}
 .infoTables {
     position: absolute;
     top: 140px;  
@@ -61,6 +84,7 @@ h1 {
     position: absolute;
     top: 550px;
     left: 30px;
+	width: 60%;
 }
 .pleaseLogin {
     font-family: Gadugi;

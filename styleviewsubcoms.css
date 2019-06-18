@@ -52,11 +52,36 @@ select:hover {
     justify-content: center;
     top: 45%;
 }
-
 .comments {
     font-family: Candara;
     position: absolute;
     top: 160px;
+}
+table {
+	position: relative;
+	top: 15%;
+	height: 20%;
+	width: 70%;
+	border-collapse: collapse;
+	border-radius: 4px;
+}
+tr {
+	background-color: #7eb0b3;	
+}
+tr:hover {
+	background-color: #558e90;
+}
+th {
+	padding: 3px;
+	width: 25%;
+	border-bottom: 1px solid ghostwhite;
+	vertical-align: center;
+}
+td {
+	padding: 2px;
+    font-family: Gadugi;
+	color: ghostwhite;
+	border-bottom: 1px solid #ddd;
 }
 
 .buttons {
